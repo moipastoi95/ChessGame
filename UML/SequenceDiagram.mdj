@@ -18,7 +18,58 @@
 						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
 					},
 					"name": "Main",
-					"defaultDiagram": true
+					"defaultDiagram": true,
+					"ownedViews": [
+						{
+							"_type": "UMLFrameView",
+							"_id": "AAAAAAF//o9ZBm+Ss+E=",
+							"_parent": {
+								"$ref": "AAAAAAFF+qBtyKM79qY="
+							},
+							"model": {
+								"$ref": "AAAAAAF/9HSHxen44dg="
+							},
+							"subViews": [
+								{
+									"_type": "LabelView",
+									"_id": "AAAAAAF//o9ZBm+TOOk=",
+									"_parent": {
+										"$ref": "AAAAAAF//o9ZBm+Ss+E="
+									},
+									"font": "Arial;13;0",
+									"left": 334.72998046875,
+									"top": 614,
+									"width": 29.17724609375,
+									"height": 13,
+									"text": "Main"
+								},
+								{
+									"_type": "LabelView",
+									"_id": "AAAAAAF//o9ZBm+UCX4=",
+									"_parent": {
+										"$ref": "AAAAAAF//o9ZBm+Ss+E="
+									},
+									"font": "Arial;13;1",
+									"left": 315,
+									"top": 614,
+									"width": 14.72998046875,
+									"height": 13,
+									"text": "sd"
+								}
+							],
+							"font": "Arial;13;0",
+							"left": 310,
+							"top": 609,
+							"width": 1017,
+							"height": 1681,
+							"nameLabel": {
+								"$ref": "AAAAAAF//o9ZBm+TOOk="
+							},
+							"frameTypeLabel": {
+								"$ref": "AAAAAAF//o9ZBm+UCX4="
+							}
+						}
+					]
 				}
 			]
 		},
@@ -44,7 +95,7 @@
 							"_parent": {
 								"$ref": "AAAAAAF/9HSHxen3dzw="
 							},
-							"name": "Main",
+							"name": "SequenceDiagram",
 							"ownedViews": [
 								{
 									"_type": "UMLFrameView",
@@ -65,9 +116,9 @@
 											"font": "Arial;13;0",
 											"left": 24.72998046875,
 											"top": 5,
-											"width": 29.17724609375,
+											"width": 108.67529296875,
 											"height": 13,
-											"text": "Main"
+											"text": "SequenceDiagram"
 										},
 										{
 											"_type": "LabelView",
