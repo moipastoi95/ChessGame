@@ -37,11 +37,11 @@
 										"$ref": "AAAAAAF//o9ZBm+Ss+E="
 									},
 									"font": "Arial;13;0",
-									"left": 334.72998046875,
+									"left": 380.97900390625,
 									"top": 614,
-									"width": 29.17724609375,
+									"width": 108.67529296875,
 									"height": 13,
-									"text": "Main"
+									"text": "SequenceDiagram"
 								},
 								{
 									"_type": "LabelView",
@@ -52,9 +52,9 @@
 									"font": "Arial;13;1",
 									"left": 315,
 									"top": 614,
-									"width": 14.72998046875,
+									"width": 60.97900390625,
 									"height": 13,
-									"text": "sd"
+									"text": "interaction"
 								}
 							],
 							"font": "Arial;13;0",
@@ -3554,12 +3554,12 @@
 												"$ref": "AAAAAAF/9LgHq+6MyKY="
 											},
 											"font": "Arial;13;0",
-											"left": 650,
-											"top": 631,
+											"left": 927,
+											"top": 624,
 											"width": 240.63330078125,
 											"height": 13,
-											"alpha": -1.5428325888704741,
-											"distance": 143.05593311708537,
+											"alpha": 1.6008614495846922,
+											"distance": 133.06013678032951,
 											"hostEdge": {
 												"$ref": "AAAAAAF/9LgHre6NTTI="
 											},
@@ -7758,7 +7758,8 @@
 					"_parent": {
 						"$ref": "AAAAAAF/9HSHxOn2NlU="
 					},
-					"name": "Role5"
+					"name": "Role5",
+					"type": ""
 				},
 				{
 					"_type": "UMLAttribute",
