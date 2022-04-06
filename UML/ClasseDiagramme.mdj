@@ -203,7 +203,7 @@
 											"top": 211,
 											"width": 384.12841796875,
 											"height": 13,
-											"text": "+deplacer(coord1, coord2)",
+											"text": "+move(coord1, coord2)",
 											"horizontalAlignment": 0
 										},
 										{
@@ -5115,7 +5115,7 @@
 							"_parent": {
 								"$ref": "AAAAAAF/q+2TLuL0xe0="
 							},
-							"name": "deplacer",
+							"name": "move",
 							"parameters": [
 								{
 									"_type": "UMLParameter",
@@ -5123,8 +5123,7 @@
 									"_parent": {
 										"$ref": "AAAAAAF/sPm0H5jAH9A="
 									},
-									"name": "coord1",
-									"type": ""
+									"name": "coord1"
 								},
 								{
 									"_type": "UMLParameter",
@@ -5132,8 +5131,7 @@
 									"_parent": {
 										"$ref": "AAAAAAF/sPm0H5jAH9A="
 									},
-									"name": "coord2",
-									"type": ""
+									"name": "coord2"
 								}
 							]
 						},

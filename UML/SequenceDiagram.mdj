@@ -44,7 +44,7 @@
 							"_parent": {
 								"$ref": "AAAAAAF/9HSHxen3dzw="
 							},
-							"name": "SequenceDiagram1",
+							"name": "Main",
 							"ownedViews": [
 								{
 									"_type": "UMLFrameView",
@@ -65,9 +65,9 @@
 											"font": "Arial;13;0",
 											"left": 24.72998046875,
 											"top": 5,
-											"width": 115.9052734375,
+											"width": 29.17724609375,
 											"height": 13,
-											"text": "SequenceDiagram1"
+											"text": "Main"
 										},
 										{
 											"_type": "LabelView",
@@ -7211,6 +7211,24 @@
 					},
 					"name": "Role6",
 					"type": ""
+				}
+			]
+		},
+		{
+			"_type": "UMLModel",
+			"_id": "AAAAAAF//ojbteHw5A4=",
+			"_parent": {
+				"$ref": "AAAAAAFF+h6SjaM2Hec="
+			},
+			"name": "Model1",
+			"ownedElements": [
+				{
+					"_type": "UMLObjectDiagram",
+					"_id": "AAAAAAF//ojbteHxS5E=",
+					"_parent": {
+						"$ref": "AAAAAAF//ojbteHw5A4="
+					},
+					"name": "ObjectDiagram1"
 				}
 			]
 		}
