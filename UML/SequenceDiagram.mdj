@@ -2374,9 +2374,9 @@
 												"$ref": "AAAAAAF/9KE2dO05fic="
 											},
 											"font": "Arial;13;0",
-											"left": 272,
+											"left": 271,
 											"top": 456,
-											"width": 109.35107421875,
+											"width": 110.5634765625,
 											"height": 13,
 											"alpha": 1.5707963267948966,
 											"distance": 10,
@@ -2384,7 +2384,7 @@
 												"$ref": "AAAAAAF/9KE2de06TTA="
 											},
 											"edgePosition": 1,
-											"text": "14 : getTilesPieces"
+											"text": "14 : getCoorPieces"
 										},
 										{
 											"_type": "EdgeLabelView",
@@ -2700,9 +2700,9 @@
 												"$ref": "AAAAAAF/9Kv7Xe4uL0s="
 											},
 											"font": "Arial;13;0",
-											"left": 300,
+											"left": 296,
 											"top": 552,
-											"width": 141.146484375,
+											"width": 148.85888671875,
 											"height": 13,
 											"alpha": 1.5707963267948966,
 											"distance": 10,
@@ -2710,7 +2710,7 @@
 												"$ref": "AAAAAAF/9Kv7Xe4v7UU="
 											},
 											"edgePosition": 1,
-											"text": "16 : TilePiecesMoveable"
+											"text": "16 : CoorPiecesMoveable"
 										},
 										{
 											"_type": "EdgeLabelView",
@@ -4956,7 +4956,7 @@
 											"font": "Arial;13;0",
 											"left": 244,
 											"top": 1079,
-											"width": 108.62109375,
+											"width": 109.83349609375,
 											"height": 13,
 											"alpha": 1.5707963267948966,
 											"distance": 10,
@@ -4964,7 +4964,7 @@
 												"$ref": "AAAAAAF/9NQ5jvCOwRE="
 											},
 											"edgePosition": 1,
-											"text": "34 : setTilesPieces"
+											"text": "34 : setCoorPieces"
 										},
 										{
 											"_type": "EdgeLabelView",
@@ -6498,7 +6498,7 @@
 							"_parent": {
 								"$ref": "AAAAAAF/9HSHxen3dzw="
 							},
-							"name": "getTilesPieces",
+							"name": "getCoorPieces",
 							"source": {
 								"$ref": "AAAAAAF/9HWos+omQ4w="
 							},
@@ -6528,7 +6528,7 @@
 							"_parent": {
 								"$ref": "AAAAAAF/9HSHxen3dzw="
 							},
-							"name": "TilePiecesMoveable",
+							"name": "CoorPiecesMoveable",
 							"source": {
 								"$ref": "AAAAAAF/9HWos+omQ4w="
 							},
@@ -6803,7 +6803,7 @@
 							"_parent": {
 								"$ref": "AAAAAAF/9HSHxen3dzw="
 							},
-							"name": "setTilesPieces",
+							"name": "setCoorPieces",
 							"source": {
 								"$ref": "AAAAAAF/9HWos+omQ4w="
 							},
@@ -7164,7 +7164,8 @@
 					"_parent": {
 						"$ref": "AAAAAAF/9HSHxOn2NlU="
 					},
-					"name": "Role1"
+					"name": "Role1",
+					"type": ""
 				},
 				{
 					"_type": "UMLAttribute",
@@ -7172,7 +7173,8 @@
 					"_parent": {
 						"$ref": "AAAAAAF/9HSHxOn2NlU="
 					},
-					"name": "Role2"
+					"name": "Role2",
+					"type": ""
 				},
 				{
 					"_type": "UMLAttribute",
@@ -7180,7 +7182,8 @@
 					"_parent": {
 						"$ref": "AAAAAAF/9HSHxOn2NlU="
 					},
-					"name": "Role3"
+					"name": "Role3",
+					"type": ""
 				},
 				{
 					"_type": "UMLAttribute",
@@ -7188,7 +7191,8 @@
 					"_parent": {
 						"$ref": "AAAAAAF/9HSHxOn2NlU="
 					},
-					"name": "Role4"
+					"name": "Role4",
+					"type": ""
 				},
 				{
 					"_type": "UMLAttribute",
@@ -7196,7 +7200,8 @@
 					"_parent": {
 						"$ref": "AAAAAAF/9HSHxOn2NlU="
 					},
-					"name": "Role5"
+					"name": "Role5",
+					"type": ""
 				},
 				{
 					"_type": "UMLAttribute",
@@ -7204,7 +7209,8 @@
 					"_parent": {
 						"$ref": "AAAAAAF/9HSHxOn2NlU="
 					},
-					"name": "Role6"
+					"name": "Role6",
+					"type": ""
 				}
 			]
 		}
