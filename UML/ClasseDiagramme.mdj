@@ -3732,7 +3732,7 @@
 											"top": 198,
 											"width": 260.15234375,
 											"height": 13,
-											"text": "-couleur: boolean",
+											"text": "-color: boolean",
 											"horizontalAlignment": 0
 										},
 										{
@@ -3766,7 +3766,7 @@
 											"top": 228,
 											"width": 260.15234375,
 											"height": 13,
-											"text": "-pièceCapturé: tab de pièce",
+											"text": "-capturedPieces: tab de pièce",
 											"horizontalAlignment": 0
 										},
 										{
@@ -3783,7 +3783,7 @@
 											"top": 243,
 											"width": 260.15234375,
 											"height": 13,
-											"text": "#caseDeMesPièces: Hashset de coordonnée",
+											"text": "#tileOfMyPieces: Hashset de coordonnée",
 											"horizontalAlignment": 0
 										}
 									],
@@ -5123,7 +5123,8 @@
 									"_parent": {
 										"$ref": "AAAAAAF/sPm0H5jAH9A="
 									},
-									"name": "coord1"
+									"name": "coord1",
+									"type": ""
 								},
 								{
 									"_type": "UMLParameter",
@@ -5131,7 +5132,8 @@
 									"_parent": {
 										"$ref": "AAAAAAF/sPm0H5jAH9A="
 									},
-									"name": "coord2"
+									"name": "coord2",
+									"type": ""
 								}
 							]
 						},
@@ -5158,7 +5160,8 @@
 									"_parent": {
 										"$ref": "AAAAAAF/yCoHaeO7ysY="
 									},
-									"name": "coordonnée"
+									"name": "coordonnée",
+									"type": ""
 								},
 								{
 									"_type": "UMLParameter",
@@ -5166,7 +5169,8 @@
 									"_parent": {
 										"$ref": "AAAAAAF/yCoHaeO7ysY="
 									},
-									"name": "getBoard"
+									"name": "getBoard",
+									"type": ""
 								}
 							],
 							"isAbstract": true
@@ -5194,7 +5198,8 @@
 									"_parent": {
 										"$ref": "AAAAAAF/ymjX0BeByoQ="
 									},
-									"name": "coordonnée"
+									"name": "coordonnée",
+									"type": ""
 								},
 								{
 									"_type": "UMLParameter",
@@ -5308,7 +5313,8 @@
 									"_parent": {
 										"$ref": "AAAAAAF/yGmB2ihjU3Q="
 									},
-									"name": "coord1"
+									"name": "coord1",
+									"type": ""
 								},
 								{
 									"_type": "UMLParameter",
@@ -5316,7 +5322,8 @@
 									"_parent": {
 										"$ref": "AAAAAAF/yGmB2ihjU3Q="
 									},
-									"name": "coord2"
+									"name": "coord2",
+									"type": ""
 								}
 							]
 						}
@@ -5808,7 +5815,8 @@
 									"_parent": {
 										"$ref": "AAAAAAF/sRsV96e8I+w="
 									},
-									"name": "Coord1"
+									"name": "Coord1",
+									"type": ""
 								},
 								{
 									"_type": "UMLParameter",
@@ -5816,7 +5824,8 @@
 									"_parent": {
 										"$ref": "AAAAAAF/sRsV96e8I+w="
 									},
-									"name": "Coord2"
+									"name": "Coord2",
+									"type": ""
 								},
 								{
 									"_type": "UMLParameter",
@@ -5852,7 +5861,8 @@
 									"_parent": {
 										"$ref": "AAAAAAF/1MQYemo6VLQ="
 									},
-									"name": "Coord"
+									"name": "Coord",
+									"type": ""
 								},
 								{
 									"_type": "UMLParameter",
@@ -6229,7 +6239,7 @@
 							"_parent": {
 								"$ref": "AAAAAAF/yFEriyt0Y9Q="
 							},
-							"name": "couleur",
+							"name": "color",
 							"visibility": "private",
 							"type": "boolean"
 						},
@@ -6249,7 +6259,7 @@
 							"_parent": {
 								"$ref": "AAAAAAF/yFEriyt0Y9Q="
 							},
-							"name": "pièceCapturé",
+							"name": "capturedPieces",
 							"visibility": "private",
 							"type": "tab de pièce"
 						},
@@ -6259,7 +6269,7 @@
 							"_parent": {
 								"$ref": "AAAAAAF/yFEriyt0Y9Q="
 							},
-							"name": "caseDeMesPièces",
+							"name": "tileOfMyPieces",
 							"visibility": "protected",
 							"type": "Hashset de coordonnée"
 						}
