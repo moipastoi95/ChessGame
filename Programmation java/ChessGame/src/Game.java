@@ -23,7 +23,7 @@ public class Game {
      * @param file 
      * @return
      */
-    public void load(void file) {
+   /** public void load(void file) {
         // TODO implement here
         return null;
     }
@@ -31,7 +31,7 @@ public class Game {
     /**
      * @return
      */
-    public void init() {
+    /**public void init() {
         // TODO implement here
         return null;
     }
@@ -39,7 +39,7 @@ public class Game {
     /**
      * @return
      */
-    public void saveFile() {
+   /** public void saveFile() {
         // TODO implement here
         return null;
     }
@@ -50,7 +50,7 @@ public class Game {
      * @param Piece  
      * @return
      */
-    public void play(void Coord, void Coord, void Piece ) {
+   /** public void play(void Coord, void Coord, void Piece ) {
         // TODO implement here
         return null;
     }
@@ -66,7 +66,7 @@ public class Game {
      * @param Coord 
      * @return
      */
-    public list of Coord select(void Coord) {
+    /**public list of Coord select(void Coord) {
         // TODO implement here
         return null;
     }
@@ -90,7 +90,7 @@ public class Game {
     /**
      * @return
      */
-    public array of Coord getMoveablePieces() {
+    /**public array of Coord getMoveablePieces() {
         // TODO implement here
         return null;
     }

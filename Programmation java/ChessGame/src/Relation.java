@@ -15,7 +15,7 @@ public class Relation {
     /**
      * 
      */
-    public void Piece;
+    //public void Piece;
 
     /**
      * 
@@ -25,6 +25,6 @@ public class Relation {
     /**
      * 
      */
-    public list of Coord path;
+    //public list of Coord path;
 
 }

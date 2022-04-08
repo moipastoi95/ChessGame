@@ -20,16 +20,16 @@ public class Player {
     /**
      * 
      */
-    private void timer;
+    //private void timer;
 
     /**
      * 
      */
-    private list of Piece capturedPieces;
+    //private list of Piece capturedPieces;
 
     /**
      * 
      */
-    protected Hashset de Coord coordOfMyPieces;
+    //protected Hashset de Coord coordOfMyPieces;
 
 }

@@ -1,5 +1,5 @@
 
-import java.util.*;
+//import java.util.*;
 
 /**
  * 
@@ -12,13 +12,19 @@ public class Knight extends Piece {
     public Knight(boolean c) {
     	super(c);
     }
+    public String toString() {
+    	if (this.getColor()==true) {
+    		return "C";
+    	}
+    	return "c";
+    }
 
     /**
      * @param Coord 
      * @param Coord 
      * @return
      */
-    public array of Coord possibleMove(void Coord, void Coord) {
+    /**public array of Coord possibleMove(void Coord, void Coord) {
         // TODO implement here
         return null;
     }
@@ -28,6 +34,6 @@ public class Knight extends Piece {
      * @param Coord 
      * @return
      */
-    public abstract array of Coord possibleMove(void Coord, void Coord);
+    //public abstract array of Coord possibleMove(void Coord, void Coord);
 
 }

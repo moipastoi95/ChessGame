@@ -12,13 +12,19 @@ public class Rook extends Piece {
     public Rook(boolean c) {
     	super(c);
     }
+    public String toString() {
+    	if (this.getColor()==true) {
+    		return "R";
+    	}
+    	return "r";
+    }
 
     /**
      * @param Coord 
      * @param Coord 
      * @return
      */
-    public array of Coord possibleMove(void Coord, void Coord) {
+    /**public array of Coord possibleMove(void Coord, void Coord) {
         // TODO implement here
         return null;
     }
@@ -28,6 +34,6 @@ public class Rook extends Piece {
      * @param Coord 
      * @return
      */
-    public abstract array of Coord possibleMove(void Coord, void Coord);
+    //public abstract array of Coord possibleMove(void Coord, void Coord);
 
 }

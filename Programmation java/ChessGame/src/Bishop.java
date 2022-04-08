@@ -1,5 +1,5 @@
 
-import java.util.*;
+//import java.util.*;
 
 /**
  * 
@@ -12,13 +12,18 @@ public class Bishop extends Piece {
     public Bishop(boolean c) {
     	super(c);
     }
-
+    public String toString() {
+    	if (this.getColor()==true) {
+    		return "B";
+    	}
+    	return "b";
+    }
     /**
      * @param Coord 
      * @param Coord 
      * @return
      */
-    public array of Coord possibleMove(void Coord, void Coord) {
+    /**public array of Coord possibleMove(void Coord, void Coord) {
         // TODO implement here
         return null;
     }
@@ -28,6 +33,6 @@ public class Bishop extends Piece {
      * @param Coord 
      * @return
      */
-    public abstract array of Coord possibleMove(void Coord, void Coord);
+    //public abstract array of Coord possibleMove(void Coord, void Coord);
 
 }

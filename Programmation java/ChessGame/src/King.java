@@ -1,5 +1,5 @@
 
-import java.util.*;
+//import java.util.*;
 
 /**
  * 
@@ -12,18 +12,24 @@ public class King extends Piece {
     public King(boolean c) {
     	super(c);
     }
+    public String toString() {
+    	if (this.getColor()==true) {
+    		return "K";
+    	}
+    	return "k";
+    }
 
     /**
      * 
      */
-    private boolean CastelingKing;
+//    private boolean CastelingKing;
 
     /**
      * @param Coord 
      * @param Coord 
      * @return
      */
-    public array of Coord possibleMove(void Coord, void Coord) {
+    /**public array of Coord possibleMove(void Coord, void Coord) {
         // TODO implement here
         return null;
     }
@@ -33,7 +39,7 @@ public class King extends Piece {
      * @param Coord 
      * @return
      */
-    public Piece move(void Coord, void Coord) {
+    /**public Piece move(void Coord, void Coord) {
         // TODO implement here
         return null;
     }
@@ -50,6 +56,6 @@ public class King extends Piece {
      * @param Coord 
      * @return
      */
-    public abstract array of Coord possibleMove(void Coord, void Coord);
-
+    /**public abstract array of Coord possibleMove(void Coord, void Coord);
+*/
 }

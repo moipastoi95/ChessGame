@@ -12,12 +12,18 @@ public class Queen extends Piece {
     public Queen(boolean c) {
     	super(c);
     }
+    public String toString() {
+    	if (this.getColor()==true) {
+    		return "Q";
+    	}
+    	return "q";
+    }
 
     /**
      * @param Coord 
      * @return
      */
-    public array of Coord possibleMove(void Coord) {
+    /**public array of Coord possibleMove(void Coord) {
         // TODO implement here
         return null;
     }
@@ -27,6 +33,6 @@ public class Queen extends Piece {
      * @param Coord 
      * @return
      */
-    public abstract array of Coord possibleMove(void Coord, void Coord);
+    //public abstract array of Coord possibleMove(void Coord, void Coord);
 
 }

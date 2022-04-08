@@ -1,6 +1,5 @@
 
 
-
 /**
  * 
  */
@@ -26,7 +25,23 @@ public class ChessBoard {
     	this.board[1][4]=new Pawn(false);
     	this.board[1][5]=new Pawn(false);
     	this.board[1][6]=new Pawn(false);
-    	this.board[1][7]=new Pawn(false);
+    	this.board[1][7]=new Pawn(false);	
+    	this.board[7][0]=new Rook(true);
+    	this.board[7][1]=new Knight(true);
+    	this.board[7][2]=new Bishop(true);
+    	this.board[7][3]=new King(true);
+    	this.board[7][4]=new Queen(true);
+    	this.board[7][5]=new Bishop(true);
+    	this.board[7][6]=new Knight(true);
+    	this.board[7][7]=new Rook(true);
+    	this.board[0][0]=new Rook(false);
+    	this.board[0][1]=new Knight(false);
+    	this.board[0][2]=new Bishop(false);
+    	this.board[0][3]=new Queen(false);
+    	this.board[0][4]=new King(false);
+    	this.board[0][5]=new Bishop(false);
+    	this.board[0][6]=new Knight(false);
+    	this.board[0][7]=new Rook(false);
     	
     }
 
