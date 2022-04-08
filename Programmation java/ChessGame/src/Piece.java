@@ -1,5 +1,5 @@
 
-import java.util.*;
+//import java.util.*;
 
 /**
  * 
@@ -25,7 +25,7 @@ public abstract class Piece {
     /**
      * 
      */
-    protected array of coordinates allowedMove;
+//    protected array of coordinates allowedMove;
 
 
 
@@ -35,26 +35,26 @@ public abstract class Piece {
      * @param Coord 
      * @return
      */
-    public Piece move(void Coord, void Coord) {
+ //   public Piece move(void Coord, void Coord) {
         // TODO implement here
-        return null;
-    }
+  //      return null;
+//    }
 
     /**
      * @param Coord 
      * @param Coord 
      * @return
      */
-    public abstract array of Coord possibleMove(void Coord, void Coord);
+  //  public abstract array of Coord possibleMove(void Coord, void Coord);
 
     /**
      * @param Coord 
      * @param list of Relation 
      * @return
      */
-    public boolean allowedMove(void Coord, void list of Relation) {
+  //  public boolean allowedMove(void Coord, void list of Relation) {
         // TODO implement here
-        return false;
-    }
+ //       return false;
+ //   }
 
 }

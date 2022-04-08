@@ -10,12 +10,24 @@ public class ChessBoard {
      * Default constructor
      */
     public ChessBoard() {
-    	this.board=new Piece[8][8];
-    	for (int i = 0; i < 8; i++) {
-    		for (int j = 0; j < 8; j++) {
-    			this.board[i][j] = null;
-    		}
-    	}
+    	this.board=new Piece[8][8];  	
+    	this.board[6][0]=new Pawn(true);
+    	this.board[6][1]=new Pawn(true);
+    	this.board[6][2]=new Pawn(true);
+    	this.board[6][3]=new Pawn(true);
+    	this.board[6][4]=new Pawn(true);
+    	this.board[6][5]=new Pawn(true);
+    	this.board[6][6]=new Pawn(true);
+    	this.board[6][7]=new Pawn(true);
+    	this.board[1][0]=new Pawn(false);
+    	this.board[1][1]=new Pawn(false);
+    	this.board[1][2]=new Pawn(false);
+    	this.board[1][3]=new Pawn(false);
+    	this.board[1][4]=new Pawn(false);
+    	this.board[1][5]=new Pawn(false);
+    	this.board[1][6]=new Pawn(false);
+    	this.board[1][7]=new Pawn(false);
+    	
     }
 
     /**
@@ -112,9 +124,9 @@ public class ChessBoard {
     }
     public static void main(String[] args) {
     	ChessBoard cb = new ChessBoard();
-    	System.out.println(cb.toString());
     	Piece p1=new Pawn(true);
-    	ChessBoard.board[6][0]=p1;
+    	//ChessBoard.board[6][0]=p1;
+    	System.out.println(cb.toString());
     
     }
 }
