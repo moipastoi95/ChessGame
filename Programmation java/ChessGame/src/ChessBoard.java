@@ -142,6 +142,11 @@ public class ChessBoard {
     	System.out.println(cb.toString());
     	HashSet<Coord> pMove=cb.board[0][0].possibleMove(new Coord(0,0),cb);
     	System.out.println(pMove);
+    	cb.board[2][0]=new Rook(true);
+    	System.out.println(cb.toString());
+    	HashSet<Coord> pMove2=cb.board[2][0].possibleMove(new Coord(2,0),cb);
+    	System.out.println(pMove2);
+    	
     
     }
 }

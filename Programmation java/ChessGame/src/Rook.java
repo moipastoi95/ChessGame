@@ -29,7 +29,7 @@ public class Rook extends Piece {
     	int i=c.getR();
     	int j=c.getC();
     	boolean b=true;
-    	for (int k=i; k>=0 && b;k--){
+    	for (int k=i-1; k>=0 && b;k--){
     		if (cb.board[k][j]==null) {
     			pMove.add(new Coord(k,j));
     		}else {
@@ -40,7 +40,7 @@ public class Rook extends Piece {
     		}
     	}
     	b=true;
-    	for (int k=i; k<8 && b;k++){
+    	for (int k=i+1; k<8 && b;k++){
     		if (cb.board[k][j]==null) {
     			pMove.add(new Coord(k,j));
     		}else {
@@ -51,7 +51,7 @@ public class Rook extends Piece {
     		}	
     	}
     	b=true;
-    	for (int k=j; k>=0 && b;k--){
+    	for (int k=j-1; k>=0 && b;k--){
     		if (cb.board[i][k]==null) {
     			pMove.add(new Coord(i,k));
     		}else {
@@ -62,7 +62,7 @@ public class Rook extends Piece {
     		}	
     	}
     	b=true;
-    	for (int k=j; k<8 && b;k++){
+    	for (int k=j+1; k<8 && b;k++){
     		if (cb.board[i][k]==null) {
     			pMove.add(new Coord(i,k));
     		}else {
