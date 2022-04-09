@@ -67,7 +67,7 @@ public abstract class Piece {
     	if (this.color==p.color) {
     		return false;
     	}else {
-    		return true
+    		return true;
     	}
     }
 

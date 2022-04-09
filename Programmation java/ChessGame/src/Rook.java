@@ -29,27 +29,47 @@ public class Rook extends Piece {
     	int i=c.getR();
     	int j=c.getC();
     	boolean b=true;
-    	for (int k=i; ((k>=0 && b) || (k>=0 && (b=possibleOrImpossible(cb.board[k][j]))));k--) {
+    	for (int k=i; k>=0 && b;k--){
     		if (cb.board[k][j]==null) {
     			pMove.add(new Coord(k,j));
-    		}	
+    		}else {
+    			b=false;
+    			if (possibleOrImpossible(cb.board[k][j])) {
+    				pMove.add(new Coord(k,j));
+    			}
+    		}
     	}
     	b=true;
-    	for (int k=i; (k<8 && b)|| (k<8 && (b=possibleOrImpossible(cb.board[k][j])));k++) {
+    	for (int k=i; k<8 && b;k++){
     		if (cb.board[k][j]==null) {
     			pMove.add(new Coord(k,j));
+    		}else {
+    			b=false;
+    			if (possibleOrImpossible(cb.board[k][j])) {
+    				pMove.add(new Coord(k,j));
+    			}
     		}	
     	}
     	b=true;
-    	for (int k=j; (k>=0 && b)|| ( k>=0 && (b=possibleOrImpossible(cb.board[j][k])));k--) {
-    		if (cb.board[k][j]==null) {
-    			pMove.add(new Coord(j,k));
+    	for (int k=j; k>=0 && b;k--){
+    		if (cb.board[i][k]==null) {
+    			pMove.add(new Coord(i,k));
+    		}else {
+    			b=false;
+    			if (possibleOrImpossible(cb.board[i][k])) {
+    				pMove.add(new Coord(i,k));
+    			}
     		}	
     	}
     	b=true;
-    	for (int k=j; (k<8 && b)|| (k<8 && (b=possibleOrImpossible(cb.board[j][k])));k++) {
-    		if (cb.board[k][j]==null) {
-    			pMove.add(new Coord(j,k));
+    	for (int k=j; k<8 && b;k++){
+    		if (cb.board[i][k]==null) {
+    			pMove.add(new Coord(i,k));
+    		}else {
+    			b=false;
+    			if (possibleOrImpossible(cb.board[i][k])) {
+    				pMove.add(new Coord(i,j));
+    			}
     		}	
     	}  
         return pMove;
