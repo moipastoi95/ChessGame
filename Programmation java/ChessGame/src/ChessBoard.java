@@ -144,8 +144,20 @@ public class ChessBoard {
     	System.out.println(pMove);
     	cb.board[2][0]=new Rook(true);
     	System.out.println(cb.toString());
-    	HashSet<Coord> pMove2=cb.board[2][0].possibleMove(new Coord(2,0),cb);
+    	HashSet<Coord> pMove1=cb.board[2][0].possibleMove(new Coord(2,0),cb);
+    	System.out.println(pMove1);
+    	cb.board[4][3]=new Queen(false);
+    	System.out.println(cb.toString());
+    	HashSet<Coord> pMove2=cb.board[4][3].possibleMove(new Coord(4,3),cb);
     	System.out.println(pMove2);
+    	cb.board[4][4]=new Bishop(true);
+    	System.out.println(cb.toString());
+    	HashSet<Coord> pMove3=cb.board[4][4].possibleMove(new Coord(4,4),cb);
+    	System.out.println(pMove3);
+    	cb.board[3][7]=new Knight(true);
+    	System.out.println(cb.toString());
+    	HashSet<Coord> pMove4=cb.board[3][7].possibleMove(new Coord(3,7),cb);
+    	System.out.println(pMove4);
     	
     
     }
