@@ -15,7 +15,7 @@ public class Game {
     /**
      * 
      */
-    private boolean turn;
+ 
 
 
 

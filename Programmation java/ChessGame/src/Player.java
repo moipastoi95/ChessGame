@@ -9,7 +9,16 @@ public class Player {
     /**
      * Default constructor
      */
-    public Player() {
+    public Player(Boolean couleur) {
+    	this.color=couleur;
+    	this.capturedPieces=new LinkedList<Piece>();
+    	this.coordOfMyPieces=new HashSet<Coord>();
+    	if(couleur) {
+    	//	this.coordOfMyPieces.add(new Coord(i,j));
+    		//ajouter les 16 case de début des blancs
+    	}else {
+    		//ajouter les 16 cases de début des noirs
+    	}
     }
 
     /**
@@ -25,11 +34,17 @@ public class Player {
     /**
      * 
      */
-    //private list of Piece capturedPieces;
+    private LinkedList<Piece> capturedPieces;
 
     /**
      * 
      */
-    //protected Hashset de Coord coordOfMyPieces;
+    protected HashSet<Coord> coordOfMyPieces;
+    
+    public boolean getColor() {
+    	return this.color;
+    }
+    
+    
 
 }

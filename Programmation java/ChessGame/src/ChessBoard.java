@@ -1,4 +1,5 @@
 import java.util.HashSet;
+import java.util.LinkedList;
 
 /**
  * 
@@ -45,6 +46,7 @@ public class ChessBoard {
     	
     }
 
+    private boolean turn;
     /**
      * 
      */
@@ -53,7 +55,7 @@ public class ChessBoard {
     /**
      * 
      */
-  //  protected Coord[] coorPieceMovable;
+   protected HashSet<Coord> coorPieceMovable;
 
     /**
      * 
@@ -68,22 +70,35 @@ public class ChessBoard {
     /**
      * 
      */
- //   private list of Relation blackRelation;
+   private LinkedList<Relation> blackRelation;
 
     /**
      * 
      */
-  //  private list of Relation whiteRelation;
+  private LinkedList<Relation> whiteRelation;
 
 
     /**
      * @param hashset of Coord 
      * @return
      */
- //   public void coorPieceMovable(void hashset of Coord) {
-        // TODO implement here
- //       return null;
- //   }
+    public void coorPieceMovable(HashSet<Coord> coords) {
+        HashSet<Coord> cMovable=new HashSet<>();
+    	if(getTurn()) {
+	        for(Coord c: coords) {
+	        	 if(!(this.board[c.getR()][c.getC()].allowedMove(c,this,this.whiteRelation))) {
+	        		 cMovable.add(c);
+	        	 }
+	        }
+    	}else {
+    		for(Coord c: coords) {
+	        	 if(!(this.board[c.getR()][c.getC()].allowedMove(c,this,this.blackRelation))) {
+	        		 cMovable.add(c);
+	        	 }
+	        }
+    	}
+        this.coorPieceMovable=cMovable;
+    }
 
    
 
@@ -99,10 +114,15 @@ public class ChessBoard {
     /**
      * @param Coord 
      * @return
+     * @throws NotInHashSetException 
      */
- //   public LinkedList<Coord> select(Coord c) {
-  //      return board[c.getR()][c.getC()].getAllowedMove(c,this.relation);
-//    }
+    public HashSet<Coord> select(Coord c) throws NotInHashSetException {
+    	if (this.coorPieceMovable.contains(c)) {
+    		return this.board[c.getR()][c.getC()].getAllowedMove();
+    	}else {
+    		throw new NotInHashSetException("Impossible select, this coord isn't in the HashSet of possible select Coord");
+    	}
+   }
 
     /**
      * @param Coord 
@@ -117,10 +137,13 @@ public class ChessBoard {
     /**
      * @return
      */
-   // public void setTurn() {
-        
- //       return null;
-//    }
+    public void setTurn() {
+        this.turn=!this.turn;
+    }
+    
+    public boolean getTurn() {
+    	return this.turn;
+    }
     public String toString() {
     	String affichageDuPauvre="    ";
     	for (int i=0; i<8; i++) {

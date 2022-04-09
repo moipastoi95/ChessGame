@@ -1,4 +1,5 @@
 import java.util.HashSet;
+import java.util.LinkedList;
 
 //import java.util.*;
 
@@ -41,22 +42,19 @@ public abstract class Piece {
 //        return null;
  //   }
 
-    /**
-     * @param Coord 
-     * @param Coord 
-     * @return
-     */
-  //  public abstract array of Coord possibleMove(void Coord, void Coord);
+
 
     /**
      * @param Coord 
      * @param list of Relation 
      * @return
      */
-  //  public boolean allowedMove(void Coord, void list of Relation) {
-        // TODO implement here
- //       return false;
- //   }
+   public boolean allowedMove(Coord c, ChessBoard cb, LinkedList<Relation> relation) {
+        HashSet<Coord> aMove=new HashSet<>();
+        aMove=possibleMove(c,cb);
+        this.allowedMove=aMove;
+        return aMove.isEmpty();
+    }
     
     /**
      * @param Piece
@@ -72,4 +70,8 @@ public abstract class Piece {
     }
 
 	protected abstract HashSet<Coord> possibleMove(Coord coord, ChessBoard cb);
+
+	public HashSet<Coord> getAllowedMove() {
+		return this.allowedMove;
+	}
 }
