@@ -98,14 +98,9 @@ public class Game {
     /**
      * 
      */
-    public class Class1 {
-
-        /**
-         * Default constructor
-         */
-        public Class1() {
-        }
-
+    
+    public boolean getTurn() {
+    	return this.turn;
     }
 
 }

@@ -28,5 +28,9 @@ public class Coord {
     public int getC() {
     	return this.column;
     }
+    
+    public String toString() {
+    	return "("+this.getR()+","+this.getC()+")";
+    }
 
 }

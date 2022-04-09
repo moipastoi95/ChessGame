@@ -1,4 +1,4 @@
-
+import java.util.HashSet;
 
 /**
  * 
@@ -37,8 +37,8 @@ public class ChessBoard {
     	this.board[0][0]=new Rook(false);
     	this.board[0][1]=new Knight(false);
     	this.board[0][2]=new Bishop(false);
-    	this.board[0][3]=new Queen(false);
-    	this.board[0][4]=new King(false);
+    	this.board[0][4]=new Queen(false);
+    	this.board[0][3]=new King(false);
     	this.board[0][5]=new Bishop(false);
     	this.board[0][6]=new Knight(false);
     	this.board[0][7]=new Rook(false);
@@ -48,7 +48,7 @@ public class ChessBoard {
     /**
      * 
      */
-    private Piece[][] board;
+    protected Piece[][] board;
 
     /**
      * 
@@ -139,9 +139,9 @@ public class ChessBoard {
     }
     public static void main(String[] args) {
     	ChessBoard cb = new ChessBoard();
-    	Piece p1=new Pawn(true);
-    	//ChessBoard.board[6][0]=p1;
     	System.out.println(cb.toString());
+    	HashSet<Coord> pMove=cb.board[0][0].possibleMove(new Coord(0,0),cb);
+    	System.out.println(pMove);
     
     }
 }

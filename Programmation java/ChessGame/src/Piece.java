@@ -1,3 +1,4 @@
+import java.util.HashSet;
 
 //import java.util.*;
 
@@ -25,7 +26,7 @@ public abstract class Piece {
     /**
      * 
      */
-//    protected array of coordinates allowedMove;
+   protected HashSet<Coord> allowedMove;
 
 
 
@@ -35,10 +36,10 @@ public abstract class Piece {
      * @param Coord 
      * @return
      */
- //   public Piece move(void Coord, void Coord) {
+  //  public Piece move(Coord c, ChessBoard cb) {
         // TODO implement here
-  //      return null;
-//    }
+//        return null;
+ //   }
 
     /**
      * @param Coord 
@@ -56,5 +57,19 @@ public abstract class Piece {
         // TODO implement here
  //       return false;
  //   }
+    
+    /**
+     * @param Piece
+     * @return boolean , true=possible (to take), false=impossible
+     */
+    
+    public boolean possibleOrImpossible(Piece p) {
+    	if (this.color==p.color) {
+    		return false;
+    	}else {
+    		return true
+    	}
+    }
 
+	protected abstract HashSet<Coord> possibleMove(Coord coord, ChessBoard cb);
 }
