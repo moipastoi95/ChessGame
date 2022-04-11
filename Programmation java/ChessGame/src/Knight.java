@@ -29,7 +29,6 @@ public class Knight extends Piece {
     	HashSet<Coord> pMove = new HashSet<>();
     	int i=c.getR();
     	int j=c.getC();
-    	boolean b=true;
     	if(j+2<8 && i+1<8 && (cb.board[i+1][j+2]==null || possibleOrImpossible(cb.board[i+1][j+2]))) {
     		pMove.add(new Coord(i+1,j+2));
     	}

@@ -129,10 +129,19 @@ public class ChessBoard {
      * @param Coord 
      * @return
      */
-  //  public Piece move(void Coord, void Coord) {
-        // TODO implement here
-//        return null;
- //   }
+    public Piece move(Coord startC, Coord finalC) {
+    	Piece tmp=this.board[finalC.getR()][finalC.getC()];
+        if (tmp!=null) {
+        	if(tmp.getColor()) {
+        		playerWhite.capturedPieces.add(tmp);
+        	}else {
+        		playerBlack.capturedPieces.add(tmp);
+        	}
+        }
+        this.board[finalC.getR()][finalC.getC()]=this.board[startC.getR()][startC.getC()];
+        this.board[startC.getR()][startC.getC()]=null;    
+        return tmp;
+    }
 
     /**
      * @return
@@ -161,6 +170,9 @@ public class ChessBoard {
     	return affichageDuPauvre;	
     }
     public static void main(String[] args) {
+    	Player playerWhite= new Player(true);
+    	Player playerBlack=new Player(false);
+    	
     	ChessBoard cb = new ChessBoard();
     	System.out.println(cb.toString());
     	HashSet<Coord> pMove=cb.board[0][0].possibleMove(new Coord(0,0),cb);
@@ -181,6 +193,10 @@ public class ChessBoard {
     	System.out.println(cb.toString());
     	HashSet<Coord> pMove4=cb.board[3][7].possibleMove(new Coord(3,7),cb);
     	System.out.println(pMove4);
+    	cb.board[4][6]=new King(false);
+    	System.out.println(cb.toString());
+    	HashSet<Coord> pMove5=cb.board[4][6].possibleMove(new Coord(4,6),cb);
+    	System.out.println(pMove5);
     	
     
     }
