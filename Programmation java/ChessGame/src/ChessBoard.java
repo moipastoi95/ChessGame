@@ -9,44 +9,45 @@ public class ChessBoard {
     /**
      * Default constructor
      */
-    public ChessBoard() {
+    public ChessBoard(Game game) {
     	this.board=new Piece[8][8];  	
-    	this.board[6][0]=new Pawn(true);
-    	this.board[6][1]=new Pawn(true);
-    	this.board[6][2]=new Pawn(true);
-    	this.board[6][3]=new Pawn(true);
-    	this.board[6][4]=new Pawn(true);
-    	this.board[6][5]=new Pawn(true);
-    	this.board[6][6]=new Pawn(true);
-    	this.board[6][7]=new Pawn(true);
-    	this.board[1][0]=new Pawn(false);
-    	this.board[1][1]=new Pawn(false);
-    	this.board[1][2]=new Pawn(false);
-    	this.board[1][3]=new Pawn(false);
-    	this.board[1][4]=new Pawn(false);
-    	this.board[1][5]=new Pawn(false);
-    	this.board[1][6]=new Pawn(false);
-    	this.board[1][7]=new Pawn(false);	
-    	this.board[7][0]=new Rook(true);
-    	this.board[7][1]=new Knight(true);
-    	this.board[7][2]=new Bishop(true);
-    	this.board[7][3]=new King(true);
-    	this.board[7][4]=new Queen(true);
-    	this.board[7][5]=new Bishop(true);
-    	this.board[7][6]=new Knight(true);
-    	this.board[7][7]=new Rook(true);
-    	this.board[0][0]=new Rook(false);
-    	this.board[0][1]=new Knight(false);
-    	this.board[0][2]=new Bishop(false);
-    	this.board[0][4]=new Queen(false);
-    	this.board[0][3]=new King(false);
-    	this.board[0][5]=new Bishop(false);
-    	this.board[0][6]=new Knight(false);
-    	this.board[0][7]=new Rook(false);
+    	this.board[6][0]=new Pawn(true,this.board);
+    	this.board[6][1]=new Pawn(true,this.board);
+    	this.board[6][2]=new Pawn(true,this.board);
+    	this.board[6][3]=new Pawn(true,this.board);
+    	this.board[6][4]=new Pawn(true,this.board);
+    	this.board[6][5]=new Pawn(true,this.board);
+    	this.board[6][6]=new Pawn(true,this.board);
+    	this.board[6][7]=new Pawn(true,this.board);
+    	this.board[1][0]=new Pawn(false,this.board);
+    	this.board[1][1]=new Pawn(false,this.board);
+    	this.board[1][2]=new Pawn(false,this.board);
+    	this.board[1][3]=new Pawn(false,this.board);
+    	this.board[1][4]=new Pawn(false,this.board);
+    	this.board[1][5]=new Pawn(false,this.board);
+    	this.board[1][6]=new Pawn(false,this.board);
+    	this.board[1][7]=new Pawn(false,this.board);	
+    	this.board[7][0]=new Rook(true,this.board);
+    	this.board[7][1]=new Knight(true,this.board);
+    	this.board[7][2]=new Bishop(true,this.board);
+    	this.board[7][3]=new King(true,this.board,this);
+    	this.board[7][4]=new Queen(true,this.board);
+    	this.board[7][5]=new Bishop(true,this.board);
+    	this.board[7][6]=new Knight(true,this.board);
+    	this.board[7][7]=new Rook(true,this.board);
+    	this.board[0][0]=new Rook(false,this.board);
+    	this.board[0][1]=new Knight(false,this.board);
+    	this.board[0][2]=new Bishop(false,this.board);
+    	this.board[0][4]=new Queen(false,this.board);
+    	this.board[0][3]=new King(false,this.board,this);
+    	this.board[0][5]=new Bishop(false,this.board);
+    	this.board[0][6]=new Knight(false,this.board);
+    	this.board[0][7]=new Rook(false,this.board);
+    	this.game=game;
     	
     }
 
-
+    public Game game;
     /**
      * 
      */
@@ -86,13 +87,13 @@ public class ChessBoard {
         HashSet<Coord> cMovable=new HashSet<>();
     	if(turn) {
 	        for(Coord c: coords) {
-	        	 if(!(this.board[c.getR()][c.getC()].allowedMove(c,this,this.whiteRelation))) {
+	        	 if(!(this.board[c.getR()][c.getC()].allowedMove(c,this.whiteRelation))) {
 	        		 cMovable.add(c);
 	        	 }
 	        }
     	}else {
     		for(Coord c: coords) {
-	        	 if(!(this.board[c.getR()][c.getC()].allowedMove(c,this,this.blackRelation))) {
+	        	 if(!(this.board[c.getR()][c.getC()].allowedMove(c,this.blackRelation))) {
 	        		 cMovable.add(c);
 	        	 }
 	        }
@@ -129,17 +130,32 @@ public class ChessBoard {
      * @param Coord 
      * @return
      */
-    public Piece move(Coord startC, Coord finalC) {
-    	Piece tmp=this.board[finalC.getR()][finalC.getC()];
-        this.board[finalC.getR()][finalC.getC()]=this.board[startC.getR()][startC.getC()];
-        this.board[startC.getR()][startC.getC()]=null;    
-        return tmp;
+    public void update(Coord startC, Coord finalC) {
+    	Piece tmp=this.board[startC.getR()][startC.getC()].move(startC,finalC);
+    	if(this.game.getTurn()) {
+    		this.game.whitePlayer.coordOfMyPieces.add(finalC);
+    		this.game.whitePlayer.coordOfMyPieces.remove(startC);
+			if (tmp!=null) {
+				this.game.blackPlayer.capturedPieces.add(tmp);
+				this.game.blackPlayer.coordOfMyPieces.remove(finalC);
+			}
+    	}else {
+    		this.game.blackPlayer.coordOfMyPieces.add(finalC);
+    		this.game.blackPlayer.coordOfMyPieces.remove(startC);
+			if (tmp!=null) {
+				this.game.whitePlayer.capturedPieces.add(tmp);
+				this.game.whitePlayer.coordOfMyPieces.remove(finalC);
+			}
+    	}     
     }
 
     /**
      * @return
      */
-
+    public HashSet<Coord> getCoorPieceMovable(){
+    	return this.coorPieceMovable;
+    }
+    
     public String toString() {
     	String affichageDuPauvre="    ";
     	for (int i=0; i<8; i++) {
@@ -157,11 +173,8 @@ public class ChessBoard {
     	return affichageDuPauvre;	
     }
     public static void main(String[] args) {
-    	Player playerWhite= new Player(true);
-    	Player playerBlack=new Player(false);
-    	
-    	ChessBoard cb = new ChessBoard();
-    	System.out.println(cb.toString());
+  /*  	
+    	System.out.println(gameTest.cb.toString());
     	HashSet<Coord> pMove=cb.board[0][0].possibleMove(new Coord(0,0),cb);
     	System.out.println(pMove);
     	cb.board[2][0]=new Rook(true);
@@ -184,6 +197,10 @@ public class ChessBoard {
     	System.out.println(cb.toString());
     	HashSet<Coord> pMove5=cb.board[4][6].possibleMove(new Coord(4,6),cb);
     	System.out.println(pMove5);
+    	*/
+    	Game gameTest=new Game();
+    	System.out.println(gameTest.cb.toString());
+    	gameTest.courseOfTheGame();
     	
     	
     	

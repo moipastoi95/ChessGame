@@ -10,8 +10,8 @@ public class Pawn extends Piece {
     /**
      * Default constructor
      */
-    public Pawn(boolean c) {
-    	super(c);
+    public Pawn(boolean c,Piece[][] board) {
+    	super(c,board);
     //	this.pawnStat=0;
     	
     }
@@ -33,28 +33,28 @@ public class Pawn extends Piece {
      * @param Coord 
      * @return
      */
-    public HashSet<Coord> possibleMove(Coord c, ChessBoard cb) {
+    public HashSet<Coord> possibleMove(Coord c) {
     	HashSet<Coord> pMove = new HashSet<>();
     	int i=c.getR();
     	int j=c.getC();
     	if(this.getColor()) {
-    		if(i-1>=0 && (cb.board[i-1][j]==null )) {
+    		if(i-1>=0 && (board[i-1][j]==null )) {
         		pMove.add(new Coord(i-1,j));
         	}
-        	if(j+1<8 && i-1>=0 && (possibleOrImpossible(cb.board[i-1][j+1]))) {
+        	if(j+1<8 && i-1>=0 && (possibleOrImpossible(board[i-1][j+1]))) {
         		pMove.add(new Coord(i-1,j+1));
         	}
-        	if(j-1>=0 && i-1>=0 && (possibleOrImpossible(cb.board[i-1][j-1]))) {
+        	if(j-1>=0 && i-1>=0 && (possibleOrImpossible(board[i-1][j-1]))) {
         		pMove.add(new Coord(i-1,j-1));
         	}
     	}else {
-    		if(i+1<8 && (cb.board[i+1][j]==null )) {
+    		if(i+1<8 && (board[i+1][j]==null )) {
         		pMove.add(new Coord(i+1,j));
         	}
-        	if(j+1<8 && i+1<8 && (possibleOrImpossible(cb.board[i+1][j+1]))) {
+        	if(j+1<8 && i+1<8 && (possibleOrImpossible(board[i+1][j+1]))) {
         		pMove.add(new Coord(i+1,j+1));
         	}
-        	if(j-1>=0 && i+1<8 && (possibleOrImpossible(cb.board[i+1][j-1]))) {
+        	if(j-1>=0 && i+1<8 && (possibleOrImpossible(board[i+1][j-1]))) {
         		pMove.add(new Coord(i+1,j-1));
         	}
     		

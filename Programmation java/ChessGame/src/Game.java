@@ -9,19 +9,20 @@ public class Game {
     /**
      * Default constructor
      */
-    public Game() {
-    	this.cb =new ChessBoard();
-    	this.whitePlayer=new Player(true);
-    	this.blackPlayer=new Player(false);
+    public Game() { //constructeur = init? constructeur avec un argument=load?
+    	this.cb =new ChessBoard(this);
+    	this.whitePlayer=new Player(true,this);
+    	this.blackPlayer=new Player(false,this);
     	this.turn=true;
     	
     	
     	
     }
-    private Player whitePlayer;
-    private Player blackPlayer;
-    private ChessBoard cb;
+    protected Player whitePlayer;
+    protected Player blackPlayer;
+    protected ChessBoard cb;
     private boolean turn;
+
 
     /**
      * 
@@ -75,18 +76,7 @@ public class Game {
         return null;
     }
 
-    /**
-     * 
-     */
-    public void take(Piece tmp) {
-    	if (tmp!=null) {
-    		if(tmp.getColor()) {
-    			 playerWhite.capturedPieces.add(tmp);
-    		}else {
-    		     playerBlack.capturedPieces.add(tmp);
-    		 }
-    	}
-    }
+
 
     /**
      * @param Coord 
@@ -124,27 +114,24 @@ public class Game {
     /**
      * 
      */
-    public int play() {
+    public int courseOfTheGame() {
     	do {
     		if(this.getTurn()) {
     			this.cb.coorPieceMovable(this.whitePlayer.coordOfMyPieces,this.turn);
     		}else {
     			this.cb.coorPieceMovable(this.blackPlayer.coordOfMyPieces,this.turn);
     		}
-    		boolean chose=true;
-    		while(chose) {
-    			//demander selection pièce
-    			//this.cb.select(une certaine coordonnée) faire exeception try catch
-    		}
-    		//jouer un coup avex exception
+    		//demander selection pièce
+    		this.select(coordStart); // elle fait avec une  exeception try catch pour voir si la coordonné selectionné correspond bien aune coord de coorPieceMovable(boucle while si non pour redemander), si ok afficher les possibilités
+    		//demander si l'utilisateur veut jouer cette pièce ou selecitonner une autre pièce (boucle while)
+    		//si le joueur veut joeur cette pièce demande coordonnée d'arrivé de la pièce selectionné
+    		this.play(coordStart,coordFinal);//elle fait avec une exeception tru catch pour oir si cette coordonnée fait partie des LegalMove de la pièce de la case de départ(boucle while si non pour redemander)
+    		//Si tout est ok, prendre le deplacement pour update le board de ChessBoard
+    		
     		this.setTurn();
-    		
-    		
-    		
-    		
-    		
-    	}while(this.cb.coorPieceMovable.isEmpty());
-    	this.getEnd();
+    	}
+    	while(!(this.cb.getCoorPieceMovable().isEmpty()));
+    	return this.getEnd();
     }
 
 

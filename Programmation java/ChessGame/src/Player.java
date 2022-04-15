@@ -9,7 +9,7 @@ public class Player {
     /**
      * Default constructor
      */
-    public Player(Boolean couleur) {
+    public Player(Boolean couleur,Game game) {
     	this.color=couleur;
     	this.capturedPieces=new LinkedList<Piece>();
     	this.coordOfMyPieces=new HashSet<Coord>();
@@ -19,8 +19,10 @@ public class Player {
     	}else {
     		//ajouter les 16 cases de début des noirs
     	}
+    	this.game=game;
     }
 
+    Game game;
     /**
      * 
      */
@@ -34,7 +36,7 @@ public class Player {
     /**
      * 
      */
-    private LinkedList<Piece> capturedPieces;
+    protected LinkedList<Piece> capturedPieces;
 
     /**
      * 

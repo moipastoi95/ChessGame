@@ -11,10 +11,12 @@ public abstract class Piece {
     /**
      * Default constructor
      */
-    public Piece(boolean c) {
+    public Piece(boolean c, Piece[][] board) {
     	this.color=c;
+    	this.board=board;
     }
     
+    protected Piece[][] board;
     public boolean getColor() {
     	return this.color;
     }
@@ -32,15 +34,17 @@ public abstract class Piece {
 
 
 
-    /**
-     * @param Coord 
-     * @param Coord 
-     * @return
-     */
-  //  public Piece move(Coord c, ChessBoard cb) {
-        // TODO implement here
-//        return null;
- //   }
+   /**
+    * @param Coord 
+    * @param Coord 
+    * @return
+    */
+   public Piece move(Coord startC, Coord finalC) {
+   	Piece tmp=this.board[finalC.getR()][finalC.getC()];
+   	board[finalC.getR()][finalC.getC()]=this; 
+   	board[startC.getR()][startC.getC()]=null;
+   	return tmp;
+   }
 
 
 
@@ -49,9 +53,9 @@ public abstract class Piece {
      * @param list of Relation 
      * @return
      */
-   public boolean allowedMove(Coord c, ChessBoard cb, LinkedList<Relation> relation) {
+   public boolean allowedMove(Coord c, LinkedList<Relation> relation) {
         HashSet<Coord> aMove=new HashSet<>();
-        aMove=possibleMove(c,cb);
+        aMove=possibleMove(c);
         this.allowedMove=aMove;
         return aMove.isEmpty();
     }
@@ -69,7 +73,7 @@ public abstract class Piece {
     	}
     }
 
-	protected abstract HashSet<Coord> possibleMove(Coord coord, ChessBoard cb);
+	protected abstract HashSet<Coord> possibleMove(Coord coord);
 
 	public HashSet<Coord> getAllowedMove() {
 		return this.allowedMove;
