@@ -12,6 +12,7 @@ public class King extends Piece {
      */
     public King(boolean c) {
     	super(c);
+    	this.castellingKing=true;
     }
     public String toString() {
     	if (this.getColor()==true) {
@@ -23,7 +24,16 @@ public class King extends Piece {
     /**
      * 
      */
-//    private boolean CastelingKing;
+    private boolean castellingKing;
+ // vrai=le roi n'a pas encore bougé
+    //false=le roi a bougé
+
+    public boolean getCastellingKing() {
+    	return this.castellingKing;
+    }
+    public void castellingKing() {
+    	this.castellingKing=false;
+    }
 
     /**
      * @param Coord 
@@ -57,6 +67,12 @@ public class King extends Piece {
     	}
     	if(j-1>=0 && i-1>=0 && (cb.board[i-1][j-1]==null || possibleOrImpossible(cb.board[i-1][j-1]))) {
     		pMove.add(new Coord(i-1,j-1));
+    	}
+    	if(getCastellingKing()) {
+    		if(this.getColor() && cb.board[7][1]==null && cb.board[7][2]==null && cb.board[7][0] instanceof Rook && cb.board[7][0].statRook()) {
+    			HashSet<Coord> coordPieceBlack=get
+    			for(Piece p : )
+    		}
     	}
         return pMove;
     }

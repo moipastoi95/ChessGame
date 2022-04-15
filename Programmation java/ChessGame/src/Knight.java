@@ -19,7 +19,7 @@ public class Knight extends Piece {
     	}
     	return "c";
     }
-
+   
     /**
      * @param Coord 
      * @param Coord 
@@ -53,6 +53,7 @@ public class Knight extends Piece {
     	if(j-1>=0 && i-2>=0 && (cb.board[i-2][j-1]==null || possibleOrImpossible(cb.board[i-2][j-1]))) {
     		pMove.add(new Coord(i-2,j-1));
     	}
+    	
         return pMove;
     }
 

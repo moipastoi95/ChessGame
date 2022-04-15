@@ -46,7 +46,7 @@ public class ChessBoard {
     	
     }
 
-    private boolean turn;
+
     /**
      * 
      */
@@ -82,9 +82,9 @@ public class ChessBoard {
      * @param hashset of Coord 
      * @return
      */
-    public void coorPieceMovable(HashSet<Coord> coords) {
+    public void coorPieceMovable(HashSet<Coord> coords, boolean turn) {
         HashSet<Coord> cMovable=new HashSet<>();
-    	if(getTurn()) {
+    	if(turn) {
 	        for(Coord c: coords) {
 	        	 if(!(this.board[c.getR()][c.getC()].allowedMove(c,this,this.whiteRelation))) {
 	        		 cMovable.add(c);
@@ -131,13 +131,6 @@ public class ChessBoard {
      */
     public Piece move(Coord startC, Coord finalC) {
     	Piece tmp=this.board[finalC.getR()][finalC.getC()];
-        if (tmp!=null) {
-        	if(tmp.getColor()) {
-        		playerWhite.capturedPieces.add(tmp);
-        	}else {
-        		playerBlack.capturedPieces.add(tmp);
-        	}
-        }
         this.board[finalC.getR()][finalC.getC()]=this.board[startC.getR()][startC.getC()];
         this.board[startC.getR()][startC.getC()]=null;    
         return tmp;
@@ -146,13 +139,7 @@ public class ChessBoard {
     /**
      * @return
      */
-    public void setTurn() {
-        this.turn=!this.turn;
-    }
-    
-    public boolean getTurn() {
-    	return this.turn;
-    }
+
     public String toString() {
     	String affichageDuPauvre="    ";
     	for (int i=0; i<8; i++) {
@@ -197,6 +184,8 @@ public class ChessBoard {
     	System.out.println(cb.toString());
     	HashSet<Coord> pMove5=cb.board[4][6].possibleMove(new Coord(4,6),cb);
     	System.out.println(pMove5);
+    	
+    	
     	
     
     }

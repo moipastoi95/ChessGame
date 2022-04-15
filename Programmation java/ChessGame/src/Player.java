@@ -40,6 +40,9 @@ public class Player {
      * 
      */
     protected HashSet<Coord> coordOfMyPieces;
+    public HashSet<Coord> getCoordOfMyPieces(){
+    	return this.coordOfMyPieces;
+    }
     
     public boolean getColor() {
     	return this.color;
