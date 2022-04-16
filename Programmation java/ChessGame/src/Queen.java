@@ -9,8 +9,8 @@ public class Queen extends Piece {
     /**
      * Default constructor
      */
-    public Queen(boolean c,Piece[][] board) {
-    	super(c,board);
+    public Queen(boolean c, ChessBoard cb) {
+    	super(c,cb);
     }
     public String toString() {
     	if (this.getColor()==true) {
@@ -29,87 +29,87 @@ public class Queen extends Piece {
     	int j=c.getC();
     	boolean b=true;
     	for (int k=i-1; k>=0 && b;k--){
-    		if (board[k][j]==null) {
+    		if (getCb().board[k][j]==null) {
     			pMove.add(new Coord(k,j));
     		}else {
     			b=false;
-    			if (possibleOrImpossible(board[k][j])) {
+    			if (possibleOrImpossible(getCb().board[k][j])) {
     				pMove.add(new Coord(k,j));
     			}
     		}
     	}
     	b=true;
     	for (int k=i+1; k<8 && b;k++){
-    		if (board[k][j]==null) {
+    		if (getCb().board[k][j]==null) {
     			pMove.add(new Coord(k,j));
     		}else {
     			b=false;
-    			if (possibleOrImpossible(board[k][j])) {
+    			if (possibleOrImpossible(getCb().board[k][j])) {
     				pMove.add(new Coord(k,j));
     			}
     		}	
     	}
     	b=true;
     	for (int k=j-1; k>=0 && b;k--){
-    		if (board[i][k]==null) {
+    		if (getCb().board[i][k]==null) {
     			pMove.add(new Coord(i,k));
     		}else {
     			b=false;
-    			if (possibleOrImpossible(board[i][k])) {
+    			if (possibleOrImpossible(getCb().board[i][k])) {
     				pMove.add(new Coord(i,k));
     			}
     		}	
     	}
     	b=true;
     	for (int k=j+1; k<8 && b;k++){
-    		if (board[i][k]==null) {
+    		if (getCb().board[i][k]==null) {
     			pMove.add(new Coord(i,k));
     		}else {
     			b=false;
-    			if (possibleOrImpossible(board[i][k])) {
+    			if (possibleOrImpossible(getCb().board[i][k])) {
     				pMove.add(new Coord(i,j));
     			}
     		}	
     	}
     	for (int k=i-1, l=j-1; l>=0 && k>=0 && b;k--, l--){
-    		if (board[k][l]==null) {
+    		if (getCb().board[k][l]==null) {
     			pMove.add(new Coord(k,l));
     		}else {
     			b=false;
-    			if (possibleOrImpossible(board[k][l])) {
+    			if (possibleOrImpossible(getCb().board[k][l])) {
     				pMove.add(new Coord(k,l));
     			}
     		}
     	}
     	b=true;
     	for (int k=i+1, l=j+1; l<8 && k<8 && b;k++, l++){
-    		if (board[k][l]==null) {
+    		if (getCb().board[k][l]==null) {
     			pMove.add(new Coord(k,l));
     		}else {
     			b=false;
-    			if (possibleOrImpossible(board[k][l])) {
+    			if (possibleOrImpossible(getCb().board[k][l])) {
     				pMove.add(new Coord(k,l));
     			}
     		}
     	}
     	b=true;
     	for (int k=i-1, l=j+1; l<8 && k>=0 && b;k--, l++){
-    		if (board[k][l]==null) {
+    		if (getCb().board[k][l]==null) {
     			pMove.add(new Coord(k,l));
     		}else {
     			b=false;
-    			if (possibleOrImpossible(board[k][l])) {
+    			if (possibleOrImpossible(getCb().board[k][l])) {
     				pMove.add(new Coord(k,l));
     			}
     		}
     	}
     	b=true;
     	for (int k=i+1, l=j-1; l>=0 && k<8 && b;k++, l--){
-    		if (board[k][l]==null) {
+    		if (getCb().board[k][l]==null) {
     			pMove.add(new Coord(k,l));
     		}else {
     			b=false;
-    			if (possibleOrImpossible(board[k][l])) {
+    			if (possibleOrImpossible(getCb().board[k][l])) {
     				pMove.add(new Coord(k,l));
     			}
     		}

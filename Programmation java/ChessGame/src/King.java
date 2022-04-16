@@ -10,10 +10,9 @@ public class King extends Piece {
     /**
      * Default constructor
      */
-    public King(boolean c,Piece[][] board,ChessBoard cb) {
-    	super(c,board);
+    public King(boolean c,ChessBoard cb) {
+    	super(c,cb);
     	this.castellingKing=true;
-    	this.cb=cb;
     }
     public String toString() {
     	if (this.getColor()==true) {
@@ -25,7 +24,6 @@ public class King extends Piece {
     /**
      * 
      */
-    protected ChessBoard cb;
     protected Player opponent;
     private boolean castellingKing;
  // vrai=le roi n'a pas encore bougé
@@ -47,49 +45,49 @@ public class King extends Piece {
     	HashSet<Coord> pMove = new HashSet<>();
     	int i=c.getR();
     	int j=c.getC();
-    	if(j+1<8 && (board[i][j+1]==null || possibleOrImpossible(board[i][j+1]))) {
+    	if(j+1<8 && (getCb().board[i][j+1]==null || possibleOrImpossible(getCb().board[i][j+1]))) {
     		pMove.add(new Coord(i,j+1));
     	}
-    	if(j-1>=0 && (board[i][j-1]==null || possibleOrImpossible(board[i][j-1]))) {
+    	if(j-1>=0 && (getCb().board[i][j-1]==null || possibleOrImpossible(getCb().board[i][j-1]))) {
     		pMove.add(new Coord(i,j-1));
     	}
-    	if(i+1<8 && (board[i+1][j]==null || possibleOrImpossible(board[i+1][j]))) {
+    	if(i+1<8 && (getCb().board[i+1][j]==null || possibleOrImpossible(getCb().board[i+1][j]))) {
     		pMove.add(new Coord(i+1,j));
     	}
-    	if(i-1>=0 && (board[i-1][j]==null || possibleOrImpossible(board[i-1][j]))) {
+    	if(i-1>=0 && (getCb().board[i-1][j]==null || possibleOrImpossible(getCb().board[i-1][j]))) {
     		pMove.add(new Coord(i-1,j));
     	}
-    	if(j+1<8 && i+1<8 && (board[i+1][j+1]==null || possibleOrImpossible(board[i+1][j+1]))) {
+    	if(j+1<8 && i+1<8 && (getCb().board[i+1][j+1]==null || possibleOrImpossible(getCb().board[i+1][j+1]))) {
     		pMove.add(new Coord(i+1,j+1));
     	}
-    	if(j-1>=0 && i+1<8 && (board[i+1][j-1]==null || possibleOrImpossible(board[i+1][j-1]))) {
+    	if(j-1>=0 && i+1<8 && (getCb().board[i+1][j-1]==null || possibleOrImpossible(getCb().board[i+1][j-1]))) {
     		pMove.add(new Coord(i+1,j-1));
     	}
-    	if(j+1<8 && i-1>=0 && (board[i-1][j+1]==null || possibleOrImpossible(board[i-1][j+1]))) {
+    	if(j+1<8 && i-1>=0 && (getCb().board[i-1][j+1]==null || possibleOrImpossible(getCb().board[i-1][j+1]))) {
     		pMove.add(new Coord(i-1,j+1));
     	}
-    	if(j-1>=0 && i-1>=0 && (board[i-1][j-1]==null || possibleOrImpossible(board[i-1][j-1]))) {
+    	if(j-1>=0 && i-1>=0 && (getCb().board[i-1][j-1]==null || possibleOrImpossible(getCb().board[i-1][j-1]))) {
     		pMove.add(new Coord(i-1,j-1));
     	}
     	if(getCastellingKing()) {
     		HashSet<Coord> cAttacked=new HashSet<>();
-    		if(this.getColor() && board[7][1]==null && board[7][2]==null && board[7][0] instanceof Rook && ((Rook)(board[7][0])).getStatRook()) {
+    		if(this.getColor() && getCb().board[7][1]==null && getCb().board[7][2]==null && getCb().board[7][0] instanceof Rook && ((Rook)(getCb().board[7][0])).getStatRook()) {
     			HashSet<Coord> coordPieceBlack=this.opponent.getCoordOfMyPieces();
     			for(Coord  s: coordPieceBlack) {
     				HashSet<Coord> tmp=new HashSet<>();
-    				tmp=board[s.getR()][s.getC()].possibleMove(s);
+    				tmp=getCb().board[s.getR()][s.getC()].possibleMove(s);
     				cAttacked.addAll(tmp);
     			}
     			if((!(cAttacked.contains(new Coord(7,3)))) && (!(cAttacked.contains(new Coord(7,2)))) && (!(cAttacked.contains(new Coord(7,1))))){
     				pMove.add(new Coord(7,1));
     			}
     		}
-    		if(this.getColor() && board[7][4]==null && board[7][5]==null && board[7][7] instanceof Rook && ((Rook)(board[7][7])).getStatRook()) {
+    		if(this.getColor() && getCb().board[7][4]==null && getCb().board[7][5]==null && getCb().board[7][7] instanceof Rook && ((Rook)(getCb().board[7][7])).getStatRook()) {
     			if (cAttacked.isEmpty()) {
     				HashSet<Coord> coordPieceBlack=this.opponent.getCoordOfMyPieces();
         			for(Coord  s: coordPieceBlack) {
         				HashSet<Coord> tmp=new HashSet<>();
-        				tmp=board[s.getR()][s.getC()].possibleMove(s);
+        				tmp=getCb().board[s.getR()][s.getC()].possibleMove(s);
         				cAttacked.addAll(tmp);
         			}
     			}
@@ -97,23 +95,23 @@ public class King extends Piece {
     				pMove.add(new Coord(7,5));
     			}
     		}
-    		if(this.getColor() && board[0][1]==null && board[0][2]==null && board[0][0] instanceof Rook && ((Rook)(board[0][0])).getStatRook()) {
+    		if(this.getColor() && getCb().board[0][1]==null && getCb().board[0][2]==null && getCb().board[0][0] instanceof Rook && ((Rook)(getCb().board[0][0])).getStatRook()) {
     			HashSet<Coord> coordPieceWhite=this.opponent.getCoordOfMyPieces();
     			for(Coord  s: coordPieceWhite) {
     				HashSet<Coord> tmp=new HashSet<>();
-    				tmp=board[s.getR()][s.getC()].possibleMove(s);
+    				tmp=getCb().board[s.getR()][s.getC()].possibleMove(s);
     				cAttacked.addAll(tmp);
     			}
     			if((!(cAttacked.contains(new Coord(0,3)))) && (!(cAttacked.contains(new Coord(0,2)))) && (!(cAttacked.contains(new Coord(0,1))))){
     				pMove.add(new Coord(0,1));
     			}
     		}
-    		if(this.getColor() && board[0][4]==null && board[0][5]==null && board[0][7] instanceof Rook && ((Rook)(board[0][7])).getStatRook()) {
+    		if(this.getColor() && getCb().board[0][4]==null && getCb().board[0][5]==null && getCb().board[0][7] instanceof Rook && ((Rook)(getCb().board[0][7])).getStatRook()) {
     			if (cAttacked.isEmpty()) {
     				HashSet<Coord> coordPieceWhite=this.opponent.getCoordOfMyPieces();
         			for(Coord  s: coordPieceWhite) {
         				HashSet<Coord> tmp=new HashSet<>();
-        				tmp=board[s.getR()][s.getC()].possibleMove(s);
+        				tmp=getCb().board[s.getR()][s.getC()].possibleMove(s);
         				cAttacked.addAll(tmp);
         			}
     			}
@@ -132,7 +130,7 @@ public class King extends Piece {
      */
     public Piece move(Coord startC, Coord finalC) {
     	if (getCastellingKing() && (finalC.getC()==1 && finalC.getC()==5)) {
-        	board[finalC.getR()][finalC.getC()]=this;
+    		getCb().board[finalC.getR()][finalC.getC()]=this;
         	setCastellingKing();
         	if(finalC.getC()==1 && finalC.getR()==0) {
         		cb.update(new Coord(0,0), new Coord(0,2));
@@ -145,8 +143,8 @@ public class King extends Piece {
         	}
         	return null;
     	}else {
-    		Piece tmp=this.board[finalC.getR()][finalC.getC()];
-        	board[finalC.getR()][finalC.getC()]=this;
+    		Piece tmp=this.getCb().board[finalC.getR()][finalC.getC()];
+    		getCb().board[finalC.getR()][finalC.getC()]=this;
         	setCastellingKing();  	
         	return tmp;
     	}

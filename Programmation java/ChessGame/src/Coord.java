@@ -32,5 +32,19 @@ public class Coord {
     public String toString() {
     	return "("+this.getR()+","+this.getC()+")";
     }
-
+    
+    public boolean equals(Object o) {
+		if (o instanceof Coord) {
+			Coord c= (Coord) o;
+			return ((this.getR()==c.getR()) && (this.getC()==c.getC()));				
+			}
+		return false;	
+	}
+    
+    public int hashCode() {
+    	int result=17;
+    	result=37*result+this.getR();
+    	result=37*result+this.getC();
+    	return result;
+    }
 }

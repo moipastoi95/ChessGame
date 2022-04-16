@@ -11,38 +11,38 @@ public class ChessBoard {
      */
     public ChessBoard(Game game) {
     	this.board=new Piece[8][8];  	
-    	this.board[6][0]=new Pawn(true,this.board);
-    	this.board[6][1]=new Pawn(true,this.board);
-    	this.board[6][2]=new Pawn(true,this.board);
-    	this.board[6][3]=new Pawn(true,this.board);
-    	this.board[6][4]=new Pawn(true,this.board);
-    	this.board[6][5]=new Pawn(true,this.board);
-    	this.board[6][6]=new Pawn(true,this.board);
-    	this.board[6][7]=new Pawn(true,this.board);
-    	this.board[1][0]=new Pawn(false,this.board);
-    	this.board[1][1]=new Pawn(false,this.board);
-    	this.board[1][2]=new Pawn(false,this.board);
-    	this.board[1][3]=new Pawn(false,this.board);
-    	this.board[1][4]=new Pawn(false,this.board);
-    	this.board[1][5]=new Pawn(false,this.board);
-    	this.board[1][6]=new Pawn(false,this.board);
-    	this.board[1][7]=new Pawn(false,this.board);	
-    	this.board[7][0]=new Rook(true,this.board);
-    	this.board[7][1]=new Knight(true,this.board);
-    	this.board[7][2]=new Bishop(true,this.board);
-    	this.board[7][3]=new King(true,this.board,this);
-    	this.board[7][4]=new Queen(true,this.board);
-    	this.board[7][5]=new Bishop(true,this.board);
-    	this.board[7][6]=new Knight(true,this.board);
-    	this.board[7][7]=new Rook(true,this.board);
-    	this.board[0][0]=new Rook(false,this.board);
-    	this.board[0][1]=new Knight(false,this.board);
-    	this.board[0][2]=new Bishop(false,this.board);
-    	this.board[0][4]=new Queen(false,this.board);
-    	this.board[0][3]=new King(false,this.board,this);
-    	this.board[0][5]=new Bishop(false,this.board);
-    	this.board[0][6]=new Knight(false,this.board);
-    	this.board[0][7]=new Rook(false,this.board);
+    	this.board[6][0]=new Pawn(true,this);
+    	this.board[6][1]=new Pawn(true,this);
+    	this.board[6][2]=new Pawn(true,this);
+    	this.board[6][3]=new Pawn(true,this);
+    	this.board[6][4]=new Pawn(true,this);
+    	this.board[6][5]=new Pawn(true,this);
+    	this.board[6][6]=new Pawn(true,this);
+    	this.board[6][7]=new Pawn(true,this);
+    	this.board[1][0]=new Pawn(false,this);
+    	this.board[1][1]=new Pawn(false,this);
+    	this.board[1][2]=new Pawn(false,this);
+    	this.board[1][3]=new Pawn(false,this);
+    	this.board[1][4]=new Pawn(false,this);
+    	this.board[1][5]=new Pawn(false,this);
+    	this.board[1][6]=new Pawn(false,this);
+    	this.board[1][7]=new Pawn(false,this);	
+    	this.board[7][0]=new Rook(true,this);
+    	this.board[7][1]=new Knight(true,this);
+    	this.board[7][2]=new Bishop(true,this);
+    	this.board[7][3]=new King(true,this);
+    	this.board[7][4]=new Queen(true,this);
+    	this.board[7][5]=new Bishop(true,this);
+    	this.board[7][6]=new Knight(true,this);
+    	this.board[7][7]=new Rook(true,this);
+    	this.board[0][0]=new Rook(false,this);
+    	this.board[0][1]=new Knight(false,this);
+    	this.board[0][2]=new Bishop(false,this);
+    	this.board[0][4]=new Queen(false,this);
+    	this.board[0][3]=new King(false,this);
+    	this.board[0][5]=new Bishop(false,this);
+    	this.board[0][6]=new Knight(false,this);
+    	this.board[0][7]=new Rook(false,this);
     	this.game=game;
     	
     }
@@ -112,18 +112,7 @@ public class ChessBoard {
   //      return false;
 //    }
 
-    /**
-     * @param Coord 
-     * @return
-     * @throws NotInHashSetException 
-     */
-    public HashSet<Coord> select(Coord c) throws NotInHashSetException {
-    	if (this.coorPieceMovable.contains(c)) {
-    		return this.board[c.getR()][c.getC()].getAllowedMove();
-    	}else {
-    		throw new NotInHashSetException("Impossible select, this coord isn't in the HashSet of possible select Coord");
-    	}
-   }
+  
 
     /**
      * @param Coord 
@@ -199,8 +188,20 @@ public class ChessBoard {
     	System.out.println(pMove5);
     	*/
     	Game gameTest=new Game();
-    	System.out.println(gameTest.cb.toString());
-    	gameTest.courseOfTheGame();
+    	System.out.println(gameTest.toString());
+    	gameTest.cb.coorPieceMovable(gameTest.whitePlayer.coordOfMyPieces,gameTest.getTurn());
+    	System.out.println("\n\nPiece Bougeable:"+gameTest.cb.getCoorPieceMovable());
+    	System.out.println("\nDeplacementLegal de 7,6:"+gameTest.cb.board[7][6].getAllowedMove());
+    	System.out.println("\nDeplacementLegal de 6,0:"+gameTest.cb.board[6][0].getAllowedMove());
+    	gameTest.cb.update(new Coord(6,0), new Coord(5,0));
+    	gameTest.setTurn();
+    	System.out.println(gameTest.toString());
+    	gameTest.cb.update(new Coord(0,1), new Coord(2,2));
+    	gameTest.setTurn();
+    	System.out.println(gameTest.toString());
+    	
+    	
+    	
     	
     	
     	

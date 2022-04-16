@@ -14,6 +14,7 @@ public class Game {
     	this.whitePlayer=new Player(true,this);
     	this.blackPlayer=new Player(false,this);
     	this.turn=true;
+    	this.nbCoup=0;
     	
     	
     	
@@ -22,12 +23,18 @@ public class Game {
     protected Player blackPlayer;
     protected ChessBoard cb;
     private boolean turn;
+    private int nbCoup;
 
 
     /**
      * 
      */
- 
+    public void setnbCoup() {
+    	this.nbCoup=this.nbCoup+1;
+    }
+     public int getnbCoup() {
+    	 return this.nbCoup;
+     }
 
 
     /**
@@ -104,12 +111,17 @@ public class Game {
     }
 
     /**
+     * @param Coord 
      * @return
+     * @throws NotInHashSetException 
      */
-    /**public array of Coord getMoveablePieces() {
-        // TODO implement here
-        return null;
-    }
+    public void select(Coord c) throws NotInHashSetException {
+    	if (this.cb.getCoorPieceMovable().contains(c)) {
+    		System.out.println(this.cb.board[c.getR()][c.getC()].getAllowedMove());
+    	}else {
+    		throw new NotInHashSetException("Impossible select, this coord isn't in the HashSet of possible select Coord");
+    	}
+   }
 
     /**
      * 
@@ -117,22 +129,31 @@ public class Game {
     public int courseOfTheGame() {
     	do {
     		if(this.getTurn()) {
-    			this.cb.coorPieceMovable(this.whitePlayer.coordOfMyPieces,this.turn);
+    			this.cb.coorPieceMovable(this.whitePlayer.coordOfMyPieces,this.getTurn());
     		}else {
-    			this.cb.coorPieceMovable(this.blackPlayer.coordOfMyPieces,this.turn);
+    			this.cb.coorPieceMovable(this.blackPlayer.coordOfMyPieces,this.getTurn());
     		}
     		//demander selection pièce
-    		this.select(coordStart); // elle fait avec une  exeception try catch pour voir si la coordonné selectionné correspond bien aune coord de coorPieceMovable(boucle while si non pour redemander), si ok afficher les possibilités
+    	//	try{
+    //			select(coordStart); // elle fait avec une  exeception try catch pour voir si la coordonné selectionné correspond bien aune coord de coorPieceMovable(boucle while si non pour redemander), si ok afficher les possibilités
+    //		}catch{
+    			
+    //		}
     		//demander si l'utilisateur veut jouer cette pièce ou selecitonner une autre pièce (boucle while)
     		//si le joueur veut joeur cette pièce demande coordonnée d'arrivé de la pièce selectionné
-    		this.play(coordStart,coordFinal);//elle fait avec une exeception tru catch pour oir si cette coordonnée fait partie des LegalMove de la pièce de la case de départ(boucle while si non pour redemander)
+    //		this.play(coordStart,coordFinal);//elle fait avec une exeception tru catch pour oir si cette coordonnée fait partie des LegalMove de la pièce de la case de départ(boucle while si non pour redemander)
     		//Si tout est ok, prendre le deplacement pour update le board de ChessBoard
-    		
+    		this.setnbCoup();
     		this.setTurn();
     	}
     	while(!(this.cb.getCoorPieceMovable().isEmpty()));
     	return this.getEnd();
     }
 
+    public String toString() {
+    	String affichage;
+    	affichage=this.cb.toString()+"\nWhitePlayer:\n"+this.whitePlayer.toString()+"\nBlackPlayer:\n"+this.blackPlayer.toString();
+    	return affichage;
+    }
 
 }

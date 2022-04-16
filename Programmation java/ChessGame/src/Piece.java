@@ -11,12 +11,15 @@ public abstract class Piece {
     /**
      * Default constructor
      */
-    public Piece(boolean c, Piece[][] board) {
+    public Piece(boolean c, ChessBoard cb) {
     	this.color=c;
-    	this.board=board;
+    	this.cb=cb;
     }
     
-    protected Piece[][] board;
+    protected ChessBoard cb;
+    public ChessBoard getCb() {
+    	return this.cb;
+    }
     public boolean getColor() {
     	return this.color;
     }
@@ -40,9 +43,9 @@ public abstract class Piece {
     * @return
     */
    public Piece move(Coord startC, Coord finalC) {
-   	Piece tmp=this.board[finalC.getR()][finalC.getC()];
-   	board[finalC.getR()][finalC.getC()]=this; 
-   	board[startC.getR()][startC.getC()]=null;
+   	Piece tmp=this.getCb().board[finalC.getR()][finalC.getC()];
+   	getCb().board[finalC.getR()][finalC.getC()]=this; 
+   	getCb().board[startC.getR()][startC.getC()]=null;
    	return tmp;
    }
 
