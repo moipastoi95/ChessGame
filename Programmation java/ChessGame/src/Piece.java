@@ -1,43 +1,47 @@
 import java.util.HashSet;
 import java.util.LinkedList;
 
-//import java.util.*;
 
 /**
- * 
+ * Abstract class which represent a Piece
  */
 public abstract class Piece {
+	// attributes
+    protected Piece[][] board;
+    private boolean color;
+    protected HashSet<Coord> allowedMove;
 
     /**
      * Default constructor
+     * @param c boolean color of the piece (black or white)
+     * @param board a matrix of Piece
      */
     public Piece(boolean c, Piece[][] board) {
     	this.color=c;
     	this.board=board;
     }
     
-    protected Piece[][] board;
+    /**
+     * get the color of a Piece
+     * @return boolean
+     */
     public boolean getColor() {
     	return this.color;
     }
-
+    
     /**
-     * 
+     * get the set of Coord of AllowedMove
+     * @return boolean
      */
-    private boolean color;
-
-    /**
-     * 
-     */
-   protected HashSet<Coord> allowedMove;
-
-
-
+    public HashSet<Coord> getAllowedMove() {
+		return this.allowedMove;
+	}
 
    /**
-    * @param Coord 
-    * @param Coord 
-    * @return
+    * Move a Piece from a Coord to another
+    * @param startC Coord of the Piece to move
+    * @param finalC Coord of the final position
+    * @return Piece the Piece eventually eaten
     */
    public Piece move(Coord startC, Coord finalC) {
    	Piece tmp=this.board[finalC.getR()][finalC.getC()];
@@ -46,12 +50,11 @@ public abstract class Piece {
    	return tmp;
    }
 
-
-
     /**
-     * @param Coord 
-     * @param list of Relation 
-     * @return
+     * check if there is a possible mouvment for a certain Piece
+     * @param c Coord of the Piece concerned
+     * @param relation List of Relation
+     * @return boolean
      */
    public boolean allowedMove(Coord c, LinkedList<Relation> relation) {
         HashSet<Coord> aMove=new HashSet<>();
@@ -64,7 +67,6 @@ public abstract class Piece {
      * @param Piece
      * @return boolean , true=possible (to take), false=impossible
      */
-    
     public boolean possibleOrImpossible(Piece p) {
     	if (this.color==p.color) {
     		return false;
@@ -74,8 +76,5 @@ public abstract class Piece {
     }
 
 	protected abstract HashSet<Coord> possibleMove(Coord coord);
-
-	public HashSet<Coord> getAllowedMove() {
-		return this.allowedMove;
-	}
+	
 }
