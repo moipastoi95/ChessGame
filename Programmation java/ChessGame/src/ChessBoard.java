@@ -188,7 +188,7 @@ public class ChessBoard {
     	System.out.println(pMove5);
     	*/
     	Game gameTest=new Game();
-    	System.out.println(gameTest.toString());
+  /*  	System.out.println(gameTest.toString());
     	gameTest.cb.coorPieceMovable(gameTest.whitePlayer.coordOfMyPieces,gameTest.getTurn());
     	System.out.println("\n\nPiece Bougeable:"+gameTest.cb.getCoorPieceMovable());
     	System.out.println("\nDeplacementLegal de 7,6:"+gameTest.cb.board[7][6].getAllowedMove());
@@ -200,7 +200,8 @@ public class ChessBoard {
     	gameTest.setTurn();
     	System.out.println(gameTest.toString());
     	
-    	
+    	*/
+    	gameTest.courseOfTheGame();
     	
     	
     	

@@ -78,9 +78,12 @@ public class Game {
      * @param Piece  
      * @return
      */
-   /** public void play(void Coord, void Coord, void Piece ) {
-        // TODO implement here
-        return null;
+   public void play(Coord cStart, Coord cFinal) throws NotInHashSetException{
+	    if (this.cb.board[cStart.getR()][cStart.getC()].getAllowedMove().contains(cFinal)) {
+   			System.out.println("Move accepted");
+   		}else {
+   			throw new NotInHashSetException("Impossible select, this coord isn't in the HashSet of legal move Coord");
+   		}
     }
 
 
@@ -127,22 +130,46 @@ public class Game {
      * 
      */
     public int courseOfTheGame() {
+    	Coord cStart=null;
+    	Coord cFinal;
+    	boolean b = false;
     	do {
+    		System.out.println(this.toString());
     		if(this.getTurn()) {
     			this.cb.coorPieceMovable(this.whitePlayer.coordOfMyPieces,this.getTurn());
     		}else {
     			this.cb.coorPieceMovable(this.blackPlayer.coordOfMyPieces,this.getTurn());
     		}
-    		//demander selection pièce
-    	//	try{
-    //			select(coordStart); // elle fait avec une  exeception try catch pour voir si la coordonné selectionné correspond bien aune coord de coorPieceMovable(boucle while si non pour redemander), si ok afficher les possibilités
-    //		}catch{
-    			
-    //		}
-    		//demander si l'utilisateur veut jouer cette pièce ou selecitonner une autre pièce (boucle while)
+    		b=false;
+    		while(b==false ) { //demander si l'utilisateur veut jouer cette pièce ou selecitonner une autre pièce (boucle while)
+    			System.out.println("\nCoorPieceMovable:"+this.cb.getCoorPieceMovable());
+    			System.out.println("What piece do you want play?");
+        		cStart=Input.askValidCoord();
+
+        		try{ //elle fait avec une  exeception try catch pour voir si la coordonné selectionné correspond bien aune coord de coorPieceMovable(boucle while si non pour redemander), si ok afficher les possibilités
+        			select(cStart);
+        			b=Input.askValidYesNo();
+        		}catch(NotInHashSetException e){
+        			System.out.println(e.getMessage());
+        		}
+    		}
+    		
     		//si le joueur veut joeur cette pièce demande coordonnée d'arrivé de la pièce selectionné
-    //		this.play(coordStart,coordFinal);//elle fait avec une exeception tru catch pour oir si cette coordonnée fait partie des LegalMove de la pièce de la case de départ(boucle while si non pour redemander)
-    		//Si tout est ok, prendre le deplacement pour update le board de ChessBoard
+    		b=false;
+    		while(b==false) {
+    			System.out.println("Choose the final Coord for this piece?");
+    			cFinal = Input.askValidCoord();
+    			
+    			try {
+    			    //		this.play(coordStart,coordFinal);//elle fait avec une exeception tru catch pour oir si cette coordonnée fait partie des LegalMove de la pièce de la case de départ(boucle while si non pour redemander)
+    	    		//Si tout est ok, prendre le deplacement pour update le board de ChessBoard
+    				play(cStart,cFinal);
+    				b=true;
+    				this.cb.update(cStart, cFinal);	
+    			}catch(NotInHashSetException e){
+        			System.out.println(e.getMessage());
+        		}
+    		}
     		this.setnbCoup();
     		this.setTurn();
     	}
