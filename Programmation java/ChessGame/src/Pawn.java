@@ -129,18 +129,18 @@ public class Pawn extends Piece {
 		if (getPawnStat()==0) { //starterPawn if +2, possible enPassant for his opponent
 			setPawnStat(getCb().game.getnbCoup()+1);
 			if (finalC.getR()==4) {
-				if(finalC.getC()+1<8 && getCb().board[3][finalC.getC()+1] instanceof Pawn) {
-					((Pawn)(getCb().board[3][finalC.getC()+1])).setPawnStat(getCb().game.getnbCoup()+1);
-				}
-				if(finalC.getC()-1>=0 && getCb().board[3][finalC.getC()-1] instanceof Pawn){
-					((Pawn)(getCb().board[3][finalC.getC()-1])).setPawnStat(getCb().game.getnbCoup()+1);
-				}
-			}else if(finalC.getR()==3) {
 				if(finalC.getC()+1<8 && getCb().board[4][finalC.getC()+1] instanceof Pawn) {
 					((Pawn)(getCb().board[4][finalC.getC()+1])).setPawnStat(getCb().game.getnbCoup()+1);
 				}
 				if(finalC.getC()-1>=0 && getCb().board[4][finalC.getC()-1] instanceof Pawn){
 					((Pawn)(getCb().board[4][finalC.getC()-1])).setPawnStat(getCb().game.getnbCoup()+1);
+				}
+			}else if(finalC.getR()==3) {
+				if(finalC.getC()+1<8 && getCb().board[3][finalC.getC()+1] instanceof Pawn) {
+					((Pawn)(getCb().board[3][finalC.getC()+1])).setPawnStat(getCb().game.getnbCoup()+1);
+				}
+				if(finalC.getC()-1>=0 && getCb().board[3][finalC.getC()-1] instanceof Pawn){
+					((Pawn)(getCb().board[3][finalC.getC()-1])).setPawnStat(getCb().game.getnbCoup()+1);
 				}
 			}
     		

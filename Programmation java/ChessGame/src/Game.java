@@ -179,7 +179,7 @@ public class Game {
 
     public String toString() {
     	String affichage;
-    	affichage=this.cb.toString()+"\nWhitePlayer:\n"+this.whitePlayer.toString()+"\nBlackPlayer:\n"+this.blackPlayer.toString();
+    	affichage=this.cb.toString()+"\nturn:"+this.getTurn()+"\nWhitePlayer:\n"+this.whitePlayer.toString()+"\nBlackPlayer:\n"+this.blackPlayer.toString();
     	return affichage;
     }
 

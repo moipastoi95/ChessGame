@@ -24,7 +24,6 @@ public class King extends Piece {
     /**
      * 
      */
-    protected Player opponent;
     private boolean castellingKing;
  // vrai=le roi n'a pas encore bougé
     //false=le roi a bougé
@@ -72,7 +71,7 @@ public class King extends Piece {
     	if(getCastellingKing()) {
     		HashSet<Coord> cAttacked=new HashSet<>();
     		if(this.getColor() && getCb().board[7][1]==null && getCb().board[7][2]==null && getCb().board[7][0] instanceof Rook && ((Rook)(getCb().board[7][0])).getStatRook()) {
-    			HashSet<Coord> coordPieceBlack=this.opponent.getCoordOfMyPieces();
+    			HashSet<Coord> coordPieceBlack=this.cb.game.blackPlayer.getCoordOfMyPieces();
     			for(Coord  s: coordPieceBlack) {
     				HashSet<Coord> tmp=new HashSet<>();
     				tmp=getCb().board[s.getR()][s.getC()].possibleMove(s);
@@ -84,7 +83,7 @@ public class King extends Piece {
     		}
     		if(this.getColor() && getCb().board[7][4]==null && getCb().board[7][5]==null && getCb().board[7][7] instanceof Rook && ((Rook)(getCb().board[7][7])).getStatRook()) {
     			if (cAttacked.isEmpty()) {
-    				HashSet<Coord> coordPieceBlack=this.opponent.getCoordOfMyPieces();
+    				HashSet<Coord> coordPieceBlack=this.cb.game.blackPlayer.getCoordOfMyPieces();
         			for(Coord  s: coordPieceBlack) {
         				HashSet<Coord> tmp=new HashSet<>();
         				tmp=getCb().board[s.getR()][s.getC()].possibleMove(s);
@@ -95,8 +94,8 @@ public class King extends Piece {
     				pMove.add(new Coord(7,5));
     			}
     		}
-    		if(this.getColor() && getCb().board[0][1]==null && getCb().board[0][2]==null && getCb().board[0][0] instanceof Rook && ((Rook)(getCb().board[0][0])).getStatRook()) {
-    			HashSet<Coord> coordPieceWhite=this.opponent.getCoordOfMyPieces();
+    		if((!this.getColor()) && getCb().board[0][1]==null && getCb().board[0][2]==null && getCb().board[0][0] instanceof Rook && ((Rook)(getCb().board[0][0])).getStatRook()) {
+    			HashSet<Coord> coordPieceWhite=this.cb.game.whitePlayer.getCoordOfMyPieces();
     			for(Coord  s: coordPieceWhite) {
     				HashSet<Coord> tmp=new HashSet<>();
     				tmp=getCb().board[s.getR()][s.getC()].possibleMove(s);
@@ -106,9 +105,9 @@ public class King extends Piece {
     				pMove.add(new Coord(0,1));
     			}
     		}
-    		if(this.getColor() && getCb().board[0][4]==null && getCb().board[0][5]==null && getCb().board[0][7] instanceof Rook && ((Rook)(getCb().board[0][7])).getStatRook()) {
+    		if((!this.getColor()) && getCb().board[0][4]==null && getCb().board[0][5]==null && getCb().board[0][7] instanceof Rook && ((Rook)(getCb().board[0][7])).getStatRook()) {
     			if (cAttacked.isEmpty()) {
-    				HashSet<Coord> coordPieceWhite=this.opponent.getCoordOfMyPieces();
+    				HashSet<Coord> coordPieceWhite=this.cb.game.whitePlayer.getCoordOfMyPieces();
         			for(Coord  s: coordPieceWhite) {
         				HashSet<Coord> tmp=new HashSet<>();
         				tmp=getCb().board[s.getR()][s.getC()].possibleMove(s);
@@ -129,22 +128,22 @@ public class King extends Piece {
      * @return
      */
     public Piece move(Coord startC, Coord finalC) {
-    	if (getCastellingKing() && (finalC.getC()==1 && finalC.getC()==5)) {
-    		getCb().board[finalC.getR()][finalC.getC()]=this;
+    	Piece tmp=this.getCb().board[finalC.getR()][finalC.getC()];
+    	getCb().board[finalC.getR()][finalC.getC()]=this;
+    	getCb().board[startC.getR()][startC.getC()]=null;
+    	if (getCastellingKing() && (finalC.getC()==1 || finalC.getC()==5)) {
         	setCastellingKing();
         	if(finalC.getC()==1 && finalC.getR()==0) {
-        		cb.update(new Coord(0,0), new Coord(0,2));
+        		getCb().update(new Coord(0,0), new Coord(0,2));
         	}else if(finalC.getC()==1 && finalC.getR()==7) {
-        		cb.update(new Coord(7,0), new Coord(7,2));
+        		getCb().update(new Coord(7,0), new Coord(7,2));
         	}else if(finalC.getC()==5 && finalC.getR()==0) {
-        		cb.update(new Coord(0,7), new Coord(0,4));
+        		getCb().update(new Coord(0,7), new Coord(0,4));
         	}else if(finalC.getC()==5 && finalC.getR()==7) {
-        		cb.update(new Coord(7,7), new Coord(7,4));
+        		getCb().update(new Coord(7,7), new Coord(7,4));
         	}
         	return null;
     	}else {
-    		Piece tmp=this.getCb().board[finalC.getR()][finalC.getC()];
-    		getCb().board[finalC.getR()][finalC.getC()]=this;
         	setCastellingKing();  	
         	return tmp;
     	}

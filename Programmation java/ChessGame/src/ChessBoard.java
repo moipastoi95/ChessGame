@@ -162,31 +162,6 @@ public class ChessBoard {
     	return affichageDuPauvre;	
     }
     public static void main(String[] args) {
-  /*  	
-    	System.out.println(gameTest.cb.toString());
-    	HashSet<Coord> pMove=cb.board[0][0].possibleMove(new Coord(0,0),cb);
-    	System.out.println(pMove);
-    	cb.board[2][0]=new Rook(true);
-    	System.out.println(cb.toString());
-    	HashSet<Coord> pMove1=cb.board[2][0].possibleMove(new Coord(2,0),cb);
-    	System.out.println(pMove1);
-    	cb.board[4][3]=new Queen(false);
-    	System.out.println(cb.toString());
-    	HashSet<Coord> pMove2=cb.board[4][3].possibleMove(new Coord(4,3),cb);
-    	System.out.println(pMove2);
-    	cb.board[4][4]=new Bishop(true);
-    	System.out.println(cb.toString());
-    	HashSet<Coord> pMove3=cb.board[4][4].possibleMove(new Coord(4,4),cb);
-    	System.out.println(pMove3);
-    	cb.board[3][7]=new Knight(true);
-    	System.out.println(cb.toString());
-    	HashSet<Coord> pMove4=cb.board[3][7].possibleMove(new Coord(3,7),cb);
-    	System.out.println(pMove4);
-    	cb.board[4][6]=new King(false);
-    	System.out.println(cb.toString());
-    	HashSet<Coord> pMove5=cb.board[4][6].possibleMove(new Coord(4,6),cb);
-    	System.out.println(pMove5);
-    	*/
     	Game gameTest=new Game();
   /*  	System.out.println(gameTest.toString());
     	gameTest.cb.coorPieceMovable(gameTest.whitePlayer.coordOfMyPieces,gameTest.getTurn());
@@ -201,8 +176,45 @@ public class ChessBoard {
     	System.out.println(gameTest.toString());
     	
     	*/
-    	gameTest.courseOfTheGame();
-    	
+    //	gameTest.courseOfTheGame();
+    	gameTest.cb.update(new Coord(6,0), new Coord(4,0));	
+    	gameTest.setnbCoup();
+		gameTest.setTurn();
+		System.out.println(gameTest.toString());
+		
+		gameTest.cb.update(new Coord(1,3), new Coord(3,3));	
+    	gameTest.setnbCoup();
+		gameTest.setTurn();
+		System.out.println(gameTest.toString());
+		
+		gameTest.cb.update(new Coord(4,0), new Coord(3,0));	
+    	gameTest.setnbCoup();
+		gameTest.setTurn();
+		System.out.println(gameTest.toString());
+		
+		gameTest.cb.update(new Coord(1,1), new Coord(3,1));	
+    	gameTest.setnbCoup();
+		gameTest.setTurn();
+		System.out.println(gameTest.toString());
+		
+
+		
+		
+		
+		
+		
+		
+		
+		gameTest.cb.coorPieceMovable(gameTest.whitePlayer.coordOfMyPieces,gameTest.getTurn());
+		System.out.println(gameTest.cb.getCoorPieceMovable());
+		System.out.println(gameTest.cb.board[3][0].getAllowedMove());
+		
+
+		
+		
+		
+		
+
     	
     	
     	
