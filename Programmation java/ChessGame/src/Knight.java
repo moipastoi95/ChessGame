@@ -1,29 +1,23 @@
 import java.util.HashSet;
 
-//import java.util.*;
-
 /**
- * 
+ * the Knight
  */
 public class Knight extends Piece {
-
     /**
      * Default constructor
+     * @param c the color of the Piece
+     * @param board a matrix of Piece
+     * @param cb the chessboard
      */
     public Knight(boolean c,Piece[][] board) {
     	super(c,board);
     }
-    public String toString() {
-    	if (this.getColor()==true) {
-    		return "C";
-    	}
-    	return "c";
-    }
    
     /**
-     * @param Coord 
-     * @param Coord 
-     * @return
+     * get all possible move from a Piece
+     * @param c Coord of the Piece
+     * @return a set of Coord
      */
     public HashSet<Coord> possibleMove(Coord c) {
     	HashSet<Coord> pMove = new HashSet<>();
@@ -56,12 +50,16 @@ public class Knight extends Piece {
     	
         return pMove;
     }
-
+    
     /**
-     * @param Coord 
-     * @param Coord 
-     * @return
+     * toString
+     * @return String
      */
-    //public abstract array of Coord possibleMove(void Coord, void Coord);
+    public String toString() {
+    	if (this.getColor()==true) {
+    		return "C";
+    	}
+    	return "c";
+    }
 
 }

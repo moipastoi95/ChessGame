@@ -1,47 +1,45 @@
 import java.util.HashSet;
 
-//import java.util.*;
-
 /**
- * 
+ * the King
  */
 public class King extends Piece {
+	// attributes
+    protected ChessBoard cb;
+    protected Player opponent;
+    private boolean castlingKing;
+	
 
     /**
      * Default constructor
+     * @param c the color of the Piece
+     * @param board a matrix of Piece
+     * @param cb the chessboard
      */
     public King(boolean c,Piece[][] board,ChessBoard cb) {
     	super(c,board);
-    	this.castellingKing=true;
-    	this.cb=cb;
-    }
-    public String toString() {
-    	if (this.getColor()==true) {
-    		return "K";
-    	}
-    	return "k";
+    	this.castlingKing=true;
+    	//this.cb=cb;
     }
 
     /**
-     * 
+     * getter
+     * @return true : the king didn't move; false : the king has moved
      */
-    protected ChessBoard cb;
-    protected Player opponent;
-    private boolean castellingKing;
- // vrai=le roi n'a pas encore bougé
-    //false=le roi a bougé
-
-    public boolean getCastellingKing() {
-    	return this.castellingKing;
+    public boolean getCastlingKing() {
+    	return this.castlingKing;
     }
+    /**
+     * set the king status to "has moved"
+     */
     public void setCastellingKing() {
-    	this.castellingKing=false;
+    	this.castlingKing=false;
     }
 
     /**
-     * @param Coord 
-     * @param Coord 
-     * @return
+     * get all possible move from a Piece
+     * @param c Coord of the Piece
+     * @return a set of Coord
      */
     public HashSet<Coord> possibleMove(Coord c) {
     	HashSet<Coord> pMove = new HashSet<>();
@@ -71,7 +69,7 @@ public class King extends Piece {
     	if(j-1>=0 && i-1>=0 && (board[i-1][j-1]==null || possibleOrImpossible(board[i-1][j-1]))) {
     		pMove.add(new Coord(i-1,j-1));
     	}
-    	if(getCastellingKing()) {
+    	if(getCastlingKing()) {
     		HashSet<Coord> cAttacked=new HashSet<>();
     		if(this.getColor() && board[7][1]==null && board[7][2]==null && board[7][0] instanceof Rook && ((Rook)(board[7][0])).getStatRook()) {
     			HashSet<Coord> coordPieceBlack=this.opponent.getCoordOfMyPieces();
@@ -126,12 +124,13 @@ public class King extends Piece {
     }
 
     /**
-     * @param Coord 
-     * @param Coord 
-     * @return
+     * move a Piece from a Coord to another
+     * @param startC Coord of the Piece
+     * @param finalC Coord of the final position
+     * @return eventually the Piece that has been eaten
      */
     public Piece move(Coord startC, Coord finalC) {
-    	if (getCastellingKing() && (finalC.getC()==1 && finalC.getC()==5)) {
+    	if (getCastlingKing() && (finalC.getC()==1 && finalC.getC()==5)) {
         	board[finalC.getR()][finalC.getC()]=this;
         	setCastellingKing();
         	if(finalC.getC()==1 && finalC.getR()==0) {
@@ -153,16 +152,21 @@ public class King extends Piece {
     }
 
     /**
-     * 
+     * rook in the case of a possible rook
      */
     public void castling() {
         // TODO implement here
     }
-
+    
     /**
-     * @param Coord 
-     * @param Coord 
-     * @return
+     * toString
+     * @return String
      */
+    public String toString() {
+    	if (this.getColor()==true) {
+    		return "K";
+    	}
+    	return "k";
+    }
 
 }

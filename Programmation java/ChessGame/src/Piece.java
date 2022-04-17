@@ -64,15 +64,12 @@ public abstract class Piece {
     }
     
     /**
-     * @param Piece
+     * tell if a Piece has the same color than the current Piece (useless)
+     * @param p a Piece
      * @return boolean , true=possible (to take), false=impossible
      */
     public boolean possibleOrImpossible(Piece p) {
-    	if (this.color==p.color) {
-    		return false;
-    	}else {
-    		return true;
-    	}
+    	return !(this.color==p.color);
     }
 
 	protected abstract HashSet<Coord> possibleMove(Coord coord);

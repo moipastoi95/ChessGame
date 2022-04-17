@@ -2,30 +2,40 @@
 import java.util.HashSet;
 
 /**
- * 
+ * the Rook
  */
 public class Rook extends Piece {
+	// attributes
+    boolean statRook;
 
     /**
      * Default constructor
+     * @param c color of the Piece
+     * @param board matrix of Piece
      */
     public Rook(boolean c,Piece[][] board) {
     	super(c,board);
     	this.statRook=true;
     }
-    public String toString() {
-    	if (this.getColor()==true) {
-    		return "R";
-    	}
-    	return "r";
-    }
     
-    boolean statRook;
+    /**
+     * set the rook status to "has moved"
+     */
+    public void setStatRook() {
+    	this.statRook=false;
+    }
+    /**
+     * get the status of the rook
+     * @return the rook has moved
+     */
+    public boolean getStatRook() {
+    	return this.statRook;
+    }
 
     /**
-     * @param Coord 
-     * @param Coord 
-     * @return
+     * get all possible move from a Piece
+     * @param c Coord of the Piece
+     * @return a set of Coord
      */
     public HashSet<Coord> possibleMove(Coord c) {
     	HashSet<Coord> pMove = new HashSet<>();
@@ -79,8 +89,10 @@ public class Rook extends Piece {
     }
 
     /**
-     * @param Coord 
-     * @return
+     * move a Piece from a Coord to another
+     * @param startC Coord of the Piece
+     * @param finalC Coord of the final position
+     * @return eventually the Piece that has been eaten
      */
     public Piece move(Coord startC, Coord finalC) {
     	Piece tmp=this.board[finalC.getR()][finalC.getC()];
@@ -90,11 +102,15 @@ public class Rook extends Piece {
     	return tmp;
     }
     
-    public void setStatRook() {
-    	this.statRook=false;
-    }
-    public boolean getStatRook() {
-    	return this.statRook;
+    /**
+     * toString
+     * @return String
+     */
+    public String toString() {
+    	if (this.getColor()==true) {
+    		return "R";
+    	}
+    	return "r";
     }
 
 }

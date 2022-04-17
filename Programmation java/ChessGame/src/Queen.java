@@ -1,27 +1,23 @@
-
 import java.util.*;
 
 /**
- * 
+ * the Queen
  */
 public class Queen extends Piece {
 
     /**
      * Default constructor
+     * @param c color of the Piece
+     * @param board matrix of Piece
      */
     public Queen(boolean c,Piece[][] board) {
     	super(c,board);
     }
-    public String toString() {
-    	if (this.getColor()==true) {
-    		return "Q";
-    	}
-    	return "q";
-    }
-
+ 
     /**
-     * @param Coord 
-     * @return
+     * get all possible move from a Piece
+     * @param c Coord of the Piece
+     * @return a set of Coord
      */
     public HashSet<Coord> possibleMove(Coord c) {
     	HashSet<Coord> pMove = new HashSet<>();
@@ -116,12 +112,17 @@ public class Queen extends Piece {
     	}
         return pMove;
     }
-
+    
     /**
-     * @param Coord 
-     * @param Coord 
-     * @return
+     * toString
+     * @return String
      */
-    //public abstract array of Coord possibleMove(void Coord, void Coord);
+    public String toString() {
+    	if (this.getColor()==true) {
+    		return "Q";
+    	}
+    	return "q";
+    }
+
 
 }

@@ -1,37 +1,27 @@
 import java.util.HashSet;
 
-//import java.util.*;
-
 /**
- * 
+ * the Pawn
  */
 public class Pawn extends Piece {
+	// attributes
+	// private int pawnStat;
 
-    /**
-     * Default constructor
-     */
+	/**
+    * Default constructor
+    * @param c the color of the Piece
+    * @param board a matrix of Piece
+    */
     public Pawn(boolean c,Piece[][] board) {
     	super(c,board);
     //	this.pawnStat=0;
     	
     }
-    
-    public String toString() {
-    	if (this.getColor()==true) {
-    		return "P";
-    	}
-    	return "p";
-    }
 
     /**
-     * 
-     */
-//    private int pawnStat;
-
-    /**
-     * @param Coord 
-     * @param Coord 
-     * @return
+     * get all possible move from a Piece
+     * @param c Coord of the Piece
+     * @return a set of Coord
      */
     public HashSet<Coord> possibleMove(Coord c) {
     	HashSet<Coord> pMove = new HashSet<>();
@@ -64,40 +54,42 @@ public class Pawn extends Piece {
     }
 
     /**
-     * @return
+     * promote a Pawn which reach the other side of the board
+     * @param p the Piece the Pawn will transform to
      */
- //   public void promotion() {
-        // TODO implement here
-  //      return null;
+//    public void promotion() {
+//         TODO implement here
+//        return null;
 //    }
 
     /**
-     * @return
+     * do a en Passant
      */
-  //  public void enPassant() {
-        // TODO implement here
-  //      return null;
- //   }
+//    public void enPassant() {
+//         TODO implement here
+//        return null;
+//    }
 
     /**
-     * @param Coord 
-     * @param Coord 
-     * @return
+     * move a Piece from a Coord to another
+     * @param startC Coord of the Piece
+     * @param finalC Coord of the final position
+     * @return eventually the Piece that has been eaten
      */
-//    public Piece move(void Coord, void Coord) {
-        // TODO implement here
- //       return null;
-  //  }
-
+//    public Piece move(Coord startC, Coord finalC) {
+//         TODO implement here
+//        return null;
+//    }
+    
     /**
-     * @param Coord 
-     * @param Coord 
-     * @return
+     * toString
+     * @return toString
      */
-  //  public abstract array of Coord possibleMove(void Coord, void Coord);
-
-    /**
-     * 
-     */
+    public String toString() {
+    	if (this.getColor()==true) {
+    		return "P";
+    	}
+    	return "p";
+    }
 
 }
