@@ -44,6 +44,8 @@ public class ChessBoard {
     	this.board[0][6]=new Knight(false,this);
     	this.board[0][7]=new Rook(false,this);
     	this.game=game;
+    	this.blackKingCoord=new Coord(0,3);
+    	this.whiteKingCoord=new Coord(7,3);
     	
     }
 
@@ -61,16 +63,31 @@ public class ChessBoard {
     /**
      * 
      */
-//    private Piece whiteKingPiece; 
+    private Coord whiteKingCoord; 
 
     /**
      * 
      */
-//    private Piece blackKingPiece;
+    public Coord getWhiteKingCoord() {
+    	return this.whiteKingCoord;
+    }
+    public void setWhiteKingCoord(Coord c) {
+    	this.whiteKingCoord=c;
+    }
+    private Coord blackKingCoord;
 
     /**
      * 
      */
+    public Coord getBlackKingCoord() {
+    	return this.blackKingCoord;
+    }
+    public void setBlackKingCoord(Coord c) {
+    	this.blackKingCoord=c;
+    }
+    
+    
+    
    private LinkedList<Relation> blackRelation;
 
     /**
@@ -83,7 +100,7 @@ public class ChessBoard {
      * @param hashset of Coord 
      * @return
      */
-    public void coorPieceMovable(HashSet<Coord> coords, boolean turn) {
+    public void coorPieceMovable(HashSet<Coord> coords, boolean turn) { 
         HashSet<Coord> cMovable=new HashSet<>();
     	if(turn) {
 	        for(Coord c: coords) {
@@ -91,6 +108,7 @@ public class ChessBoard {
 	        		 cMovable.add(c);
 	        	 }
 	        }
+
     	}else {
     		for(Coord c: coords) {
 	        	 if(!(this.board[c.getR()][c.getC()].allowedMove(c,this.blackRelation))) {
@@ -101,16 +119,24 @@ public class ChessBoard {
         this.coorPieceMovable=cMovable;
     }
 
-   
-
     /**
-     * @param boolean turn 
+     * @param hashset of Coord 
      * @return
      */
-  //  public boolean getKingStatus(void boolean turn) {
-        // TODO implement here
-  //      return false;
-//    }
+    public void updateCheckStatusking(HashSet<Coord> coords, boolean turn) {
+    	HashSet<Coord> allAttacked=new HashSet<>();
+    	for(Coord c: coords) {
+    		allAttacked.addAll(this.board[c.getR()][c.getC()].possibleMove(c));
+    	}
+    	if(turn && allAttacked.contains(this.getWhiteKingCoord())) {
+    		this.game.whitePlayer.setMyKingStatus(true);   		
+    	}else if((!turn) && allAttacked.contains(this.getBlackKingCoord())) {
+    		this.game.blackPlayer.setMyKingStatus(true);   		
+    	}
+    		
+    	
+    	
+    }
 
   
 
@@ -124,6 +150,7 @@ public class ChessBoard {
     	if(this.game.getTurn()) {
     		this.game.whitePlayer.coordOfMyPieces.add(finalC);
     		this.game.whitePlayer.coordOfMyPieces.remove(startC);
+    		this.game.whitePlayer.setMyKingStatus(false);
 			if (tmp!=null) {
 				this.game.blackPlayer.capturedPieces.add(tmp);
 				this.game.blackPlayer.coordOfMyPieces.remove(finalC);
@@ -131,6 +158,7 @@ public class ChessBoard {
     	}else {
     		this.game.blackPlayer.coordOfMyPieces.add(finalC);
     		this.game.blackPlayer.coordOfMyPieces.remove(startC);
+    		this.game.blackPlayer.setMyKingStatus(false);
 			if (tmp!=null) {
 				this.game.whitePlayer.capturedPieces.add(tmp);
 				this.game.whitePlayer.coordOfMyPieces.remove(finalC);
@@ -176,28 +204,28 @@ public class ChessBoard {
     	System.out.println(gameTest.toString());
     	
     	*/
-    //	gameTest.courseOfTheGame();
-    	gameTest.cb.update(new Coord(6,0), new Coord(4,0));	
+    	gameTest.courseOfTheGame();
+    /*	gameTest.cb.update(new Coord(6,5), new Coord(4,5));	
     	gameTest.setnbCoup();
 		gameTest.setTurn();
+		gameTest.cb.updateCheckStatusking(gameTest.whitePlayer.coordOfMyPieces, gameTest.getTurn());
 		System.out.println(gameTest.toString());
 		
-		gameTest.cb.update(new Coord(1,3), new Coord(3,3));	
+		gameTest.cb.update(new Coord(1,4), new Coord(3,4));	
     	gameTest.setnbCoup();
 		gameTest.setTurn();
+		gameTest.cb.updateCheckStatusking(gameTest.blackPlayer.coordOfMyPieces, gameTest.getTurn());
 		System.out.println(gameTest.toString());
 		
-		gameTest.cb.update(new Coord(4,0), new Coord(3,0));	
+		gameTest.cb.update(new Coord(7,4), new Coord(4,7));	
     	gameTest.setnbCoup();
 		gameTest.setTurn();
+		gameTest.cb.updateCheckStatusking(gameTest.whitePlayer.coordOfMyPieces, gameTest.getTurn());
 		System.out.println(gameTest.toString());
 		
-		gameTest.cb.update(new Coord(1,1), new Coord(3,1));	
-    	gameTest.setnbCoup();
-		gameTest.setTurn();
-		System.out.println(gameTest.toString());
-		
-
+//		gameTest.cb.coorPieceMovable(gameTest.whitePlayer.coordOfMyPieces,gameTest.getTurn());
+//		System.out.println(gameTest.cb.getCoorPieceMovable());
+//		System.out.println(gameTest.cb.board[3][0].getAllowedMove());
 		
 		
 		
@@ -205,9 +233,10 @@ public class ChessBoard {
 		
 		
 		
-		gameTest.cb.coorPieceMovable(gameTest.whitePlayer.coordOfMyPieces,gameTest.getTurn());
+	/*	gameTest.cb.coorPieceMovable(gameTest.whitePlayer.coordOfMyPieces,gameTest.getTurn());
 		System.out.println(gameTest.cb.getCoorPieceMovable());
 		System.out.println(gameTest.cb.board[3][0].getAllowedMove());
+		*/
 		
 
 		

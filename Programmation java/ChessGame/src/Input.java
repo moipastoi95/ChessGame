@@ -49,10 +49,30 @@ public class Input {
 		return (boolean)b;
 	}
 	
+	public static Object askIntPromotion() {
+		try {
+			@SuppressWarnings("resource")
+			Scanner sc=new Scanner(System.in);
+			System.out.println("Chose a Piece of promuting, '0'=knight, '1'=bishop, '2'=rock, all other number=Queen");
+			int nb=sc.nextInt();
+			return nb;
+		}catch(InputMismatchException e) {
+			System.out.println("this is not a number! Please retry!");
+			return null;
+		}
+	}
+	
+	public static int askValidIntPromotion() {
+		Object i=null;
+		while(i==null) {
+			i=askIntPromotion();
+		}
+		return (int)i;
+	}
 	
 	public static void main(String[] args) {
-		System.out.println(askValidCoord());
-		System.out.println(askValidYesNo());
+		System.out.println(askValidIntPromotion());
+		
 	}
 }
 

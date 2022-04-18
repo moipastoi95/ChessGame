@@ -155,11 +155,11 @@ public class Pawn extends Piece {
 				getCb().game.whitePlayer.coordOfMyPieces.remove(new Coord(finalC.getR()-1,finalC.getC()));
 			}
 		}else if(getColor() && finalC.getR()==0) {//promotion white
-			int promo=6; //ask an int with scanner for chose the new piece
+			int promo=Input.askValidIntPromotion(); //ask an int with scanner for chose the new piece
 			promotion(finalC,promo,true);
 			
 		}else if((!getColor()) && finalC.getR()==7) {//promotion
-			int promo=6; //same
+			int promo=Input.askValidIntPromotion(); //same
 			promotion(finalC,promo,false);
 		}
     	return tmp;
@@ -170,7 +170,6 @@ public class Pawn extends Piece {
      * @param Coord 
      * @return
      */
-  //  public abstract array of Coord possibleMove(void Coord, void Coord);
 
     /**
      * 

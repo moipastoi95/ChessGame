@@ -35,6 +35,7 @@ public class King extends Piece {
     	this.castellingKing=false;
     }
 
+
     /**
      * @param Coord 
      * @param Coord 
@@ -131,6 +132,11 @@ public class King extends Piece {
     	Piece tmp=this.getCb().board[finalC.getR()][finalC.getC()];
     	getCb().board[finalC.getR()][finalC.getC()]=this;
     	getCb().board[startC.getR()][startC.getC()]=null;
+    	if(this.getColor()) {
+    		getCb().setWhiteKingCoord(finalC);
+    	}else {
+    		getCb().setBlackKingCoord(finalC);
+    	}
     	if (getCastellingKing() && (finalC.getC()==1 || finalC.getC()==5)) {
         	setCastellingKing();
         	if(finalC.getC()==1 && finalC.getR()==0) {

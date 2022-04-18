@@ -101,17 +101,16 @@ public class Game {
      * @return
      */
     public int getEnd() {
-        // TODO implement here
-        return 0;
+        if(this.getTurn() && this.whitePlayer.getMyKingStatus()) {
+        	return 0;//Blackplayer win
+        }else if((!this.getTurn()) && this.blackPlayer.getMyKingStatus()) {
+        	return 1;//whiteplayer win
+        }else {
+        	return 2;//pat no winner
+        }
     }
 
-    /**
-     * @return
-     */
-    public boolean kingStatus() {
-        // TODO implement here
-        return false;
-    }
+
 
     /**
      * @param Coord 
@@ -134,12 +133,14 @@ public class Game {
     	Coord cFinal;
     	boolean b = false;
     	do {
-    		System.out.println(this.toString());
     		if(this.getTurn()) {
     			this.cb.coorPieceMovable(this.whitePlayer.coordOfMyPieces,this.getTurn());
+    			this.cb.updateCheckStatusking(this.blackPlayer.coordOfMyPieces, this.getTurn());
     		}else {
     			this.cb.coorPieceMovable(this.blackPlayer.coordOfMyPieces,this.getTurn());
+    			this.cb.updateCheckStatusking(this.whitePlayer.coordOfMyPieces, this.getTurn());
     		}
+    		System.out.println(this.toString());
     		b=false;
     		while(b==false ) { //demander si l'utilisateur veut jouer cette pièce ou selecitonner une autre pièce (boucle while)
     			System.out.println("\nCoorPieceMovable:"+this.cb.getCoorPieceMovable());
