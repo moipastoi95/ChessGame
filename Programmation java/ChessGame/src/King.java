@@ -25,8 +25,8 @@ public class King extends Piece {
      * 
      */
     private boolean castellingKing;
- // vrai=le roi n'a pas encore bougé
-    //false=le roi a bougé
+ // vrai=le roi n'a pas encore bougï¿½
+    //false=le roi a bougï¿½
 
     public boolean getCastellingKing() {
     	return this.castellingKing;
@@ -167,5 +167,4 @@ public class King extends Piece {
      * @param Coord 
      * @return
      */
-
 }

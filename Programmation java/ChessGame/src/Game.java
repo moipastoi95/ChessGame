@@ -142,12 +142,12 @@ public class Game {
     		}
     		System.out.println(this.toString());
     		b=false;
-    		while(b==false ) { //demander si l'utilisateur veut jouer cette pièce ou selecitonner une autre pièce (boucle while)
+    		while(b==false ) { //demander si l'utilisateur veut jouer cette piï¿½ce ou selecitonner une autre piï¿½ce (boucle while)
     			System.out.println("\nCoorPieceMovable:"+this.cb.getCoorPieceMovable());
     			System.out.println("What piece do you want play?");
         		cStart=Input.askValidCoord();
 
-        		try{ //elle fait avec une  exeception try catch pour voir si la coordonné selectionné correspond bien aune coord de coorPieceMovable(boucle while si non pour redemander), si ok afficher les possibilités
+        		try{ //elle fait avec une  exeception try catch pour voir si la coordonnï¿½ selectionnï¿½ correspond bien aune coord de coorPieceMovable(boucle while si non pour redemander), si ok afficher les possibilitï¿½s
         			select(cStart);
         			b=Input.askValidYesNo();
         		}catch(NotInHashSetException e){
@@ -155,14 +155,14 @@ public class Game {
         		}
     		}
     		
-    		//si le joueur veut joeur cette pièce demande coordonnée d'arrivé de la pièce selectionné
+    		//si le joueur veut joeur cette piï¿½ce demande coordonnï¿½e d'arrivï¿½ de la piï¿½ce selectionnï¿½
     		b=false;
     		while(b==false) {
     			System.out.println("Choose the final Coord for this piece?");
     			cFinal = Input.askValidCoord();
     			
     			try {
-    			    //		this.play(coordStart,coordFinal);//elle fait avec une exeception tru catch pour oir si cette coordonnée fait partie des LegalMove de la pièce de la case de départ(boucle while si non pour redemander)
+    			    //		this.play(coordStart,coordFinal);//elle fait avec une exeception tru catch pour oir si cette coordonnï¿½e fait partie des LegalMove de la piï¿½ce de la case de dï¿½part(boucle while si non pour redemander)
     	    		//Si tout est ok, prendre le deplacement pour update le board de ChessBoard
     				play(cStart,cFinal);
     				b=true;
