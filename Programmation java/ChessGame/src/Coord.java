@@ -54,5 +54,11 @@ public class Coord {
     	}
     	return false;
     }
-
+    
+    public int hashCode() {
+    	int result=17;
+    	result=37*result+this.getR();
+    	result=37*result+this.getC();
+    	return result;
+    }
 }

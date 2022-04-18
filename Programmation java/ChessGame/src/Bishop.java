@@ -11,8 +11,8 @@ public class Bishop extends Piece {
      * @param board a matrix of Piece
      * @param cb the chessboard
      */
-    public Bishop(boolean c,Piece[][] board) {
-    	super(c,board);
+    public Bishop(boolean c,ChessBoard cb) {
+    	super(c,cb);
     }
 
     /**
@@ -26,44 +26,44 @@ public class Bishop extends Piece {
     	int j=c.getC();
     	boolean b=true;
     	for (int k=i-1, l=j-1; l>=0 && k>=0 && b;k--, l--){
-    		if (board[k][l]==null) {
+    		if (this.getCb().board[k][l]==null) {
     			pMove.add(new Coord(k,l));
     		}else {
     			b=false;
-    			if (possibleOrImpossible(board[k][l])) {
+    			if (possibleOrImpossible(this.getCb().board[k][l])) {
     				pMove.add(new Coord(k,l));
     			}
     		}
     	}
     	b=true;
     	for (int k=i+1, l=j+1; l<8 && k<8 && b;k++, l++){
-    		if (board[k][l]==null) {
+    		if (this.getCb().board[k][l]==null) {
     			pMove.add(new Coord(k,l));
     		}else {
     			b=false;
-    			if (possibleOrImpossible(board[k][l])) {
+    			if (possibleOrImpossible(this.getCb().board[k][l])) {
     				pMove.add(new Coord(k,l));
     			}
     		}
     	}
     	b=true;
     	for (int k=i-1, l=j+1; l<8 && k>=0 && b;k--, l++){
-    		if (board[k][l]==null) {
+    		if (this.getCb().board[k][l]==null) {
     			pMove.add(new Coord(k,l));
     		}else {
     			b=false;
-    			if (possibleOrImpossible(board[k][l])) {
+    			if (possibleOrImpossible(this.getCb().board[k][l])) {
     				pMove.add(new Coord(k,l));
     			}
     		}
     	}
     	b=true;
     	for (int k=i+1, l=j-1; l>=0 && k<8 && b;k++, l--){
-    		if (board[k][l]==null) {
+    		if (this.getCb().board[k][l]==null) {
     			pMove.add(new Coord(k,l));
     		}else {
     			b=false;
-    			if (possibleOrImpossible(board[k][l])) {
+    			if (possibleOrImpossible(this.getCb().board[k][l])) {
     				pMove.add(new Coord(k,l));
     			}
     		}

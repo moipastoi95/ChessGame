@@ -7,18 +7,18 @@ import java.util.LinkedList;
  */
 public abstract class Piece {
 	// attributes
-    protected Piece[][] board;
+    protected ChessBoard cb;
     private boolean color;
     protected HashSet<Coord> allowedMove;
 
     /**
      * Default constructor
      * @param c boolean color of the piece (black or white)
-     * @param board a matrix of Piece
+     * @param cb the chessboard
      */
-    public Piece(boolean c, Piece[][] board) {
+    public Piece(boolean c, ChessBoard cb) {
     	this.color=c;
-    	this.board=board;
+    	this.cb=cb;
     }
     
     /**
@@ -27,6 +27,14 @@ public abstract class Piece {
      */
     public boolean getColor() {
     	return this.color;
+    }
+    
+    /**
+     * get the ChessBoard
+     * @return the Chessboard
+     */
+    public ChessBoard getCb() {
+    	return this.cb;
     }
     
     /**
@@ -44,9 +52,9 @@ public abstract class Piece {
     * @return Piece the Piece eventually eaten
     */
    public Piece move(Coord startC, Coord finalC) {
-   	Piece tmp=this.board[finalC.getR()][finalC.getC()];
-   	board[finalC.getR()][finalC.getC()]=this; 
-   	board[startC.getR()][startC.getC()]=null;
+   	Piece tmp=this.cb.board[finalC.getR()][finalC.getC()];
+   	this.cb.board[finalC.getR()][finalC.getC()]=this; 
+   	this.cb.board[startC.getR()][startC.getC()]=null;
    	return tmp;
    }
 

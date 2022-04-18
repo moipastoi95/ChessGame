@@ -60,7 +60,12 @@ public class Relation {
 	 * @return list of Coord
 	 */
 	public Coord[] getPath() {
-		return path;
+		// superficial copy, because Coord is uneditable (no setter)
+		Coord[] cTmp = new Coord[path.length-1];
+		for(int i=0; i<path.length; i++) {
+			cTmp[i] = path[i];
+		}
+		return cTmp;
 	}
 
 	/**

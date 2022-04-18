@@ -13,8 +13,8 @@ public class Rook extends Piece {
      * @param c color of the Piece
      * @param board matrix of Piece
      */
-    public Rook(boolean c,Piece[][] board) {
-    	super(c,board);
+    public Rook(boolean c,ChessBoard cb) {
+    	super(c,cb);
     	this.statRook=true;
     }
     
@@ -43,44 +43,44 @@ public class Rook extends Piece {
     	int j=c.getC();
     	boolean b=true;
     	for (int k=i-1; k>=0 && b;k--){
-    		if (board[k][j]==null) {
+    		if (this.getCb().board[k][j]==null) {
     			pMove.add(new Coord(k,j));
     		}else {
     			b=false;
-    			if (possibleOrImpossible(board[k][j])) {
+    			if (possibleOrImpossible(this.getCb().board[k][j])) {
     				pMove.add(new Coord(k,j));
     			}
     		}
     	}
     	b=true;
     	for (int k=i+1; k<8 && b;k++){
-    		if (board[k][j]==null) {
+    		if (this.getCb().board[k][j]==null) {
     			pMove.add(new Coord(k,j));
     		}else {
     			b=false;
-    			if (possibleOrImpossible(board[k][j])) {
+    			if (possibleOrImpossible(this.getCb().board[k][j])) {
     				pMove.add(new Coord(k,j));
     			}
     		}	
     	}
     	b=true;
     	for (int k=j-1; k>=0 && b;k--){
-    		if (board[i][k]==null) {
+    		if (this.getCb().board[i][k]==null) {
     			pMove.add(new Coord(i,k));
     		}else {
     			b=false;
-    			if (possibleOrImpossible(board[i][k])) {
+    			if (possibleOrImpossible(this.getCb().board[i][k])) {
     				pMove.add(new Coord(i,k));
     			}
     		}	
     	}
     	b=true;
     	for (int k=j+1; k<8 && b;k++){
-    		if (board[i][k]==null) {
+    		if (this.getCb().board[i][k]==null) {
     			pMove.add(new Coord(i,k));
     		}else {
     			b=false;
-    			if (possibleOrImpossible(board[i][k])) {
+    			if (possibleOrImpossible(this.getCb().board[i][k])) {
     				pMove.add(new Coord(i,j));
     			}
     		}	
@@ -95,9 +95,9 @@ public class Rook extends Piece {
      * @return eventually the Piece that has been eaten
      */
     public Piece move(Coord startC, Coord finalC) {
-    	Piece tmp=this.board[finalC.getR()][finalC.getC()];
-    	board[finalC.getR()][finalC.getC()]=this;
-    	board[startC.getR()][startC.getC()]=null;
+    	Piece tmp=this.getCb().board[finalC.getR()][finalC.getC()];
+    	this.getCb().board[finalC.getR()][finalC.getC()]=this;
+    	this.getCb().board[startC.getR()][startC.getC()]=null;
     	setStatRook();  	
     	return tmp;
     }
