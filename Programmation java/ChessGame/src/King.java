@@ -71,7 +71,7 @@ public class King extends Piece {
     	}
     	if(getCastellingKing()) {
     		HashSet<Coord> cAttacked=new HashSet<>();
-    		if(this.getColor() && getCb().board[7][1]==null && getCb().board[7][2]==null && getCb().board[7][0] instanceof Rook && ((Rook)(getCb().board[7][0])).getStatRook()) {
+    		if(this.getColor() && getCb().board[7][3] == null && getCb().board[7][1]==null && getCb().board[7][2]==null && getCb().board[7][0] instanceof Rook && ((Rook)(getCb().board[7][0])).getStatRook()) {
     			HashSet<Coord> coordPieceBlack=this.cb.game.blackPlayer.getCoordOfMyPieces();
     			for(Coord  s: coordPieceBlack) {
     				HashSet<Coord> tmp=new HashSet<>();
@@ -79,10 +79,10 @@ public class King extends Piece {
     				cAttacked.addAll(tmp);
     			}
     			if((!(cAttacked.contains(new Coord(7,3)))) && (!(cAttacked.contains(new Coord(7,2)))) && (!(cAttacked.contains(new Coord(7,1))))){
-    				pMove.add(new Coord(7,1));
+    				pMove.add(new Coord(7,2));
     			}
     		}
-    		if(this.getColor() && getCb().board[7][4]==null && getCb().board[7][5]==null && getCb().board[7][7] instanceof Rook && ((Rook)(getCb().board[7][7])).getStatRook()) {
+    		if(this.getColor() && getCb().board[7][5]==null && getCb().board[7][6]==null && getCb().board[7][7] instanceof Rook && ((Rook)(getCb().board[7][7])).getStatRook()) {
     			if (cAttacked.isEmpty()) {
     				HashSet<Coord> coordPieceBlack=this.cb.game.blackPlayer.getCoordOfMyPieces();
         			for(Coord  s: coordPieceBlack) {
@@ -91,11 +91,11 @@ public class King extends Piece {
         				cAttacked.addAll(tmp);
         			}
     			}
-    			if((!(cAttacked.contains(new Coord(7,3)))) && (!(cAttacked.contains(new Coord(7,4)))) && (!(cAttacked.contains(new Coord(7,5))))){
-    				pMove.add(new Coord(7,5));
+    			if((!(cAttacked.contains(new Coord(7,4)))) && (!(cAttacked.contains(new Coord(7,5)))) && (!(cAttacked.contains(new Coord(7,6))))){
+    				pMove.add(new Coord(7,6));
     			}
     		}
-    		if((!this.getColor()) && getCb().board[0][1]==null && getCb().board[0][2]==null && getCb().board[0][0] instanceof Rook && ((Rook)(getCb().board[0][0])).getStatRook()) {
+    		if((!this.getColor()) && getCb().board[0][1]==null && getCb().board[0][2]==null && getCb().board[0][3]==null && getCb().board[0][0] instanceof Rook && ((Rook)(getCb().board[0][0])).getStatRook()) {
     			HashSet<Coord> coordPieceWhite=this.cb.game.whitePlayer.getCoordOfMyPieces();
     			for(Coord  s: coordPieceWhite) {
     				HashSet<Coord> tmp=new HashSet<>();
@@ -103,10 +103,10 @@ public class King extends Piece {
     				cAttacked.addAll(tmp);
     			}
     			if((!(cAttacked.contains(new Coord(0,3)))) && (!(cAttacked.contains(new Coord(0,2)))) && (!(cAttacked.contains(new Coord(0,1))))){
-    				pMove.add(new Coord(0,1));
+    				pMove.add(new Coord(0,2));
     			}
     		}
-    		if((!this.getColor()) && getCb().board[0][4]==null && getCb().board[0][5]==null && getCb().board[0][7] instanceof Rook && ((Rook)(getCb().board[0][7])).getStatRook()) {
+    		if((!this.getColor()) && getCb().board[0][5]==null && getCb().board[0][6]==null && getCb().board[0][7] instanceof Rook && ((Rook)(getCb().board[0][7])).getStatRook()) {
     			if (cAttacked.isEmpty()) {
     				HashSet<Coord> coordPieceWhite=this.cb.game.whitePlayer.getCoordOfMyPieces();
         			for(Coord  s: coordPieceWhite) {
@@ -115,8 +115,8 @@ public class King extends Piece {
         				cAttacked.addAll(tmp);
         			}
     			}
-    			if((!(cAttacked.contains(new Coord(0,3)))) && (!(cAttacked.contains(new Coord(0,4)))) && (!(cAttacked.contains(new Coord(0,5))))){
-    				pMove.add(new Coord(0,5));
+    			if((!(cAttacked.contains(new Coord(0,4)))) && (!(cAttacked.contains(new Coord(0,5)))) && (!(cAttacked.contains(new Coord(0,6))))){
+    				pMove.add(new Coord(0,6));
     			}
     		}
     	}
