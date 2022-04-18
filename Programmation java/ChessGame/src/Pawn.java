@@ -128,18 +128,18 @@ public class Pawn extends Piece {
 		if (getPawnStat()==0) { //starterPawn if +2, possible enPassant for his opponent
 			setPawnStat(getCb().game.getnbCoup()+1);
 			if (finalC.getR()==4) {
-				if(finalC.getC()+1<8 && this.getCb().board[3][finalC.getC()+1] instanceof Pawn) {
-					((Pawn)(this.getCb().board[3][finalC.getC()+1])).setPawnStat(getCb().game.getnbCoup()+1);
-				}
-				if(finalC.getC()-1>=0 && this.getCb().board[3][finalC.getC()-1] instanceof Pawn){
-					((Pawn)(this.getCb().board[3][finalC.getC()-1])).setPawnStat(getCb().game.getnbCoup()+1);
-				}
-			}else if(finalC.getR()==3) {
-				if(finalC.getC()+1<8 && this.getCb().board[4][finalC.getC()+1] instanceof Pawn) {
-					((Pawn)(this.getCb().board[4][finalC.getC()+1])).setPawnStat(getCb().game.getnbCoup()+1);
+				if(finalC.getC()+1<8 && getCb().board[4][finalC.getC()+1] instanceof Pawn) {
+					((Pawn)(getCb().board[4][finalC.getC()+1])).setPawnStat(getCb().game.getnbCoup()+1);
 				}
 				if(finalC.getC()-1>=0 && this.getCb().board[4][finalC.getC()-1] instanceof Pawn){
 					((Pawn)(this.getCb().board[4][finalC.getC()-1])).setPawnStat(getCb().game.getnbCoup()+1);
+				}
+			}else if(finalC.getR()==3) {
+				if(finalC.getC()+1<8 && getCb().board[3][finalC.getC()+1] instanceof Pawn) {
+					((Pawn)(getCb().board[3][finalC.getC()+1])).setPawnStat(getCb().game.getnbCoup()+1);
+				}
+				if(finalC.getC()-1>=0 && getCb().board[3][finalC.getC()-1] instanceof Pawn){
+					((Pawn)(getCb().board[3][finalC.getC()-1])).setPawnStat(getCb().game.getnbCoup()+1);
 				}
 			}
     		
@@ -154,11 +154,11 @@ public class Pawn extends Piece {
 				getCb().game.whitePlayer.coordOfMyPieces.remove(new Coord(finalC.getR()-1,finalC.getC()));
 			}
 		}else if(getColor() && finalC.getR()==0) {//promotion white
-			int promo=6; //ask an int with scanner for chose the new piece
+			int promo=Input.askValidIntPromotion(); //ask an int with scanner for chose the new piece
 			promotion(finalC,promo,true);
 			
 		}else if((!getColor()) && finalC.getR()==7) {//promotion
-			int promo=6; //same
+			int promo=Input.askValidIntPromotion(); //same
 			promotion(finalC,promo,false);
 		}
     	return tmp;

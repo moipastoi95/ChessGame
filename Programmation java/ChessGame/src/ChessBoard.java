@@ -13,6 +13,8 @@ public class ChessBoard {
 //	private Piece blackKingPiece;
 	private LinkedList<Relation> blackRelation;
 	private LinkedList<Relation> whiteRelation;
+	private Coord blackKingCoord;
+	private Coord whiteKingCoord;
 
 	/**
 	 * Default constructor
@@ -40,20 +42,22 @@ public class ChessBoard {
 		this.board[7][0] = new Rook(true, this);
 		this.board[7][1] = new Knight(true, this);
 		this.board[7][2] = new Bishop(true, this);
-		this.board[7][3] = new King(true, this);
-		this.board[7][4] = new Queen(true, this);
+		this.board[7][3] = new Queen(true, this);
+		this.board[7][4] = new King(true, this);
 		this.board[7][5] = new Bishop(true, this);
 		this.board[7][6] = new Knight(true, this);
 		this.board[7][7] = new Rook(true, this);
 		this.board[0][0] = new Rook(false, this);
 		this.board[0][1] = new Knight(false, this);
 		this.board[0][2] = new Bishop(false, this);
-		this.board[0][4] = new Queen(false, this);
-		this.board[0][3] = new King(false, this);
+		this.board[0][4] = new King(false, this);
+		this.board[0][3] = new Queen(false, this);
 		this.board[0][5] = new Bishop(false, this);
 		this.board[0][6] = new Knight(false, this);
 		this.board[0][7] = new Rook(false, this);
 		this.game = game;
+		this.blackKingCoord = new Coord(0, 3);
+		this.whiteKingCoord = new Coord(7, 3);
 
 	}
 
@@ -91,6 +95,49 @@ public class ChessBoard {
 //	 return false;
 //    }
 
+	public Coord getWhiteKingCoord() {
+		return this.whiteKingCoord;
+	}
+
+	public void setWhiteKingCoord(Coord c) {
+		this.whiteKingCoord = c;
+	}
+
+	/**
+	 * 
+	 */
+	public Coord getBlackKingCoord() {
+		return this.blackKingCoord;
+	}
+
+	public void setBlackKingCoord(Coord c) {
+		this.blackKingCoord = c;
+	}
+
+	/**
+	 * getter
+	 * @return all the pieces that could be moved
+	 */
+	public HashSet<Coord> getCoorPieceMovable() {
+		return this.coorPieceMovable;
+	}
+	
+	/**
+	 * @param hashset of Coord
+	 * @return
+	 */
+	public void updateCheckStatusking(HashSet<Coord> coords, boolean turn) {
+		HashSet<Coord> allAttacked = new HashSet<>();
+		for (Coord c : coords) {
+			allAttacked.addAll(this.board[c.getR()][c.getC()].possibleMove(c));
+		}
+		if (turn && allAttacked.contains(this.getWhiteKingCoord())) {
+			this.game.whitePlayer.setMyKingStatus(true);
+		} else if ((!turn) && allAttacked.contains(this.getBlackKingCoord())) {
+			this.game.blackPlayer.setMyKingStatus(true);
+		}
+	}
+
 	/**
 	 * @param Coord
 	 * @param Coord
@@ -101,6 +148,7 @@ public class ChessBoard {
 		if (this.game.getTurn()) {
 			this.game.whitePlayer.coordOfMyPieces.add(finalC);
 			this.game.whitePlayer.coordOfMyPieces.remove(startC);
+			this.game.whitePlayer.setMyKingStatus(false);
 			if (tmp != null) {
 				this.game.blackPlayer.capturedPieces.add(tmp);
 				this.game.blackPlayer.coordOfMyPieces.remove(finalC);
@@ -108,18 +156,12 @@ public class ChessBoard {
 		} else {
 			this.game.blackPlayer.coordOfMyPieces.add(finalC);
 			this.game.blackPlayer.coordOfMyPieces.remove(startC);
+			this.game.blackPlayer.setMyKingStatus(false);
 			if (tmp != null) {
 				this.game.whitePlayer.capturedPieces.add(tmp);
 				this.game.whitePlayer.coordOfMyPieces.remove(finalC);
 			}
 		}
-	}
-
-	/**
-	 * @return
-	 */
-	public HashSet<Coord> getCoorPieceMovable() {
-		return this.coorPieceMovable;
 	}
 
 	public String toString() {
@@ -141,26 +183,6 @@ public class ChessBoard {
 	}
 
 	public static void main(String[] args) {
-		/*
-		 * System.out.println(gameTest.cb.toString()); HashSet<Coord>
-		 * pMove=cb.board[0][0].possibleMove(new Coord(0,0),cb);
-		 * System.out.println(pMove); cb.board[2][0]=new Rook(true);
-		 * System.out.println(cb.toString()); HashSet<Coord>
-		 * pMove1=cb.board[2][0].possibleMove(new Coord(2,0),cb);
-		 * System.out.println(pMove1); cb.board[4][3]=new Queen(false);
-		 * System.out.println(cb.toString()); HashSet<Coord>
-		 * pMove2=cb.board[4][3].possibleMove(new Coord(4,3),cb);
-		 * System.out.println(pMove2); cb.board[4][4]=new Bishop(true);
-		 * System.out.println(cb.toString()); HashSet<Coord>
-		 * pMove3=cb.board[4][4].possibleMove(new Coord(4,4),cb);
-		 * System.out.println(pMove3); cb.board[3][7]=new Knight(true);
-		 * System.out.println(cb.toString()); HashSet<Coord>
-		 * pMove4=cb.board[3][7].possibleMove(new Coord(3,7),cb);
-		 * System.out.println(pMove4); cb.board[4][6]=new King(false);
-		 * System.out.println(cb.toString()); HashSet<Coord>
-		 * pMove5=cb.board[4][6].possibleMove(new Coord(4,6),cb);
-		 * System.out.println(pMove5);
-		 */
 		Game gameTest = new Game();
 		/*
 		 * System.out.println(gameTest.toString());
@@ -177,6 +199,38 @@ public class ChessBoard {
 		 * 
 		 */
 		gameTest.courseOfTheGame();
+		/*
+		 * gameTest.cb.update(new Coord(6,5), new Coord(4,5)); gameTest.setnbCoup();
+		 * gameTest.setTurn();
+		 * gameTest.cb.updateCheckStatusking(gameTest.whitePlayer.coordOfMyPieces,
+		 * gameTest.getTurn()); System.out.println(gameTest.toString());
+		 * 
+		 * gameTest.cb.update(new Coord(1,4), new Coord(3,4)); gameTest.setnbCoup();
+		 * gameTest.setTurn();
+		 * gameTest.cb.updateCheckStatusking(gameTest.blackPlayer.coordOfMyPieces,
+		 * gameTest.getTurn()); System.out.println(gameTest.toString());
+		 * 
+		 * gameTest.cb.update(new Coord(7,4), new Coord(4,7)); gameTest.setnbCoup();
+		 * gameTest.setTurn();
+		 * gameTest.cb.updateCheckStatusking(gameTest.whitePlayer.coordOfMyPieces,
+		 * gameTest.getTurn()); System.out.println(gameTest.toString());
+		 * 
+		 * //
+		 * gameTest.cb.coorPieceMovable(gameTest.whitePlayer.coordOfMyPieces,gameTest.
+		 * getTurn()); // System.out.println(gameTest.cb.getCoorPieceMovable()); //
+		 * System.out.println(gameTest.cb.board[3][0].getAllowedMove());
+		 * 
+		 * 
+		 * 
+		 * 
+		 * 
+		 * 
+		 * 
+		 * /*
+		 * gameTest.cb.coorPieceMovable(gameTest.whitePlayer.coordOfMyPieces,gameTest.
+		 * getTurn()); System.out.println(gameTest.cb.getCoorPieceMovable());
+		 * System.out.println(gameTest.cb.board[3][0].getAllowedMove());
+		 */
 
 	}
 }
