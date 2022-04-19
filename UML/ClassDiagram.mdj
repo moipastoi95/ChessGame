@@ -1136,7 +1136,7 @@
 											"top": 483,
 											"width": 329.86865234375,
 											"height": 13,
-											"text": "+castling()",
+											"text": "+castling(): void",
 											"horizontalAlignment": 0
 										}
 									],
@@ -2736,7 +2736,7 @@
 											"top": 183,
 											"width": 316.88134765625,
 											"height": 13,
-											"text": "+coorPieceMovable(hashset of Coord): void",
+											"text": "+coorPieceMovable(hashset of Coord): boolean",
 											"horizontalAlignment": 0
 										},
 										{
@@ -5005,7 +5005,18 @@
 							"_parent": {
 								"$ref": "AAAAAAF/sPrkoJlNZao="
 							},
-							"name": "castling"
+							"name": "castling",
+							"parameters": [
+								{
+									"_type": "UMLParameter",
+									"_id": "AAAAAAGAQdOmeYlXt3w=",
+									"_parent": {
+										"$ref": "AAAAAAGABAce09EPfqg="
+									},
+									"type": "void",
+									"direction": "return"
+								}
+							]
 						}
 					]
 				},
@@ -5508,7 +5519,7 @@
 									"_parent": {
 										"$ref": "AAAAAAF/1TzxGGRqOvY="
 									},
-									"type": "void",
+									"type": "boolean",
 									"direction": "return"
 								},
 								{
@@ -5517,8 +5528,7 @@
 									"_parent": {
 										"$ref": "AAAAAAF/1TzxGGRqOvY="
 									},
-									"name": "hashset of Coord",
-									"type": ""
+									"name": "hashset of Coord"
 								}
 							]
 						},
