@@ -56,9 +56,9 @@ public abstract class Piece {
 	 * @return Piece the Piece eventually eaten
 	 */
 	public Piece move(Coord startC, Coord finalC) {
-		Piece tmp = this.cb.board[finalC.getR()][finalC.getC()];
-		this.cb.board[finalC.getR()][finalC.getC()] = this;
-		this.cb.board[startC.getR()][startC.getC()] = null;
+		Piece tmp = this.getCb().board[finalC.getR()][finalC.getC()];
+		this.getCb().board[finalC.getR()][finalC.getC()] = this;
+		this.getCb().board[startC.getR()][startC.getC()] = null;
 		return tmp;
 	}
 
