@@ -74,13 +74,13 @@ public class ChessBoard {
 		HashSet<Coord> cMovable = new HashSet<>();
 		if (turn) {
 			for (Coord c : coords) {
-				if (!(this.board[c.getR()][c.getC()].allowedMove(c, this.whiteRelation))) {
+				if (this.board[c.getR()][c.getC()].allowedMove(c, this.whiteRelation)) {
 					cMovable.add(c);
 				}
 			}
 		} else {
 			for (Coord c : coords) {
-				if (!(this.board[c.getR()][c.getC()].allowedMove(c, this.blackRelation))) {
+				if (this.board[c.getR()][c.getC()].allowedMove(c, this.blackRelation)) {
 					cMovable.add(c);
 				}
 			}
