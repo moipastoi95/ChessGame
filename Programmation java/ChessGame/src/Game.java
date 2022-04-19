@@ -136,16 +136,17 @@ public class Game {
 			}
 			System.out.println(this.toString());
 			b = false;
-			while (b == false) { // demander si l'utilisateur veut jouer cette piï¿½ce ou selecitonner une autre
-									// piï¿½ce (boucle while)
+			while (b == false) { // demander si l'utilisateur veut jouer cette pièce ou selecitonner une autre
+									// pièce (boucle while)
 				System.out.println("\nCoorPieceMovable:" + this.cb.getCoorPieceMovable());
 				System.out.println("What piece do you want play?");
 				cStart = Input.askValidCoord();
 
-				try { // elle fait avec une exeception try catch pour voir si la coordonnï¿½
-						// selectionnï¿½ correspond bien aune coord de coorPieceMovable(boucle while si
-						// non pour redemander), si ok afficher les possibilitï¿½s
-					select(cStart);
+				try { // elle fait avec une exeception try catch pour voir si la coordonné
+						// selectionné correspond bien aune coord de coorPieceMovable(boucle while si
+						// non pour redemander), si ok afficher les possibilités
+					HashSet<Coord> selection = select(cStart);
+					System.out.println(selection);
 					b = Input.askValidYesNo();
 				} catch (NotInHashSetException e) {
 					System.out.println(e.getMessage());
