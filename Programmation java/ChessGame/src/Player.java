@@ -29,14 +29,14 @@ public class Player {
     				this.coordOfMyPieces.add(new Coord(i,j));
     			}
     		}
-    		//ajouter les 16 case de dï¿½but des blancs
+    		//ajouter les 16 cases de début des blancs
     	}else {
     		for(int i=0;i<2;i++) {
     			for(int j=0;j<8;j++) {
     				this.coordOfMyPieces.add(new Coord(i,j));
     			}
     		}  		
-    		//ajouter les 16 cases de dï¿½but des noirs
+    		//ajouter les 16 cases de début des noirs
     	}
     	this.game=game;
     }
@@ -75,7 +75,7 @@ public class Player {
     	return affichage;  	
     }
     
-    private boolean MyKingStatus; //true=roi en ï¿½chec,  false=safe
+    private boolean MyKingStatus; //true=roi en échec,  false=safe
     public boolean getMyKingStatus() {
     	return this.MyKingStatus;
     }

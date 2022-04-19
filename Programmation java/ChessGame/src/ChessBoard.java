@@ -58,6 +58,9 @@ public class ChessBoard {
 		this.game = game;
 		this.blackKingCoord = new Coord(0, 3);
 		this.whiteKingCoord = new Coord(7, 3);
+		
+		blackRelation = new LinkedList<Relation>();
+		whiteRelation = new LinkedList<Relation>();
 
 	}
 

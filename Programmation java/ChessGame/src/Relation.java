@@ -1,4 +1,4 @@
-import java.util.Arrays;
+import java.util.HashSet;
 
 /**
  * Define the relation between a Piece and a King
@@ -7,7 +7,7 @@ public class Relation {
 	// attributes
     private int degre;
     private Piece piece;
-    private Coord[] path;
+    private HashSet<Coord> path;
 
     /**
      * Default constructor
@@ -15,7 +15,7 @@ public class Relation {
      * @param piece the piece concerned
      * @param path the list of Coord between the piece and the king
      */
-	public Relation(int degre, Piece piece, Coord[] path) {
+	public Relation(int degre, Piece piece, HashSet<Coord> path) {
 		super();
 		this.degre = degre;
 		this.piece = piece;
@@ -59,11 +59,11 @@ public class Relation {
 	 * get the path
 	 * @return list of Coord
 	 */
-	public Coord[] getPath() {
+	public HashSet<Coord> getPath() {
 		// superficial copy, because Coord is uneditable (no setter)
-		Coord[] cTmp = new Coord[path.length-1];
-		for(int i=0; i<path.length; i++) {
-			cTmp[i] = path[i];
+		HashSet<Coord> cTmp = new HashSet<Coord>();
+		for(Coord c : path) {
+			cTmp.add(c);
 		}
 		return cTmp;
 	}
@@ -72,7 +72,7 @@ public class Relation {
 	 * set the path
 	 * @param path list of Coord
 	 */
-	public void setPath(Coord[] path) {
+	public void setPath(HashSet<Coord> path) {
 		this.path = path;
 	}
 
@@ -85,16 +85,11 @@ public class Relation {
 	public boolean equals(Object obj) {
 		if (obj instanceof Relation) {
 			Relation r = (Relation) obj;
-			if (this.getPath().length != r.getPath().length) {
+			if (this.getPath().size() != r.getPath().size()) {
 				return false;
 			}
-			for(int i=0; i<r.getPath().length; i++) {
-				if (!r.getPath()[i].equals(this.getPath()[i])) {
-					return false;
-				}
-			}
 			// we have to compare the reference of the Piece object
-			return r.getPiece() == this.getPiece() && this.getDegre() == this.getDegre();
+			return r.getPath().equals(this.getPath()) && r.getPiece() == this.getPiece() && this.getDegre() == this.getDegre();
 		}
 		return false;
 	}
@@ -105,7 +100,7 @@ public class Relation {
 	 */
 	@Override
 	public String toString() {
-		return "Relation [degre=" + degre + ", piece=" + piece + ", path=" + Arrays.toString(path) + "]";
+		return "Relation [degre=" + degre + ", piece=" + piece + ", path=" + path.toString() + "]";
 	}
 
 }
