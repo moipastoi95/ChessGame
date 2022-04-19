@@ -44,8 +44,8 @@ public class ChessBoard {
     	this.board[0][6]=new Knight(false,this);
     	this.board[0][7]=new Rook(false,this);
     	this.game=game;
-    	this.blackKingCoord=new Coord(0,3);
-    	this.whiteKingCoord=new Coord(7,3);
+    	this.blackKingCoord=new Coord(0,4);
+    	this.whiteKingCoord=new Coord(7,4);
     	
     }
 
@@ -125,8 +125,20 @@ public class ChessBoard {
      */
     public void updateCheckStatusking(HashSet<Coord> coords, boolean turn) {
     	HashSet<Coord> allAttacked=new HashSet<>();
-    	for(Coord c: coords) {
-    		allAttacked.addAll(this.board[c.getR()][c.getC()].possibleMove(c));
+    	if(turn) {
+    		for(Coord c: coords) {
+	    		if(!c.equals(this.getBlackKingCoord())) {
+	    			allAttacked.addAll(this.board[c.getR()][c.getC()].possibleMove(c));
+	    		}  		
+    		}
+    	
+    	}
+    	else {
+    		for(Coord c: coords) {
+        		if(!c.equals(this.getWhiteKingCoord())) {
+        			allAttacked.addAll(this.board[c.getR()][c.getC()].possibleMove(c));
+        		}
+    		}
     	}
     	if(turn && allAttacked.contains(this.getWhiteKingCoord())) {
     		this.game.whitePlayer.setMyKingStatus(true);   		
