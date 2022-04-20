@@ -1,8 +1,8 @@
-<<<<<<< HEAD
+
 import java.util.HashSet;
-=======
+
 import java.util.*;
->>>>>>> Alim
+
 
 /**
  * Define the relation between a Piece and a King
