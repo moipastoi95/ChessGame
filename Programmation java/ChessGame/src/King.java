@@ -72,8 +72,12 @@ public class King extends Piece {
     	}
     	if(getCastlingKing()) {
     		HashSet<Coord> cAttacked=new HashSet<>();
+<<<<<<< HEAD
     		
     		if(this.getColor() && getCb().board[7][3] == null && getCb().board[7][1]==null && getCb().board[7][2]==null && getCb().board[7][0] instanceof Rook && ((Rook)(getCb().board[7][0])).getStatRook()) {
+=======
+    		if(this.getColor() && this.cb.game.getTurn() && getCb().board[7][5]==null && getCb().board[7][6]==null && getCb().board[7][7] instanceof Rook && ((Rook)(getCb().board[7][7])).getStatRook()) {
+>>>>>>> Alim
     			HashSet<Coord> coordPieceBlack=this.cb.game.blackPlayer.getCoordOfMyPieces();
     			for(Coord  s: coordPieceBlack) {
     				if(!s.equals(this.cb.getBlackKingCoord())) {
@@ -82,11 +86,19 @@ public class King extends Piece {
 	    				cAttacked.addAll(tmp);
     				}
     			}
+<<<<<<< HEAD
     			if((!(cAttacked.contains(new Coord(7,3)))) && (!(cAttacked.contains(new Coord(7,2)))) && (!(cAttacked.contains(new Coord(7,4))))){
     				pMove.add(new Coord(7,2));
     			}
     		}
     		if(this.getColor() && getCb().board[7][5]==null && getCb().board[7][6]==null && getCb().board[7][7] instanceof Rook && ((Rook)(getCb().board[7][7])).getStatRook()) {
+=======
+    			if((!(cAttacked.contains(new Coord(7,4)))) && (!(cAttacked.contains(new Coord(7,5)))) && (!(cAttacked.contains(new Coord(7,6))))){
+    				pMove.add(new Coord(7,6));
+    			}
+    		}
+    		if(this.getColor() && this.cb.game.getTurn() && getCb().board[7][3]==null && getCb().board[7][2]==null && getCb().board[7][0] instanceof Rook && ((Rook)(getCb().board[7][0])).getStatRook()) {
+>>>>>>> Alim
     			if (cAttacked.isEmpty()) {
     				HashSet<Coord> coordPieceBlack=this.cb.game.blackPlayer.getCoordOfMyPieces();
     				
@@ -98,11 +110,19 @@ public class King extends Piece {
         				}
         			}
     			}
+<<<<<<< HEAD
     			if((!(cAttacked.contains(new Coord(7,4)))) && (!(cAttacked.contains(new Coord(7,5)))) && (!(cAttacked.contains(new Coord(7,6))))){
     				pMove.add(new Coord(7,6));
     			}
     		}
     		if((!this.getColor()) && getCb().board[0][1]==null && getCb().board[0][2]==null && getCb().board[0][3]==null && getCb().board[0][0] instanceof Rook && ((Rook)(getCb().board[0][0])).getStatRook()) {
+=======
+    			if((!(cAttacked.contains(new Coord(7,4)))) && (!(cAttacked.contains(new Coord(7,3)))) && (!(cAttacked.contains(new Coord(7,2))))){
+    				pMove.add(new Coord(7,2));
+    			}
+    		}
+    		if((!this.getColor()) && !(this.cb.game.getTurn()) && getCb().board[0][2]==null && getCb().board[0][3]==null && getCb().board[0][0] instanceof Rook && ((Rook)(getCb().board[0][0])).getStatRook()) {
+>>>>>>> Alim
     			HashSet<Coord> coordPieceWhite=this.cb.game.whitePlayer.getCoordOfMyPieces();
     			for(Coord  s: coordPieceWhite) {
     				if(!s.equals(this.cb.getWhiteKingCoord())){
@@ -115,7 +135,11 @@ public class King extends Piece {
     				pMove.add(new Coord(0,2));
     			}
     		}
+<<<<<<< HEAD
     		if((!this.getColor()) && getCb().board[0][5]==null && getCb().board[0][6]==null && getCb().board[0][7] instanceof Rook && ((Rook)(getCb().board[0][7])).getStatRook()) {
+=======
+    		if((!this.getColor()) && !(this.cb.game.getTurn()) && getCb().board[0][5]==null && getCb().board[0][6]==null && getCb().board[0][7] instanceof Rook && ((Rook)(getCb().board[0][7])).getStatRook()) {
+>>>>>>> Alim
     			if (cAttacked.isEmpty()) {
     				HashSet<Coord> coordPieceWhite=this.cb.game.whitePlayer.getCoordOfMyPieces();
         			for(Coord  s: coordPieceWhite) {
@@ -149,11 +173,19 @@ public class King extends Piece {
     	}else {
     		getCb().setBlackKingCoord(finalC);
     	}
+<<<<<<< HEAD
     	if (getCastlingKing() && (finalC.getC()==2 || finalC.getC()==6)) {
         	setCastellingKing();
         	if(finalC.getC()==2 && finalC.getR()==0) {
         		getCb().update(new Coord(0,0), new Coord(0,3));
         	}else if(finalC.getC()==2 && finalC.getR()==7){
+=======
+    	if (getCastellingKing() && (finalC.getC()==2 || finalC.getC()==6)) {
+        	setCastellingKing();
+        	if(finalC.getC()==2 && finalC.getR()==0) {
+        		getCb().update(new Coord(0,0), new Coord(0,3));
+        	}else if(finalC.getC()==2 && finalC.getR()==7) {
+>>>>>>> Alim
         		getCb().update(new Coord(7,0), new Coord(7,3));
         	}else if(finalC.getC()==6 && finalC.getR()==0) {
         		getCb().update(new Coord(0,7), new Coord(0,5));
