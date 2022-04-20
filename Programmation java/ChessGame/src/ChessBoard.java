@@ -48,7 +48,7 @@ public class ChessBoard {
     	this.whiteKingCoord=new Coord(7,4);
     	
     }
-
+    private static int configBoard;
     public Game game;
     /**
      * 
@@ -86,7 +86,15 @@ public class ChessBoard {
     	this.blackKingCoord=c;
     }
     
-    
+    /**
+     * 
+     */
+    public static void setConfigBoard(int newConfig) {
+    	configBoard=newConfig;
+    }
+    public static int getConfigBoard() {
+    	return configBoard;
+    }
     
    private LinkedList<Relation> blackRelation;
 
@@ -173,7 +181,7 @@ public class ChessBoard {
     	return this.coorPieceMovable;
     }
     
-    public String toString() {
+/*    public String toString() {
     	String affichageDuPauvre="    ";
     	for (int i=0; i<8; i++) {
     		affichageDuPauvre=affichageDuPauvre+i+"   " ;
@@ -188,7 +196,52 @@ public class ChessBoard {
     		
     	}
     	return affichageDuPauvre;	
-    }
+    } */
+    
+    public String toString() {
+    	String affichage="    ";
+    	switch(ChessBoard.getConfigBoard()) {
+    	case 0:
+        	for (int i=0; i<8; i++) {
+        		affichage=affichage+i+"   " ;
+        	}
+        	affichage=affichage+"\n  +---+---+---+---+---+---+---+---+\n";
+        	for(int i=0; i<8;i++) {
+        		affichage=affichage+i+" |";
+        		for(int j=0; j<8; j++) {
+        			affichage=(board[i][j]==null? affichage+"   |" : affichage+" "+board[i][j].toString()+" |");
+        		}
+        		affichage=affichage+"\n  +---+---+---+---+---+---+---+---+\n";
+        		
+        	}
+        	break;
+    	case 1:
+        	affichage=affichage+"\n  +---+---+---+---+---+---+---+---+\n";
+        	for(int i=7; i>=0;i--) {   		
+        		affichage=affichage+(8-i)+" |";
+        		for(int j=7; j>=0; j--) {
+        			affichage=(board[i][j]==null? affichage+"   |" : affichage+" "+board[i][j].toString()+" |");
+        		}
+        		affichage=affichage+"\n  +---+---+---+---+---+---+---+---+\n";	
+        	}
+        	affichage+="   h   g   f   e   d   c   b   a";
+        	break;
+    	default:
+    		affichage+="a   b   c   d   e   f   g   h";
+        	affichage=affichage+"\n  +---+---+---+---+---+---+---+---+\n";
+        	for(int i=0; i<8;i++) {   		
+        		affichage=affichage+(8-i)+" |";
+        		for(int j=0; j<8; j++) {
+        			affichage=(board[i][j]==null? affichage+"   |" : affichage+" "+board[i][j].toString()+" |");
+        		}
+        		affichage=affichage+"\n  +---+---+---+---+---+---+---+---+\n";	
+        	}
+        	break;
+    	}
+    	return affichage;
+    } 
+    
+    
     public static void main(String[] args) {
     	Game gameTest=new Game();
   /*  	System.out.println(gameTest.toString());
@@ -204,6 +257,7 @@ public class ChessBoard {
     	System.out.println(gameTest.toString());
     	
     	*/
+    	ChessBoard.setConfigBoard(1);
     	gameTest.courseOfTheGame();
     /*	gameTest.cb.update(new Coord(6,5), new Coord(4,5));	
     	gameTest.setnbCoup();

@@ -73,7 +73,7 @@ public abstract class Piece {
 		// get all the possible move for possibleMove
 		HashSet<Coord> aMove = new HashSet<>();
 		aMove = possibleMove(c);
-
+/*
 		// if the King want to move, different treatment
 		if (this.getCb().board[c.getR()][c.getC()] instanceof King) {
 			// check if each allowed move from other pieces reach every future position of
@@ -131,11 +131,11 @@ public abstract class Piece {
 					}
 				}
 			}
-		}
+		} */
 
 		this.allowedMove = aMove;
-		return !aMove.isEmpty();
-	}
+		return aMove.isEmpty();
+	} 
 
 	/**
 	 * tell if a Piece has the same color than the current Piece (useless)

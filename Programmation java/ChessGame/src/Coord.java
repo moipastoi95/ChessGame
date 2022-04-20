@@ -39,8 +39,44 @@ public class Coord {
      * @return String
      */
     public String toString() {
-    	return "("+this.getR()+","+this.getC()+")";
-    }
+    	if(ChessBoard.getConfigBoard()==0) {
+    		return "("+this.getR()+","+this.getC()+")";
+    	}
+    	else {
+    		int i=8-this.getR();
+        	String l = null;
+        	switch (this.getC()) {
+        	case 0:
+        		l="a";
+        		break;
+        	case 1:
+        		l="b";
+        		break;
+        	case 2:
+        		l="c";
+        		break;
+        	case 3:
+        		l="d";
+        		break;
+        	case 4:
+        		l="e";
+        		break;
+        	case 5:
+        		l="f";
+        		break;
+        	case 6:
+        		l="g";
+        		break;
+        	default:
+        		l="h";
+        		break;
+        		
+        	}
+        	return l+i;
+    	}
+    } 
+    
+
     
     /**
      * check of two coordinates are equals
