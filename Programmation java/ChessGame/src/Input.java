@@ -85,9 +85,9 @@ public class Input {
 		try {
 			@SuppressWarnings("resource")
 			Scanner sc=new Scanner(System.in);
-			System.out.println("Do you want play this piece? Answer 'Y'for yes  or 'N' for No");
-			String answer=sc.next("[YN]");
-			return answer.equals("Y");
+			System.out.println("Do you want play this piece? Answer 'y' for yes  or 'n' for No");
+			String answer=sc.next("[yn]");
+			return answer.equals("y");
 			
 		}catch(InputMismatchException e){
 			System.out.println("Forme non valide");

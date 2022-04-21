@@ -111,10 +111,13 @@ public class Game {
 	 */
 	public int getEnd() {
 		if (this.getTurn() && this.whitePlayer.getMyKingStatus()) {
+			System.out.println("Well play, blackplayer win the game!");
 			return 0;// Blackplayer win
 		} else if ((!this.getTurn()) && this.blackPlayer.getMyKingStatus()) {
+			System.out.println("Well play, whiteplayer win the game!");
 			return 1;// whiteplayer win
 		} else {
+			System.out.println("No winner, pat");
 			return 2;// pat no winner
 		}
 	}
@@ -126,14 +129,14 @@ public class Game {
 		Coord cStart = null;
 		Coord cFinal;
 		boolean b = false;
-		do {
-			if (this.getTurn()) {
-				this.cb.coorPieceMovable(this.whitePlayer.coordOfMyPieces, this.getTurn());
-				this.cb.updateCheckStatusking(this.blackPlayer.coordOfMyPieces, this.getTurn());
-			} else {
-				this.cb.coorPieceMovable(this.blackPlayer.coordOfMyPieces, this.getTurn());
-				this.cb.updateCheckStatusking(this.whitePlayer.coordOfMyPieces, this.getTurn());
-			}
+		if (this.getTurn()) {
+			this.cb.coorPieceMovable(this.whitePlayer.coordOfMyPieces, this.getTurn());
+			this.cb.updateCheckStatusking(this.blackPlayer.coordOfMyPieces, this.getTurn());
+		} else {
+			this.cb.coorPieceMovable(this.blackPlayer.coordOfMyPieces, this.getTurn());
+			this.cb.updateCheckStatusking(this.whitePlayer.coordOfMyPieces, this.getTurn());
+		}
+		while (!(this.cb.getCoorPieceMovable().isEmpty())) {
 			System.out.println(this.toString());
 			b = false;
 			while (b == false) { // demander si l'utilisateur veut jouer cette pièce ou selecitonner une autre
@@ -174,7 +177,14 @@ public class Game {
 			}
 			this.setnbCoup();
 			this.setTurn();
-		} while (!(this.cb.getCoorPieceMovable().isEmpty()));
+			if (this.getTurn()) {
+				this.cb.coorPieceMovable(this.whitePlayer.coordOfMyPieces, this.getTurn());
+				this.cb.updateCheckStatusking(this.blackPlayer.coordOfMyPieces, this.getTurn());
+			} else {
+				this.cb.coorPieceMovable(this.blackPlayer.coordOfMyPieces, this.getTurn());
+				this.cb.updateCheckStatusking(this.whitePlayer.coordOfMyPieces, this.getTurn());
+			}
+		}
 		return this.getEnd();
 	}
 

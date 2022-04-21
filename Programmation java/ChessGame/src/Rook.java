@@ -81,7 +81,7 @@ public class Rook extends Piece {
     		}else {
     			b=false;
     			if (possibleOrImpossible(this.getCb().board[i][k])) {
-    				pMove.add(new Coord(i,j));
+    				pMove.add(new Coord(i,k));
     			}
     		}	
     	}  

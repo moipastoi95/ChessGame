@@ -101,6 +101,7 @@ public class Pawn extends Piece {
     		break;
     	case 2:
     		this.getCb().board[finalC.getR()][finalC.getC()]=new Rook(color,this.getCb());
+    		((Rook)(this.getCb().board[finalC.getR()][finalC.getC()])).setStatRook();
     		break;
     	default:
     		this.getCb().board[finalC.getR()][finalC.getC()]=new Queen(color,this.getCb());
@@ -163,7 +164,48 @@ public class Pawn extends Piece {
 		}
     	return tmp;
     }
+    
+    /**
+	 * Different implementation to move
+	 * 
+	 * @param startC Coord of the Piece to move
+	 * @param finalC Coord of the final position
+	 * @return Piece the Piece eventually eaten
+	 */
+	public Piece moveForAllowedMove(Coord startC, Coord finalC) {
+		Piece tmp = this.getCb().board[finalC.getR()][finalC.getC()];
+		this.getCb().board[finalC.getR()][finalC.getC()] = this;
+		this.getCb().board[startC.getR()][startC.getC()] = null;
+		if (tmp==null && startC.getC()!=finalC.getC()){ //Enpassant here, go to simule the board
+			if(getColor()) {
+				tmp=this.getCb().board[finalC.getR()+1][finalC.getC()]=null;
+			}else {
+				tmp=this.getCb().board[finalC.getR()-1][finalC.getC()]=null;
+			}
+		}
+		return tmp;
+	}
 
+	/**
+	 * 
+	 * @param startC true Coord of the Piece which move
+	 * @param finalC Coord of the simulation position
+	 * @param Piece the piece eventually eaten
+	 * @return
+	 */
+	public void demove(Coord startC, Coord finalC, Piece pEat) {
+		this.getCb().board[startC.getR()][startC.getC()] = this;
+		this.getCb().board[finalC.getR()][finalC.getC()] = pEat;
+		if (pEat instanceof Pawn && ((Pawn)(pEat)).getPawnStat()==this.getCb().game.getnbCoup() && startC.getC()!=finalC.getC()){ //Enpassant here, go to simule the board
+			if(getColor()) {
+				this.getCb().board[finalC.getR()+1][finalC.getC()]=new Pawn(true, this.getCb());
+			}else {
+				this.getCb().board[finalC.getR()-1][finalC.getC()]=new Pawn(false, this.getCb());
+			}
+		}
+	}
+
+	
     /**
      * toString
      * @return toString

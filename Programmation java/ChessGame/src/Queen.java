@@ -63,10 +63,11 @@ public class Queen extends Piece {
     		}else {
     			b=false;
     			if (possibleOrImpossible(this.getCb().board[i][k])) {
-    				pMove.add(new Coord(i,j));
+    				pMove.add(new Coord(i,k));
     			}
     		}	
     	}
+    	b=true;
     	for (int k=i-1, l=j-1; l>=0 && k>=0 && b;k--, l--){
     		if (this.getCb().board[k][l]==null) {
     			pMove.add(new Coord(k,l));

@@ -96,12 +96,35 @@ public class ChessBoard {
     	return configBoard;
     }
     
-   private LinkedList<Relation> blackRelation;
-
-    /**
-     * 
+    /** simulate a move to see if after this move there is check or not
+     * @param Coord coord of the piece to simulate the move
+     * @param Coord final coord to our "false" move
+     * @return boolean if check after the "move" return true, else return false
      */
-  private LinkedList<Relation> whiteRelation;
+    public boolean simulation(Coord startC, Coord finalC) {
+    	Piece tmp=this.board[startC.getR()][startC.getC()].moveForAllowedMove(startC,finalC);
+  //  	System.out.println("simulation\n"+this.toString());
+    	HashSet<Coord> cAttacked=new HashSet<>();
+    	boolean accepted=true;
+    	if(this.game.getTurn()) {
+    		for(Coord c: this.game.blackPlayer.getCoordOfMyPieces()) {
+    			cAttacked.addAll(this.board[c.getR()][c.getC()].possibleMove(c));
+    		}
+    		if(cAttacked.contains(this.getWhiteKingCoord())) {
+    			accepted=false;
+    		}
+    	}else {
+    		for(Coord c: this.game.whitePlayer.getCoordOfMyPieces()) {
+    			cAttacked.addAll(this.board[c.getR()][c.getC()].possibleMove(c));
+    		}
+    		if(cAttacked.contains(this.getBlackKingCoord())) {
+    			accepted=false;
+    		}
+    	}
+    	this.board[finalC.getR()][finalC.getC()].demove(startC,finalC,tmp);
+  //  	System.out.println("remise en place\n"+this.toString()+"\n supprimé?:"+accepted);
+    	return accepted;
+    }
 
 
     /**
@@ -112,14 +135,14 @@ public class ChessBoard {
         HashSet<Coord> cMovable=new HashSet<>();
     	if(turn) {
 	        for(Coord c: coords) {
-	        	 if(!(this.board[c.getR()][c.getC()].allowedMove(c,this.whiteRelation))) {
+	        	 if(!(this.board[c.getR()][c.getC()].allowedMove(c))) {
 	        		 cMovable.add(c);
 	        	 }
 	        }
 
     	}else {
     		for(Coord c: coords) {
-	        	 if(!(this.board[c.getR()][c.getC()].allowedMove(c,this.blackRelation))) {
+	        	 if(!(this.board[c.getR()][c.getC()].allowedMove(c))) {
 	        		 cMovable.add(c);
 	        	 }
 	        }
@@ -181,22 +204,7 @@ public class ChessBoard {
     	return this.coorPieceMovable;
     }
     
-/*    public String toString() {
-    	String affichageDuPauvre="    ";
-    	for (int i=0; i<8; i++) {
-    		affichageDuPauvre=affichageDuPauvre+i+"   " ;
-    	}
-    	affichageDuPauvre=affichageDuPauvre+"\n  +---+---+---+---+---+---+---+---+\n";
-    	for(int i=0; i<8;i++) {
-    		affichageDuPauvre=affichageDuPauvre+i+" |";
-    		for(int j=0; j<8; j++) {
-    			affichageDuPauvre=(board[i][j]==null? affichageDuPauvre+"   |" : affichageDuPauvre+" "+board[i][j].toString()+" |");
-    		}
-    		affichageDuPauvre=affichageDuPauvre+"\n  +---+---+---+---+---+---+---+---+\n";
-    		
-    	}
-    	return affichageDuPauvre;	
-    } */
+
     
     public String toString() {
     	String affichage="    ";
@@ -224,7 +232,7 @@ public class ChessBoard {
         		}
         		affichage=affichage+"\n  +---+---+---+---+---+---+---+---+\n";	
         	}
-        	affichage+="   h   g   f   e   d   c   b   a";
+        	affichage+="    h   g   f   e   d   c   b   a";
         	break;
     	default:
     		affichage+="a   b   c   d   e   f   g   h";
@@ -257,9 +265,9 @@ public class ChessBoard {
     	System.out.println(gameTest.toString());
     	
     	*/
-    	ChessBoard.setConfigBoard(1);
+    	ChessBoard.setConfigBoard(2);
     	gameTest.courseOfTheGame();
-    /*	gameTest.cb.update(new Coord(6,5), new Coord(4,5));	
+    /*	gameTest.cb.update(new Coord(6,4), new Coord(4,4));	
     	gameTest.setnbCoup();
 		gameTest.setTurn();
 		gameTest.cb.updateCheckStatusking(gameTest.whitePlayer.coordOfMyPieces, gameTest.getTurn());
@@ -271,14 +279,39 @@ public class ChessBoard {
 		gameTest.cb.updateCheckStatusking(gameTest.blackPlayer.coordOfMyPieces, gameTest.getTurn());
 		System.out.println(gameTest.toString());
 		
-		gameTest.cb.update(new Coord(7,4), new Coord(4,7));	
+		gameTest.cb.update(new Coord(7,5), new Coord(4,2));	
     	gameTest.setnbCoup();
 		gameTest.setTurn();
 		gameTest.cb.updateCheckStatusking(gameTest.whitePlayer.coordOfMyPieces, gameTest.getTurn());
 		System.out.println(gameTest.toString());
 		
-//		gameTest.cb.coorPieceMovable(gameTest.whitePlayer.coordOfMyPieces,gameTest.getTurn());
-//		System.out.println(gameTest.cb.getCoorPieceMovable());
+		gameTest.cb.update(new Coord(0,5), new Coord(3,2));	
+    	gameTest.setnbCoup();
+		gameTest.setTurn();
+		gameTest.cb.updateCheckStatusking(gameTest.blackPlayer.coordOfMyPieces, gameTest.getTurn());
+		System.out.println(gameTest.toString());
+		
+		gameTest.cb.update(new Coord(7,3), new Coord(3,7));	
+    	gameTest.setnbCoup();
+		gameTest.setTurn();
+		gameTest.cb.updateCheckStatusking(gameTest.whitePlayer.coordOfMyPieces, gameTest.getTurn());
+		System.out.println(gameTest.toString());
+		
+		gameTest.cb.update(new Coord(1,0), new Coord(2,0));	
+    	gameTest.setnbCoup();
+		gameTest.setTurn();
+		gameTest.cb.updateCheckStatusking(gameTest.blackPlayer.coordOfMyPieces, gameTest.getTurn());
+		System.out.println(gameTest.toString());
+		
+		gameTest.cb.update(new Coord(3,7), new Coord(1,5));	
+    	gameTest.setnbCoup();
+		gameTest.setTurn();
+		System.out.println(gameTest.toString());
+		gameTest.cb.updateCheckStatusking(gameTest.whitePlayer.coordOfMyPieces, gameTest.getTurn());
+		System.out.println(gameTest.toString());
+		
+	gameTest.cb.coorPieceMovable(gameTest.blackPlayer.coordOfMyPieces,gameTest.getTurn()); 
+		System.out.println(gameTest.cb.getCoorPieceMovable());
 //		System.out.println(gameTest.cb.board[3][0].getAllowedMove());
 		
 		

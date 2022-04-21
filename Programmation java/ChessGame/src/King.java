@@ -155,6 +155,55 @@ public class King extends Piece {
     	}
     }
 
+	/**
+	 * Different implementation to move
+	 * 
+	 * @param startC Coord of the Piece to move
+	 * @param finalC Coord of the final position
+	 * @return Piece the Piece eventually eaten
+	 */
+	public Piece moveForAllowedMove(Coord startC, Coord finalC) {
+		Piece tmp = this.getCb().board[finalC.getR()][finalC.getC()];
+		this.getCb().board[finalC.getR()][finalC.getC()] = this;
+		this.getCb().board[startC.getR()][startC.getC()] = null;
+		if (getCastellingKing() && (finalC.getC()==2 || finalC.getC()==6)) {
+        	if(finalC.getC()==2 && finalC.getR()==0) {
+        		getCb().board[0][0].moveForAllowedMove(new Coord(0,0), new Coord(0,3));
+        	}else if(finalC.getC()==2 && finalC.getR()==7) {
+        		getCb().board[7][0].moveForAllowedMove(new Coord(7,0), new Coord(7,3));
+        	}else if(finalC.getC()==6 && finalC.getR()==0) {
+        		getCb().board[0][7].moveForAllowedMove(new Coord(0,7), new Coord(0,5));
+        	}else if(finalC.getC()==6 && finalC.getR()==7) {
+        		getCb().board[7][7].moveForAllowedMove(new Coord(7,7), new Coord(7,5));
+        	}
+        	return null;
+    	}
+		return tmp;
+	}
+	
+	/**
+	 * 
+	 * @param startC true Coord of the Piece which move
+	 * @param finalC Coord of the simulation position
+	 * @param Piece the piece eventually eaten
+	 * @return
+	 */
+	public void demove(Coord startC, Coord finalC, Piece pEat) {
+		this.getCb().board[startC.getR()][startC.getC()] = this;
+		this.getCb().board[finalC.getR()][finalC.getC()] = pEat;
+		if (getCastellingKing() && (finalC.getC()==2 || finalC.getC()==6)) {
+        	if(finalC.getC()==2 && finalC.getR()==0) {
+        		getCb().board[0][3].moveForAllowedMove(new Coord(0,3), new Coord(0,0));
+        	}else if(finalC.getC()==2 && finalC.getR()==7) {
+        		getCb().board[7][3].moveForAllowedMove(new Coord(7,3), new Coord(7,0));
+        	}else if(finalC.getC()==6 && finalC.getR()==0) {
+        		getCb().board[0][5].moveForAllowedMove(new Coord(0,5), new Coord(0,7));
+        	}else if(finalC.getC()==6 && finalC.getR()==7) {
+        		getCb().board[7][5].moveForAllowedMove(new Coord(7,5), new Coord(7,7));
+        	}
+    	}
+	}
+	
     /**
      * 
      */
