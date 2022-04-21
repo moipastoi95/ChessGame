@@ -7,7 +7,7 @@ import java.io.ObjectOutputStream;
 import java.util.Scanner;
 
 public class Main {
-	/*public static void main(String[] args) {
+	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Game g = new Game();
 		ChessBoard board = new ChessBoard(g);
@@ -22,7 +22,6 @@ public class Main {
 		}else {
 			System.out.println(board);*/
 		}
-		*/
 }
 
 

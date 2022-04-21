@@ -2,12 +2,21 @@
 import java.util.*;
 
 /**
- * 
+ * The object that represent a player
  */
 public class Player {
+	// attributes
+    Game game;
+    private boolean color;
+    protected LinkedList<Piece> capturedPieces;
+    protected HashSet<Coord> coordOfMyPieces;
+    //private void timer;
 
+    
     /**
      * Default constructor
+     * @param couleur color of the player
+     * @param game the current game
      */
     public Player(Boolean couleur,Game game) {
     	this.color=couleur;
@@ -20,7 +29,7 @@ public class Player {
     				this.coordOfMyPieces.add(new Coord(i,j));
     			}
     		}
-    		//ajouter les 16 case de d�but des blancs
+    		//ajouter les 16 cases de d�but des blancs
     	}else {
     		for(int i=0;i<2;i++) {
     			for(int j=0;j<8;j++) {
@@ -32,43 +41,39 @@ public class Player {
     	this.game=game;
     }
 
-    Game game;
-    /**
-     * 
-     */
-    private boolean color;
 
     /**
-     * 
+     * getter
+     * @return a Set of Coord of the Player's Pieces
      */
-    //private void timer;
-
-    /**
-     * 
-     */
-    protected LinkedList<Piece> capturedPieces;
-
-    /**
-     * 
-     */
-    protected HashSet<Coord> coordOfMyPieces;
     public HashSet<Coord> getCoordOfMyPieces(){
     	return this.coordOfMyPieces;
     }
     
+    /**
+     * getter
+     * @return the color (boolean)
+     */
     public boolean getColor() {
     	return this.color;
     }
     
+    /**
+     * getter
+     * @return return the List Pieces captured
+     */
+    public LinkedList<Piece> getCapturedPieces() {
+		return this.capturedPieces;
+	}
+    
+    /**
+     * toString
+     * @return String
+     */
     public String toString() {
     	String affichage="MyKingSatus:"+this.getMyKingStatus()+"\nCapturedPiece:"+this.getCapturedPieces()+"\nCoordOfMyPieces:"+this.getCoordOfMyPieces();
     	return affichage;  	
     }
-
-	public LinkedList<Piece> getCapturedPieces() {
-		return this.capturedPieces;
-	}
-	
     
     private boolean MyKingStatus; //true=roi en �chec,  false=safe
     public boolean getMyKingStatus() {

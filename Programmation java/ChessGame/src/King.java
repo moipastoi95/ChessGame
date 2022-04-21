@@ -25,8 +25,8 @@ public class King extends Piece {
      * 
      */
     private boolean castellingKing;
- // vrai=le roi n'a pas encore bougï¿½
-    //false=le roi a bougï¿½
+ // vrai=le roi n'a pas encore bougé
+    //false=le roi a bougé
 
     public boolean getCastellingKing() {
     	return this.castellingKing;
@@ -71,18 +71,18 @@ public class King extends Piece {
     	}
     	if(getCastellingKing()) {
     		HashSet<Coord> cAttacked=new HashSet<>();
-    		if(this.getColor() && getCb().board[7][3] == null && getCb().board[7][1]==null && getCb().board[7][2]==null && getCb().board[7][0] instanceof Rook && ((Rook)(getCb().board[7][0])).getStatRook()) {
+    		if(this.getColor() && this.cb.game.getTurn() && getCb().board[7][5]==null && getCb().board[7][6]==null && getCb().board[7][7] instanceof Rook && ((Rook)(getCb().board[7][7])).getStatRook()) {
     			HashSet<Coord> coordPieceBlack=this.cb.game.blackPlayer.getCoordOfMyPieces();
     			for(Coord  s: coordPieceBlack) {
     				HashSet<Coord> tmp=new HashSet<>();
     				tmp=getCb().board[s.getR()][s.getC()].possibleMove(s);
     				cAttacked.addAll(tmp);
     			}
-    			if((!(cAttacked.contains(new Coord(7,3)))) && (!(cAttacked.contains(new Coord(7,2)))) && (!(cAttacked.contains(new Coord(7,1))))){
-    				pMove.add(new Coord(7,2));
+    			if((!(cAttacked.contains(new Coord(7,4)))) && (!(cAttacked.contains(new Coord(7,5)))) && (!(cAttacked.contains(new Coord(7,6))))){
+    				pMove.add(new Coord(7,6));
     			}
     		}
-    		if(this.getColor() && getCb().board[7][5]==null && getCb().board[7][6]==null && getCb().board[7][7] instanceof Rook && ((Rook)(getCb().board[7][7])).getStatRook()) {
+    		if(this.getColor() && this.cb.game.getTurn() && getCb().board[7][3]==null && getCb().board[7][2]==null && getCb().board[7][0] instanceof Rook && ((Rook)(getCb().board[7][0])).getStatRook()) {
     			if (cAttacked.isEmpty()) {
     				HashSet<Coord> coordPieceBlack=this.cb.game.blackPlayer.getCoordOfMyPieces();
         			for(Coord  s: coordPieceBlack) {
@@ -91,22 +91,22 @@ public class King extends Piece {
         				cAttacked.addAll(tmp);
         			}
     			}
-    			if((!(cAttacked.contains(new Coord(7,4)))) && (!(cAttacked.contains(new Coord(7,5)))) && (!(cAttacked.contains(new Coord(7,6))))){
-    				pMove.add(new Coord(7,6));
+    			if((!(cAttacked.contains(new Coord(7,4)))) && (!(cAttacked.contains(new Coord(7,3)))) && (!(cAttacked.contains(new Coord(7,2))))){
+    				pMove.add(new Coord(7,2));
     			}
     		}
-    		if((!this.getColor()) && getCb().board[0][1]==null && getCb().board[0][2]==null && getCb().board[0][3]==null && getCb().board[0][0] instanceof Rook && ((Rook)(getCb().board[0][0])).getStatRook()) {
+    		if((!this.getColor()) && !(this.cb.game.getTurn()) && getCb().board[0][2]==null && getCb().board[0][3]==null && getCb().board[0][0] instanceof Rook && ((Rook)(getCb().board[0][0])).getStatRook()) {
     			HashSet<Coord> coordPieceWhite=this.cb.game.whitePlayer.getCoordOfMyPieces();
     			for(Coord  s: coordPieceWhite) {
     				HashSet<Coord> tmp=new HashSet<>();
     				tmp=getCb().board[s.getR()][s.getC()].possibleMove(s);
     				cAttacked.addAll(tmp);
     			}
-    			if((!(cAttacked.contains(new Coord(0,3)))) && (!(cAttacked.contains(new Coord(0,2)))) && (!(cAttacked.contains(new Coord(0,1))))){
+    			if((!(cAttacked.contains(new Coord(0,4)))) && (!(cAttacked.contains(new Coord(0,3)))) && (!(cAttacked.contains(new Coord(0,2))))){
     				pMove.add(new Coord(0,2));
     			}
     		}
-    		if((!this.getColor()) && getCb().board[0][5]==null && getCb().board[0][6]==null && getCb().board[0][7] instanceof Rook && ((Rook)(getCb().board[0][7])).getStatRook()) {
+    		if((!this.getColor()) && !(this.cb.game.getTurn()) && getCb().board[0][5]==null && getCb().board[0][6]==null && getCb().board[0][7] instanceof Rook && ((Rook)(getCb().board[0][7])).getStatRook()) {
     			if (cAttacked.isEmpty()) {
     				HashSet<Coord> coordPieceWhite=this.cb.game.whitePlayer.getCoordOfMyPieces();
         			for(Coord  s: coordPieceWhite) {
@@ -137,16 +137,16 @@ public class King extends Piece {
     	}else {
     		getCb().setBlackKingCoord(finalC);
     	}
-    	if (getCastellingKing() && (finalC.getC()==1 || finalC.getC()==5)) {
+    	if (getCastellingKing() && (finalC.getC()==2 || finalC.getC()==6)) {
         	setCastellingKing();
-        	if(finalC.getC()==1 && finalC.getR()==0) {
-        		getCb().update(new Coord(0,0), new Coord(0,2));
-        	}else if(finalC.getC()==1 && finalC.getR()==7) {
-        		getCb().update(new Coord(7,0), new Coord(7,2));
-        	}else if(finalC.getC()==5 && finalC.getR()==0) {
-        		getCb().update(new Coord(0,7), new Coord(0,4));
-        	}else if(finalC.getC()==5 && finalC.getR()==7) {
-        		getCb().update(new Coord(7,7), new Coord(7,4));
+        	if(finalC.getC()==2 && finalC.getR()==0) {
+        		getCb().update(new Coord(0,0), new Coord(0,3));
+        	}else if(finalC.getC()==2 && finalC.getR()==7) {
+        		getCb().update(new Coord(7,0), new Coord(7,3));
+        	}else if(finalC.getC()==6 && finalC.getR()==0) {
+        		getCb().update(new Coord(0,7), new Coord(0,5));
+        	}else if(finalC.getC()==6 && finalC.getR()==7) {
+        		getCb().update(new Coord(7,7), new Coord(7,5));
         	}
         	return null;
     	}else {
@@ -155,6 +155,55 @@ public class King extends Piece {
     	}
     }
 
+	/**
+	 * Different implementation to move
+	 * 
+	 * @param startC Coord of the Piece to move
+	 * @param finalC Coord of the final position
+	 * @return Piece the Piece eventually eaten
+	 */
+	public Piece moveForAllowedMove(Coord startC, Coord finalC) {
+		Piece tmp = this.getCb().board[finalC.getR()][finalC.getC()];
+		this.getCb().board[finalC.getR()][finalC.getC()] = this;
+		this.getCb().board[startC.getR()][startC.getC()] = null;
+		if (getCastellingKing() && (finalC.getC()==2 || finalC.getC()==6)) {
+        	if(finalC.getC()==2 && finalC.getR()==0) {
+        		getCb().board[0][0].moveForAllowedMove(new Coord(0,0), new Coord(0,3));
+        	}else if(finalC.getC()==2 && finalC.getR()==7) {
+        		getCb().board[7][0].moveForAllowedMove(new Coord(7,0), new Coord(7,3));
+        	}else if(finalC.getC()==6 && finalC.getR()==0) {
+        		getCb().board[0][7].moveForAllowedMove(new Coord(0,7), new Coord(0,5));
+        	}else if(finalC.getC()==6 && finalC.getR()==7) {
+        		getCb().board[7][7].moveForAllowedMove(new Coord(7,7), new Coord(7,5));
+        	}
+        	return null;
+    	}
+		return tmp;
+	}
+	
+	/**
+	 * 
+	 * @param startC true Coord of the Piece which move
+	 * @param finalC Coord of the simulation position
+	 * @param Piece the piece eventually eaten
+	 * @return
+	 */
+	public void demove(Coord startC, Coord finalC, Piece pEat) {
+		this.getCb().board[startC.getR()][startC.getC()] = this;
+		this.getCb().board[finalC.getR()][finalC.getC()] = pEat;
+		if (getCastellingKing() && (finalC.getC()==2 || finalC.getC()==6)) {
+        	if(finalC.getC()==2 && finalC.getR()==0) {
+        		getCb().board[0][3].moveForAllowedMove(new Coord(0,3), new Coord(0,0));
+        	}else if(finalC.getC()==2 && finalC.getR()==7) {
+        		getCb().board[7][3].moveForAllowedMove(new Coord(7,3), new Coord(7,0));
+        	}else if(finalC.getC()==6 && finalC.getR()==0) {
+        		getCb().board[0][5].moveForAllowedMove(new Coord(0,5), new Coord(0,7));
+        	}else if(finalC.getC()==6 && finalC.getR()==7) {
+        		getCb().board[7][5].moveForAllowedMove(new Coord(7,5), new Coord(7,7));
+        	}
+    	}
+	}
+	
     /**
      * 
      */
@@ -167,4 +216,6 @@ public class King extends Piece {
      * @param Coord 
      * @return
      */
+
 }
+
