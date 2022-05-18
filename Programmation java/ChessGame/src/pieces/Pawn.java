@@ -169,15 +169,17 @@ public class Pawn extends Piece {
 	 * @param finalC Coord of the final position
 	 * @return Piece the Piece eventually eaten
 	 */
-	public Piece moveForAllowedMove(Coord startC, Coord finalC) {
+    public Piece moveForAllowedMove(Coord startC, Coord finalC) {
 		Piece tmp = this.getCb().getBoard()[finalC.getR()][finalC.getC()];
 		this.getCb().getBoard()[finalC.getR()][finalC.getC()] = this;
 		this.getCb().getBoard()[startC.getR()][startC.getC()] = null;
-		if (tmp==null && startC.getC()!=finalC.getC()){ //Enpassant here, go to simule the getBoard()
+		if (tmp==null && startC.getC()!=finalC.getC()){ //Enpassant here, go to simule the board
 			if(getColor()) {
-				tmp=this.getCb().getBoard()[finalC.getR()+1][finalC.getC()]=null;
+				tmp=this.getCb().getBoard()[finalC.getR()+1][finalC.getC()];
+				this.getCb().getBoard()[finalC.getR()+1][finalC.getC()]=null;
 			}else {
-				tmp=this.getCb().getBoard()[finalC.getR()-1][finalC.getC()]=null;
+				tmp=this.getCb().getBoard()[finalC.getR()-1][finalC.getC()];
+				this.getCb().getBoard()[finalC.getR()-1][finalC.getC()]=null;
 			}
 		}
 		return tmp;
@@ -192,13 +194,16 @@ public class Pawn extends Piece {
 	 */
 	public void demove(Coord startC, Coord finalC, Piece pEat) {
 		this.getCb().getBoard()[startC.getR()][startC.getC()] = this;
-		this.getCb().getBoard()[finalC.getR()][finalC.getC()] = pEat;
-		if (pEat instanceof Pawn && ((Pawn)(pEat)).getPawnStat()==this.getCb().getGame().getnbCoup() && startC.getC()!=finalC.getC()){ //Enpassant here, go to simule the getBoard()
+		if (pEat instanceof Pawn && ((Pawn)(pEat)).getPawnStat()==this.getCb().getGame().getnbCoup() && startC.getC()!=finalC.getC() && (finalC.getR()==2 || finalC.getR()==5)){ //Enpassant here, go to simule the board
 			if(getColor()) {
-				this.getCb().getBoard()[finalC.getR()+1][finalC.getC()]=new Pawn(true, this.getCb());
+				this.getCb().getBoard()[finalC.getR()+1][finalC.getC()]=pEat;
 			}else {
-				this.getCb().getBoard()[finalC.getR()-1][finalC.getC()]=new Pawn(false, this.getCb());
+				this.getCb().getBoard()[finalC.getR()-1][finalC.getC()]=pEat;
+				
 			}
+			this.getCb().getBoard()[finalC.getR()][finalC.getC()] = null;
+		}else {
+			this.getCb().getBoard()[finalC.getR()][finalC.getC()] = pEat;
 		}
 	}
 

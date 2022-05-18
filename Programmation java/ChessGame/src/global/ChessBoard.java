@@ -151,14 +151,18 @@ public class ChessBoard extends Observable{
     	boolean accepted=true;
     	if(this.game.getTurn()) {
     		for(Coord c: this.game.getBlackPlayer().getCoordOfMyPieces()) {
-    			cAttacked.addAll(this.board[c.getR()][c.getC()].possibleMove(c));
+    			if(this.board[c.getR()][c.getC()] != null && !(this.board[c.getR()][c.getC()].getColor())) {
+    				cAttacked.addAll(this.board[c.getR()][c.getC()].possibleMove(c));
+    			}
     		}
     		if(cAttacked.contains(this.getWhiteKingCoord())) {
     			accepted=false;
     		}
     	}else {
     		for(Coord c: this.game.getWhitePlayer().getCoordOfMyPieces()) {
-    			cAttacked.addAll(this.board[c.getR()][c.getC()].possibleMove(c));
+    			if(this.board[c.getR()][c.getC()] != null && this.board[c.getR()][c.getC()].getColor()) {
+    				cAttacked.addAll(this.board[c.getR()][c.getC()].possibleMove(c));
+    			}
     		}
     		if(cAttacked.contains(this.getBlackKingCoord())) {
     			accepted=false;
