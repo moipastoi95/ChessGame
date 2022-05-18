@@ -6,7 +6,10 @@ import java.util.LinkedList;
  */
 public class ChessBoard {
 
-    /**
+    public static final int NUM_OF_ROW = 8; // créé pour la class Main
+	public static final int NUM_OF_COLUMN = 8;
+
+	/**
      * Default constructor
      */
     public ChessBoard(Game game) {
@@ -103,7 +106,7 @@ public class ChessBoard {
      */
     public boolean simulation(Coord startC, Coord finalC) {
     	Piece tmp=this.board[startC.getR()][startC.getC()].moveForAllowedMove(startC,finalC);
-  //  	System.out.println("simulation\n"+this.toString());
+    	//System.out.println("simulation\n"+this.toString());
     	HashSet<Coord> cAttacked=new HashSet<>();
     	boolean accepted=true;
     	if(this.game.getTurn()) {

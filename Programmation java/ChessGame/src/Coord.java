@@ -5,8 +5,8 @@
  */
 public class Coord {
 	// attributes
-    private int row;
-    private int column;
+    protected int row; // converti en protected pour servir en class Main
+    protected int column;
 
     /**
      * Default constructor
