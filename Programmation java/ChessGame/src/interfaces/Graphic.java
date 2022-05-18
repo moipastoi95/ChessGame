@@ -63,10 +63,7 @@ public class Graphic extends Application {
 		game = new Game();
 		game.getChessBoard().setConfigBoard(1);
 
-		// init pieces moveable
-		game.getChessBoard().coorPieceMovable(game.getWhitePlayer().getCoordOfMyPieces(), game.getTurn());
-		game.getChessBoard().updateCheckStatusking(game.getBlackPlayer().getCoordOfMyPieces(), game.getTurn());
-
+		
 		// generate the graphic board
 		BorderPane screen = new BorderPane();
 		displayCell(game.getChessBoard(), grid);
@@ -88,6 +85,11 @@ public class Graphic extends Application {
 		primaryStage.setScene(scene);
 		primaryStage.setTitle("ChessBoard Projet");
 		primaryStage.show();
+		
+		// init pieces moveable
+		game.getChessBoard().coorPieceMoveable(game.getWhitePlayer().getCoordOfMyPieces(), game.getTurn());
+		game.getChessBoard().updateCheckStatusking(game.getBlackPlayer().getCoordOfMyPieces(), game.getTurn());
+
 	}
 
 	public static void main(String[] args) {
@@ -110,7 +112,7 @@ public class Graphic extends Application {
 				StackPane tile = new StackPane();
 				ControleTileStack cs = new ControleTileStack(new Coord(i, j), this, game, tile);
 				tile.setOnMouseClicked(cs);
-				pane.add(tile, j, i);
+				pane.add(tile, j, i); 
 			}
 		}
 	}
@@ -232,7 +234,6 @@ public class Graphic extends Application {
 	}
 
 	// Create buttons modules
-
 	private VBox createSaveOpenExitButton(Stage primaryStage, GridPane pane, ChessBoard chessBoard) {
 		// Save Button
 		Button saveBtn = new Button("Save");
@@ -332,7 +333,6 @@ public class Graphic extends Application {
 		});
 
 		// Button turn
-//			turn_boardList.add(turn_board);
 		Button turnBtn = new Button("Turn");
 		ImageView turnImv = new ImageView();
 		Image turnImg = new Image(Main.class.getResourceAsStream("/images/turn90.png"));
@@ -406,15 +406,14 @@ public class Graphic extends Application {
 	}
 
 	// Identify pieces that are movable and the status of current King.
-
 	public void markPossibleMove(Game game) {
 		if (game.getTurn()) {
-			game.getChessBoard().coorPieceMovable(game.getWhitePlayer().getCoordOfMyPieces(), game.getTurn());
+			game.getChessBoard().coorPieceMoveable(game.getWhitePlayer().getCoordOfMyPieces(), game.getTurn());
 
 			game.getChessBoard().updateCheckStatusking(game.getBlackPlayer().getCoordOfMyPieces(), game.getTurn());
 			;
 		} else {
-			game.getChessBoard().coorPieceMovable(game.getBlackPlayer().getCoordOfMyPieces(), game.getTurn());
+			game.getChessBoard().coorPieceMoveable(game.getBlackPlayer().getCoordOfMyPieces(), game.getTurn());
 			;
 			game.getChessBoard().updateCheckStatusking(game.getWhitePlayer().getCoordOfMyPieces(), game.getTurn());
 			;
@@ -430,7 +429,7 @@ public class Graphic extends Application {
 	}
 
 	// Convert Coord from ChessBoard to Coord accorded to the Graphic board (maybe
-	// turned), and vise versa
+	// turned)
 	public static Coord convertChessToGraph(Coord c, int config) {
 		int i = c.getR();
 		int j = c.getC();
@@ -454,4 +453,29 @@ public class Graphic extends Application {
 		}
 		return new Coord(n, m);
 	}
+	
+	public static Coord convertGraphToChess(Coord c, int config) {
+		int i = c.getR();
+		int j = c.getC();
+		int n, m;
+		// normal config : black on the top, white on the bottom
+		if (config == 1) {
+			m = j;
+			n = i;
+		} // 90° config : white on the left, black on the right
+		else if (config == 2) {
+			m = i;
+			n = 7 - j;
+		} // 180° config : white on the top, black on the bottom
+		else if (config == 3) {
+			m = 7 - j;
+			n = 7 - i;
+		} // -90° config : black on the left, white on the right
+		else {
+			m = 7 - i;
+			n = j;
+		}
+		return new Coord(n, m);
+	}
+	
 }

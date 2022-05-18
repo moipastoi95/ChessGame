@@ -25,18 +25,18 @@ public class CommandLine {
 		Coord cFinal;
 		boolean b = false;
 		if (game.getTurn()) {
-			game.getChessBoard().coorPieceMovable(game.getWhitePlayer().getCoordOfMyPieces(), game.getTurn());
+			game.getChessBoard().coorPieceMoveable(game.getWhitePlayer().getCoordOfMyPieces(), game.getTurn());
 			game.getChessBoard().updateCheckStatusking(game.getBlackPlayer().getCoordOfMyPieces(), game.getTurn());
 		} else {
-			game.getChessBoard().coorPieceMovable(game.getBlackPlayer().getCoordOfMyPieces(), game.getTurn());
+			game.getChessBoard().coorPieceMoveable(game.getBlackPlayer().getCoordOfMyPieces(), game.getTurn());
 			game.getChessBoard().updateCheckStatusking(game.getWhitePlayer().getCoordOfMyPieces(), game.getTurn());
 		}
-		while (!(game.getChessBoard().getCoorPieceMovable().isEmpty())) {
+		while (!(game.getChessBoard().getCoorPieceMoveable().isEmpty())) {
 			System.out.println(game.toString());
 			b = false;
 			while (b == false) { // demander si l'utilisateur veut jouer cette pièce ou selecitonner une autre
 									// pièce (boucle while)
-				System.out.println("\nCoorPieceMovable:" + game.getChessBoard().getCoorPieceMovable());
+				System.out.println("\nCoorPieceMovable:" + game.getChessBoard().getCoorPieceMoveable());
 				System.out.println("What piece do you want play?");
 				cStart = Input.askValidCoord();
 
@@ -73,10 +73,10 @@ public class CommandLine {
 			game.setnbCoup();
 			game.setTurn();
 			if (game.getTurn()) {
-				game.getChessBoard().coorPieceMovable(game.getWhitePlayer().getCoordOfMyPieces(), game.getTurn());
+				game.getChessBoard().coorPieceMoveable(game.getWhitePlayer().getCoordOfMyPieces(), game.getTurn());
 				game.getChessBoard().updateCheckStatusking(game.getBlackPlayer().getCoordOfMyPieces(), game.getTurn());
 			} else {
-				game.getChessBoard().coorPieceMovable(game.getBlackPlayer().getCoordOfMyPieces(), game.getTurn());
+				game.getChessBoard().coorPieceMoveable(game.getBlackPlayer().getCoordOfMyPieces(), game.getTurn());
 				game.getChessBoard().updateCheckStatusking(game.getWhitePlayer().getCoordOfMyPieces(), game.getTurn());
 			}
 		}

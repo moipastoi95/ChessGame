@@ -8,13 +8,15 @@ import interfaces.Input;
 /**
  * Game : the begining of the functionnal part
  */
-public class Game {
+public class Game extends Observable {
 	// attributes
 	private Player whitePlayer;
 	private Player blackPlayer;
 	private ChessBoard cb;
 	private boolean turn;
 	private int nbCoup;
+	
+    public static int SELECTED_TILE = 3;
 
 	/**
 	 * Default constructor
@@ -104,7 +106,9 @@ public class Game {
 	 * @throws NotInHashSetException
 	 */
 	public HashSet<Coord> select(Coord c) throws NotInHashSetException {
-		if (this.cb.getCoorPieceMovable().contains(c)) {
+		if (this.cb.getCoorPieceMoveable().contains(c)) {
+			this.setChanged();
+			this.notifyObservers(Game.SELECTED_TILE);
 			return this.cb.getBoard()[c.getR()][c.getC()].getAllowedMove();
 		} else {
 			throw new NotInHashSetException(
@@ -122,7 +126,7 @@ public class Game {
 		if (this.cb.getBoard()[cStart.getR()][cStart.getC()].getAllowedMove().contains(cFinal)) {
 			System.out.println("Move accepted");
 			return 2;
-		} else if (this.cb.getCoorPieceMovable().contains(cFinal) && !(cStart.equals(cFinal))) {
+		} else if (this.cb.getCoorPieceMoveable().contains(cFinal) && !(cStart.equals(cFinal))) {
 			return 1;
 		} else {
 			throw new NotInHashSetException("Impossible select, this coord isn't in the HashSet of legal move Coord");

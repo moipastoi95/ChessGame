@@ -17,14 +17,14 @@ import pieces.Rook;
 public class ChessBoard extends Observable{
 	// attributes
 	private Piece[][] board;
-	private HashSet<Coord> coorPieceMovable;
+	private HashSet<Coord> coorPieceMoveable;
     private Coord whiteKingCoord;
     public static int configBoard;
     private Game game;
     private Coord blackKingCoord;
     
     public static int MOVEABLE_PIECES = 1;
-    public static int POSSIBLE_POSITION = 1;
+    public static int PLAY = 2;
 
     /**
      * Default constructor
@@ -119,8 +119,8 @@ public class ChessBoard extends Observable{
      * getter
      * @return
      */
-    public HashSet<Coord> getCoorPieceMovable(){
-    	return this.coorPieceMovable;
+    public HashSet<Coord> getCoorPieceMoveable(){
+    	return this.coorPieceMoveable;
     }
     
     /**
@@ -172,23 +172,25 @@ public class ChessBoard extends Observable{
     /**
      * @param hashset of Coord
      */
-    public void coorPieceMovable(HashSet<Coord> coords, boolean turn) { 
-        HashSet<Coord> cMovable=new HashSet<>();
+    public void coorPieceMoveable(HashSet<Coord> coords, boolean turn) { 
+        HashSet<Coord> cMoveable=new HashSet<>();
     	if(turn) {
 	        for(Coord c: coords) {
 	        	 if(!(this.board[c.getR()][c.getC()].allowedMove(c))) {
-	        		 cMovable.add(c);
+	        		 cMoveable.add(c);
 	        	 }
 	        }
 
     	}else {
     		for(Coord c: coords) {
 	        	 if(!(this.board[c.getR()][c.getC()].allowedMove(c))) {
-	        		 cMovable.add(c);
+	        		 cMoveable.add(c);
 	        	 }
 	        }
     	}
-        this.coorPieceMovable=cMovable;
+        this.coorPieceMoveable=cMoveable;
+        this.setChanged();
+        this.notifyObservers(ChessBoard.MOVEABLE_PIECES);
     }
 
     /**
@@ -230,7 +232,9 @@ public class ChessBoard extends Observable{
 				this.game.getWhitePlayer().getCapturedPieces().add(tmp);
 				this.game.getWhitePlayer().getCoordOfMyPieces().remove(finalC);
 			}
-    	}     
+    	}
+    	this.setChanged();
+    	this.notifyObservers(ChessBoard.PLAY);
     }
 
     /**
