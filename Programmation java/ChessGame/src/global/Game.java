@@ -1,0 +1,170 @@
+package global;
+
+import java.util.*;
+
+import interfaces.Input;
+
+/**
+ * Game : the begining of the functionnal part
+ */
+public class Game {
+	// attributes
+	private Player whitePlayer;
+	private Player blackPlayer;
+	private ChessBoard cb;
+	private boolean turn;
+	private int nbCoup;
+
+	/**
+	 * Default constructor
+	 */
+	public Game() { // constructeur = init? constructeur avec un argument=load?
+		this.cb = new ChessBoard(this);
+		this.whitePlayer = new Player(true, this);
+		this.blackPlayer = new Player(false, this);
+		this.turn = true;
+		this.nbCoup = 0;
+	}
+
+	/**
+	 * save the game into a file
+	 * 
+	 * @return
+	 */
+	public void saveFile() {
+		// TODO implement here
+		return;
+	}
+
+	/**
+	 * add 1 to nbCoup
+	 */
+	public void setnbCoup() {
+		this.nbCoup = this.nbCoup + 1;
+	}
+
+	/**
+	 * getter
+	 * 
+	 * @return
+	 */
+	public int getnbCoup() {
+		return this.nbCoup;
+	}
+
+	/**
+	 * getter
+	 * @return
+	 */
+	public Player getWhitePlayer() {
+		return whitePlayer;
+	}
+	
+	/**
+	 * getter
+	 * @return
+	 */
+	public Player getBlackPlayer() {
+		return blackPlayer;
+	}
+	
+	/**
+	 * change the player who need to play
+	 */
+	public void setTurn() {
+		this.turn = !this.turn;
+	}
+
+	/**
+	 * getter
+	 * 
+	 * @return
+	 */
+	public boolean getTurn() {
+		return this.turn;
+	}
+
+	/**
+	 * getter
+	 * 
+	 * @return
+	 */
+	public ChessBoard getChessBoard() {
+		return cb;
+	}
+
+	/**
+	 * get all the Coord where a certain Piece could move to
+	 * 
+	 * @param c Coord of the Piece
+	 * @return a set of Coord
+	 * @throws NotInHashSetException
+	 */
+	public HashSet<Coord> select(Coord c) throws NotInHashSetException {
+		if (this.cb.getCoorPieceMovable().contains(c)) {
+			return this.cb.getBoard()[c.getR()][c.getC()].getAllowedMove();
+		} else {
+			throw new NotInHashSetException(
+					"Impossible select, this coord isn't in the HashSet of possible select Coord");
+		}
+	}
+
+	/**
+	 * let's play
+	 * 
+	 * @param cStart the Coord of the Piece to play
+	 * @param cFinal the Coord of the position to move on
+	 */
+	public void play(Coord cStart, Coord cFinal) throws NotInHashSetException {
+		if (this.cb.getBoard()[cStart.getR()][cStart.getC()].getAllowedMove().contains(cFinal)) {
+			System.out.println("Move accepted");
+		} else {
+			throw new NotInHashSetException("Impossible select, this coord isn't in the HashSet of legal move Coord");
+		}
+	}
+
+	/**
+	 * get the kingStatus
+	 * 
+	 * @return
+	 */
+	public boolean kingStatus() {
+		// TODO implement here
+		return false;
+	}
+
+	/**
+	 * get the final result of the game
+	 */
+	public int getEnd() {
+		if (this.getTurn() && this.whitePlayer.getMyKingStatus()) {
+			System.out.println("Well play, blackplayer win the game!");
+			return 0;// Blackplayer win
+		} else if ((!this.getTurn()) && this.blackPlayer.getMyKingStatus()) {
+			System.out.println("Well play, whiteplayer win the game!");
+			return 1;// whiteplayer win
+		} else {
+			System.out.println("No winner, pat");
+			return 2;// pat no winner
+		}
+	}
+
+	/**
+	 * toString
+	 * 
+	 * @return String
+	 */
+	public String toString() {
+		String affichage;
+		if (this.getTurn()) {
+			affichage = this.cb.toString() + "\nturn:" + this.getTurn() + "\nWhitePlayer:\n"
+					+ this.whitePlayer.toString();
+		} else {
+			affichage = this.cb.toString() + "\nturn:" + this.getTurn() + "\nBlackPlayer:\n"
+					+ this.blackPlayer.toString();
+		}
+
+		return affichage;
+	}
+
+}
