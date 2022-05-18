@@ -99,7 +99,7 @@ public class Graphic extends Application {
 	}
 
 	public void setSelectedCoord(Coord c) {
-		selectedCoord = new Coord(c);
+		selectedCoord = c;
 	}
 
 	// draw the visible chess board and put appropriate piece onto the cells of the

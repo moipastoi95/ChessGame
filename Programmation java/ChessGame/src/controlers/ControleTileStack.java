@@ -43,57 +43,55 @@ public class ControleTileStack implements EventHandler<MouseEvent> {
 
 	@Override
 	public void handle(MouseEvent arg0) {
-		System.out.print("coucou");
 		// select a piece
 		if (graphic.getSelectedCoord() == null) {
 			try {
 				game.select(tilePosition);
 				graphic.setSelectedCoord(tilePosition);
+				System.out.println("première pièce sélectionné");
 			} catch (NotInHashSetException e) {
 				// Graphic.showAlertInvalidInput("Please select a valid tile");
-				System.out.print("valid tile plz");
+				System.out.println("valid tile plz");
 			}
 		} else {
-			int mi = tilePosition.getR();
-			int mj = tilePosition.getC();
-			int ai = graphic.getSelectedCoord().getR();
-			int aj = graphic.getSelectedCoord().getC();
-			// select another piece
-			
-			// A MODIFIER
-			if (game.getChessBoard().getBoard()[mi][mj] == null) {
-				Graphic.showAlertInvalidInput("please, another one");
-			}
-			else if (game.getChessBoard().getBoard()[mi][mj].getColor() == game.getChessBoard().getBoard()[ai][aj]
-					.getColor()) {
-				try {
-					game.select(tilePosition);
-					graphic.setSelectedCoord(tilePosition);
-				} catch (NotInHashSetException e) {
-					Graphic.showAlertInvalidInput(e.getMessage());
-				}
-			} else { // otherwise, play
-				try {
-					game.play(graphic.getSelectedCoord(), tilePosition);
-					game.getChessBoard().update(graphic.getSelectedCoord(), tilePosition);
 
+			// select another piece
+			try {
+				int t=game.play(graphic.getSelectedCoord(), tilePosition);
+				// update selectedTile
+				if (t== 1) {
+					graphic.setSelectedCoord(tilePosition);
+					System.out.println("nouvelle selection de pièce movable");
+				} else if (t == 2) {
+					game.getChessBoard().update(graphic.getSelectedCoord(), tilePosition);
+					System.out.println(game.toString());
+					game.setnbCoup();
+					game.setTurn();
+					graphic.setSelectedCoord(null);
 					if (game.getTurn()) {
 						game.getChessBoard().coorPieceMovable(game.getWhitePlayer().getCoordOfMyPieces(),
 								game.getTurn());
 						game.getChessBoard().updateCheckStatusking(game.getBlackPlayer().getCoordOfMyPieces(),
 								game.getTurn());
 					} else {
-						game.getChessBoard().coorPieceMovable(game.getBlackPlayer().getCoordOfMyPieces(),
-								game.getTurn());
+						game.getChessBoard().coorPieceMovable(game.getBlackPlayer().getCoordOfMyPieces(),game.getTurn());
 						game.getChessBoard().updateCheckStatusking(game.getWhitePlayer().getCoordOfMyPieces(),
 								game.getTurn());
 					}
-
-					game.setnbCoup();
-					game.setTurn();
-				} catch (NotInHashSetException e) {
-					Graphic.showAlertInvalidInput(e.getMessage());
+					if(game.getChessBoard().getCoorPieceMovable().isEmpty()) {
+						System.out.println("End game");
+						if(game.getWhitePlayer().getMyKingStatus()) {
+							System.out.println("Black win");
+						}else if(game.getBlackPlayer().getMyKingStatus()) {
+							System.out.println("White win");
+						}else {
+							System.out.println("No winner");
+						}
+					}
+				
 				}
+			} catch (NotInHashSetException e) {
+				System.out.println("Wrong tile selected !");
 			}
 		}
 	}
@@ -118,8 +116,8 @@ public class ControleTileStack implements EventHandler<MouseEvent> {
 			// Scan the logical chessBoard and put the appropriate image according to the
 			// type of pieces.
 			int i = tilePosition.getR();
-			int j = tilePosition.getC()
-;			Coord c = Graphic.convertChessToGraph(new Coord(i, j), game.getChessBoard().getConfigBoard());
+			int j = tilePosition.getC();
+			Coord c = Graphic.convertChessToGraph(new Coord(i, j), game.getChessBoard().getConfigBoard());
 			m = c.getC();
 			n = c.getR();
 			if (game.getChessBoard().getBoard()[n][m] != null) {
@@ -181,12 +179,12 @@ public class ControleTileStack implements EventHandler<MouseEvent> {
 		// Size of the rectangle in a cell of the displayed chess board
 		final double s = 50;
 		Rectangle r = new Rectangle(s, s, s, s);
-		if ((tilePosition.getR() + tilePosition.getC())%2 == 0) {
+		if ((tilePosition.getR() + tilePosition.getC()) % 2 == 0) {
 			r.setFill(Color.LIGHTYELLOW);
 		} else {
 			r.setFill(Color.BROWN);
 		}
-		
+
 		ControleTileRectangle ct = new ControleTileRectangle(tilePosition, graphic, game, r);
 		game.getChessBoard().addObserver(ct);
 		tile.getChildren().add(r);

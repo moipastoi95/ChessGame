@@ -2,6 +2,7 @@ package global;
 
 import java.util.*;
 
+
 import interfaces.Input;
 
 /**
@@ -54,20 +55,22 @@ public class Game {
 
 	/**
 	 * getter
+	 * 
 	 * @return
 	 */
 	public Player getWhitePlayer() {
 		return whitePlayer;
 	}
-	
+
 	/**
 	 * getter
+	 * 
 	 * @return
 	 */
 	public Player getBlackPlayer() {
 		return blackPlayer;
 	}
-	
+
 	/**
 	 * change the player who need to play
 	 */
@@ -115,9 +118,12 @@ public class Game {
 	 * @param cStart the Coord of the Piece to play
 	 * @param cFinal the Coord of the position to move on
 	 */
-	public void play(Coord cStart, Coord cFinal) throws NotInHashSetException {
+	public int play(Coord cStart, Coord cFinal) throws NotInHashSetException {
 		if (this.cb.getBoard()[cStart.getR()][cStart.getC()].getAllowedMove().contains(cFinal)) {
 			System.out.println("Move accepted");
+			return 2;
+		} else if (this.cb.getCoorPieceMovable().contains(cFinal) && !(cStart.equals(cFinal))) {
+			return 1;
 		} else {
 			throw new NotInHashSetException("Impossible select, this coord isn't in the HashSet of legal move Coord");
 		}
