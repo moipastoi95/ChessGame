@@ -8,21 +8,16 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.nio.file.Paths;
-import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
 
-import controlers.ControleTileRectangle;
+import controlers.ControleKingStatus;
 import controlers.ControleTileStack;
+import controlers.ControleTurn;
 import global.ChessBoard;
 import global.Coord;
 import global.Game;
 import global.Player;
-import javafx.event.EventHandler;
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.geometry.HPos;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -38,17 +33,9 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
-import pieces.Bishop;
-import pieces.King;
-import pieces.Knight;
-import pieces.Pawn;
-import pieces.Queen;
-import pieces.Rook;
 
 public class Graphic extends Application {
 	// attributes
@@ -184,12 +171,8 @@ public class Graphic extends Application {
 		// formatTextArea(kingStatusArea, 50, 50);
 		kingStatusArea.setPrefWidth(60);
 		kingStatusArea.setEditable(false);
-		kingStatusArea.setText("" + player.getMyKingStatus());
-		if (player.getMyKingStatus()) {
-			kingStatusArea.setStyle("-fx-text-fill: red; -fx-font-weight: bold");
-		} else {
-			kingStatusArea.setStyle("-fx-font-weight: bold;");
-		}
+		ControleKingStatus cks = new ControleKingStatus(kingStatusArea, player);
+		player.addObserver(cks);
 
 		kingBox.getChildren().add(blackKingStatus);
 		kingBox.getChildren().add(kingStatusArea);
@@ -388,12 +371,29 @@ public class Graphic extends Application {
 //		GridPane.setHalignment(exitBtn, HPos.CENTER);
 //		pane.add(turnBtn, 10, 10, 2, 1);
 //		GridPane.setHalignment(turnBtn, HPos.CENTER);
+		
+		// Number of turn
+		HBox turnBox = new HBox();
+		Label lb_turn = new Label("Tour : ");
+		lb_turn.setStyle("-fx-font-weight: bold");
+
+		TextField result = new TextField();
+		result.setPrefWidth(60);
+		result.setEditable(false);
+		result.setStyle("-fx-text-fill: red; -fx-font-weight: bold");
+		ControleTurn ct = new ControleTurn(result, game);
+		game.addObserver(ct);
+
+		turnBox.getChildren().add(lb_turn);
+		turnBox.getChildren().add(result);
+		
 		VBox buttonsBox = new VBox();
 		buttonsBox.getChildren().add(newBtn);
 		buttonsBox.getChildren().add(saveBtn);
 		buttonsBox.getChildren().add(openBtn);
 		buttonsBox.getChildren().add(exitBtn);
 		buttonsBox.getChildren().add(turnBtn);
+		buttonsBox.getChildren().add(turnBox);
 		return buttonsBox;
 	}
 

@@ -17,6 +17,7 @@ public class Game extends Observable {
 	private int nbCoup;
 	
     public static int SELECTED_TILE = 3;
+    public static int CHANGE_TURN = 4;
 
 	/**
 	 * Default constructor
@@ -44,6 +45,8 @@ public class Game extends Observable {
 	 */
 	public void setnbCoup() {
 		this.nbCoup = this.nbCoup + 1;
+		this.setChanged();
+		this.notifyObservers(Game.CHANGE_TURN);
 	}
 
 	/**
@@ -78,6 +81,8 @@ public class Game extends Observable {
 	 */
 	public void setTurn() {
 		this.turn = !this.turn;
+		this.setChanged();
+		this.notifyObservers(Game.CHANGE_TURN);
 	}
 
 	/**

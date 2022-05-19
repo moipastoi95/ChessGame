@@ -7,7 +7,7 @@ import pieces.Piece;
 /**
  * The object that represent a player
  */
-public class Player {
+public class Player extends Observable {
 	// attributes
     Game game;
     private boolean color;
@@ -15,6 +15,9 @@ public class Player {
     private HashSet<Coord> coordOfMyPieces;
     //private void timer;
     private boolean MyKingStatus; //true=roi en échec,  false=safe
+    
+    public static int KING_STATUS = 5;
+    public static int LOST_PIECES = 6;
     
     
     /**
@@ -68,6 +71,7 @@ public class Player {
     public LinkedList<Piece> getCapturedPieces() {
 		return this.capturedPieces;
 	}
+
     
     /**
      * getter
@@ -82,6 +86,8 @@ public class Player {
      * @param status
      */
     public void setMyKingStatus(boolean status) {
+    	this.setChanged();
+    	this.notifyObservers(Player.KING_STATUS);
     	this.MyKingStatus=status;
     }
     
