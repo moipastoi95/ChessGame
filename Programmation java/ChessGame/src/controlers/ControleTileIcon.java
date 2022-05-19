@@ -7,7 +7,6 @@ import global.ChessBoard;
 import global.Coord;
 import global.Game;
 import interfaces.Graphic;
-import interfaces.Main;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
@@ -55,18 +54,18 @@ public class ControleTileIcon implements Observer {
 	public static Image getImage(Piece p) {
 		// Define image of pieces
 		try {
-			Image image_bb = new Image(Main.class.getResourceAsStream("/images/bb.gif"));
-			Image image_wb = new Image(Main.class.getResourceAsStream("/images/wb.gif"));
-			Image image_wk = new Image(Main.class.getResourceAsStream("/images/wk.gif"));
-			Image image_bk = new Image(Main.class.getResourceAsStream("/images/bk.gif"));
-			Image image_wn = new Image(Main.class.getResourceAsStream("/images/wn.gif"));
-			Image image_bn = new Image(Main.class.getResourceAsStream("/images/bn.gif"));
-			Image image_wp = new Image(Main.class.getResourceAsStream("/images/wp.gif"));
-			Image image_bp = new Image(Main.class.getResourceAsStream("/images/bp.gif"));
-			Image image_wq = new Image(Main.class.getResourceAsStream("/images/wq.gif"));
-			Image image_bq = new Image(Main.class.getResourceAsStream("/images/bq.gif"));
-			Image image_wr = new Image(Main.class.getResourceAsStream("/images/wr.gif"));
-			Image image_br = new Image(Main.class.getResourceAsStream("/images/br.gif"));
+			Image image_bb = new Image(Graphic.class.getResourceAsStream("/images/bb.gif"));
+			Image image_wb = new Image(Graphic.class.getResourceAsStream("/images/wb.gif"));
+			Image image_wk = new Image(Graphic.class.getResourceAsStream("/images/wk.gif"));
+			Image image_bk = new Image(Graphic.class.getResourceAsStream("/images/bk.gif"));
+			Image image_wn = new Image(Graphic.class.getResourceAsStream("/images/wn.gif"));
+			Image image_bn = new Image(Graphic.class.getResourceAsStream("/images/bn.gif"));
+			Image image_wp = new Image(Graphic.class.getResourceAsStream("/images/wp.gif"));
+			Image image_bp = new Image(Graphic.class.getResourceAsStream("/images/bp.gif"));
+			Image image_wq = new Image(Graphic.class.getResourceAsStream("/images/wq.gif"));
+			Image image_bq = new Image(Graphic.class.getResourceAsStream("/images/bq.gif"));
+			Image image_wr = new Image(Graphic.class.getResourceAsStream("/images/wr.gif"));
+			Image image_br = new Image(Graphic.class.getResourceAsStream("/images/br.gif"));
 
 			
 			if (p != null) {

@@ -10,7 +10,6 @@ import global.Coord;
 import global.Game;
 import global.NotInHashSetException;
 import interfaces.Graphic;
-import interfaces.Main;
 import javafx.event.EventHandler;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
