@@ -20,7 +20,7 @@ public class CommandLine {
 	/**
 	 * 
 	 */
-	public int courseOfTheGame(Game game) {
+	public void courseOfTheGame(Game game) {
 		Coord cStart = null;
 		Coord cFinal;
 		boolean b = false;
@@ -63,7 +63,10 @@ public class CommandLine {
 					// pour oir si cette coordonnée fait partie des LegalMove de la pièce de la
 					// case de départ(boucle while si non pour redemander)
 					// Si tout est ok, prendre le deplacement pour update le board de ChessBoard
-					game.play(cStart, cFinal);
+					int res = game.play(cStart, cFinal);
+					if (res == 2) {
+						System.out.println("Move accepted");
+					}
 					b = true;
 					game.getChessBoard().update(cStart, cFinal);
 				} catch (NotInHashSetException e) {
@@ -80,6 +83,16 @@ public class CommandLine {
 				game.getChessBoard().updateCheckStatusking(game.getWhitePlayer().getCoordOfMyPieces(), game.getTurn());
 			}
 		}
-		return game.getEnd();
+		int end = game.getEnd();
+		switch (end) {
+		case 0:
+			System.out.println("Well play, blackplayer win the game!");
+			break;
+		case 1:
+			System.out.println("Well play, whiteplayer win the game!");
+			break;
+		default :
+			System.out.println("No winner, pat");
+		}
 	}
 }

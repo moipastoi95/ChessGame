@@ -3,8 +3,6 @@ package global;
 import java.util.*;
 
 
-import interfaces.Input;
-
 /**
  * Game : the begining of the functionnal part
  */
@@ -129,7 +127,6 @@ public class Game extends Observable {
 	 */
 	public int play(Coord cStart, Coord cFinal) throws NotInHashSetException {
 		if (this.cb.getBoard()[cStart.getR()][cStart.getC()].getAllowedMove().contains(cFinal)) {
-			System.out.println("Move accepted");
 			return 2;
 		} else if (this.cb.getCoorPieceMoveable().contains(cFinal) && !(cStart.equals(cFinal))) {
 			return 1;
@@ -153,13 +150,10 @@ public class Game extends Observable {
 	 */
 	public int getEnd() {
 		if (this.getTurn() && this.whitePlayer.getMyKingStatus()) {
-			System.out.println("Well play, blackplayer win the game!");
 			return 0;// Blackplayer win
 		} else if ((!this.getTurn()) && this.blackPlayer.getMyKingStatus()) {
-			System.out.println("Well play, whiteplayer win the game!");
 			return 1;// whiteplayer win
 		} else {
-			System.out.println("No winner, pat");
 			return 2;// pat no winner
 		}
 	}

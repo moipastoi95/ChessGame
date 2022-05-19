@@ -23,51 +23,51 @@ public class Input {
 		
 	} 
 
-		public static Coord askTrueCoord() {
-			try {
-				@SuppressWarnings("resource")
-				Scanner sc=new Scanner(System.in);
-				System.out.println("Saisissez une coordonnée du board sous la forme 'e4'");
-				String coord=sc.next("[a-h][1-8]");
-				int x=Integer.parseInt(coord.substring(1,2));
-				int y=0;
-				String y1=(coord.substring(0,1));
-				switch(y1) {
-				case "a":
-					y=0;
-					break;
-				case "b":
-					y=1;
-					break;
-				case "c":
-					y=2;
-					break;
-				case "d":
-					y=3;
-					break;
-				case "e":
-					y=4;
-					break;
-				case "f":
-					y=5;
-					break;
-				case "g":
-					y=6;
-					break;
-				case "h":
-					y=7;
-					break;			
-				}
-				
-				Coord c=new Coord(8-x,y);
-				return c;
-				
-			}catch(InputMismatchException e){
-				System.out.println("Forme non valide");
-				return null;
+	public static Coord askTrueCoord() {
+		try {
+			@SuppressWarnings("resource")
+			Scanner sc=new Scanner(System.in);
+			System.out.println("Saisissez une coordonnée du board sous la forme 'e4'");
+			String coord=sc.next("[a-h][1-8]");
+			int x=Integer.parseInt(coord.substring(1,2));
+			int y=0;
+			String y1=(coord.substring(0,1));
+			switch(y1) {
+			case "a":
+				y=0;
+				break;
+			case "b":
+				y=1;
+				break;
+			case "c":
+				y=2;
+				break;
+			case "d":
+				y=3;
+				break;
+			case "e":
+				y=4;
+				break;
+			case "f":
+				y=5;
+				break;
+			case "g":
+				y=6;
+				break;
+			case "h":
+				y=7;
+				break;			
 			}
 			
-		} 
+			Coord c=new Coord(8-x,y);
+			return c;
+			
+		}catch(InputMismatchException e){
+			System.out.println("Forme non valide");
+			return null;
+		}
+		
+	} 
 	
 	public static Coord askValidCoord() {
 		if(ChessBoard.getConfigBoard()==0) {

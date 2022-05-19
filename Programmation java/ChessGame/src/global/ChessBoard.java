@@ -25,6 +25,7 @@ public class ChessBoard extends Observable{
     
     public static int MOVEABLE_PIECES = 1;
     public static int PLAY = 2;
+    public static int LOST_PIECES = 6;
 
     /**
      * Default constructor
@@ -227,6 +228,8 @@ public class ChessBoard extends Observable{
 			if (tmp!=null) {
 				this.game.getBlackPlayer().getCapturedPieces().add(tmp);
 				this.game.getBlackPlayer().getCoordOfMyPieces().remove(finalC);
+				this.setChanged();
+		    	this.notifyObservers(ChessBoard.LOST_PIECES);
 			}
     	}else {
     		this.game.getBlackPlayer().getCoordOfMyPieces().add(finalC);
@@ -235,6 +238,8 @@ public class ChessBoard extends Observable{
 			if (tmp!=null) {
 				this.game.getWhitePlayer().getCapturedPieces().add(tmp);
 				this.game.getWhitePlayer().getCoordOfMyPieces().remove(finalC);
+				this.setChanged();
+		    	this.notifyObservers(ChessBoard.LOST_PIECES);
 			}
     	}
     	this.setChanged();

@@ -16,6 +16,7 @@ import pieces.Bishop;
 import pieces.King;
 import pieces.Knight;
 import pieces.Pawn;
+import pieces.Piece;
 import pieces.Queen;
 import pieces.Rook;
 
@@ -42,7 +43,16 @@ public class ControleTileIcon implements Observer {
 	}
 	
 	public void syncImage() {
+		int m, n;
+		// Scan the logical chessBoard and put the appropriate image according to the
+		// type of pieces.
+		Coord c = Graphic.convertGraphToChess(tilePosition, game.getChessBoard().getConfigBoard());
+		m = c.getC();
+		n = c.getR();
+		imageView.setImage(getImage(game.getChessBoard().getBoard()[n][m]));
+	}
 
+	public static Image getImage(Piece p) {
 		// Define image of pieces
 		try {
 			Image image_bb = new Image(Main.class.getResourceAsStream("/images/bb.gif"));
@@ -58,63 +68,59 @@ public class ControleTileIcon implements Observer {
 			Image image_wr = new Image(Main.class.getResourceAsStream("/images/wr.gif"));
 			Image image_br = new Image(Main.class.getResourceAsStream("/images/br.gif"));
 
-			int m, n;
-			// Scan the logical chessBoard and put the appropriate image according to the
-			// type of pieces.
-			Coord c = Graphic.convertGraphToChess(tilePosition, game.getChessBoard().getConfigBoard());
-			m = c.getC();
-			n = c.getR();
-			if (game.getChessBoard().getBoard()[n][m] != null) {
+			
+			if (p != null) {
 				Image img = image_bb;
-				if (game.getChessBoard().getBoard()[n][m] instanceof Pawn) {
-					if (game.getChessBoard().getBoard()[n][m].getColor()) {
+				if (p instanceof Pawn) {
+					if (p.getColor()) {
 						img = image_wp;
 					} else {
 						img = image_bp;
 					}
 				}
-				if (game.getChessBoard().getBoard()[n][m] instanceof King) {
-					if (game.getChessBoard().getBoard()[n][m].getColor()) {
+				if (p instanceof King) {
+					if (p.getColor()) {
 						img = image_wk;
 					} else {
 						img = image_bk;
 					}
 				}
-				if (game.getChessBoard().getBoard()[n][m] instanceof Queen) {
-					if (game.getChessBoard().getBoard()[n][m].getColor()) {
+				if (p instanceof Queen) {
+					if (p.getColor()) {
 						img = image_wq;
 					} else {
 						img = image_bq;
 					}
 				}
-				if (game.getChessBoard().getBoard()[n][m] instanceof Bishop) {
-					if (game.getChessBoard().getBoard()[n][m].getColor()) {
+				if (p instanceof Bishop) {
+					if (p.getColor()) {
 						img = image_wb;
 					} else {
 						img = image_bb;
 					}
 				}
-				if (game.getChessBoard().getBoard()[n][m] instanceof Knight) {
-					if (game.getChessBoard().getBoard()[n][m].getColor()) {
+				if (p instanceof Knight) {
+					if (p.getColor()) {
 						img = image_wn;
 					} else {
 						img = image_bn;
 					}
 				}
-				if (game.getChessBoard().getBoard()[n][m] instanceof Rook) {
-					if (game.getChessBoard().getBoard()[n][m].getColor()) {
+				if (p instanceof Rook) {
+					if (p.getColor()) {
 						img = image_wr;
 					} else {
 						img = image_br;
 					}
 				}
-				imageView.setImage(img);
+				return img;
 			} else {
-				imageView.setImage(null);
+				return null;
 			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		return null;
 	}
 }

@@ -17,7 +17,6 @@ public class Player extends Observable {
     private boolean MyKingStatus; //true=roi en échec,  false=safe
     
     public static int KING_STATUS = 5;
-    public static int LOST_PIECES = 6;
     
     
     /**

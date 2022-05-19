@@ -83,13 +83,25 @@ public class ControleTileStack implements EventHandler<MouseEvent> {
 					}
 					if(game.getChessBoard().getCoorPieceMoveable().isEmpty()) {
 						System.out.println("End game");
-						if(game.getWhitePlayer().getMyKingStatus()) {
-							System.out.println("Black win");
-						}else if(game.getBlackPlayer().getMyKingStatus()) {
-							System.out.println("White win");
-						}else {
-							System.out.println("No winner");
-						}
+//						if(game.getWhitePlayer().getMyKingStatus()) {
+//							System.out.println("Black win !");
+//						}else if(game.getBlackPlayer().getMyKingStatus()) {
+//							System.out.println("White win !");
+//						}else {
+//							System.out.println("Draw !");
+//						}
+						int kq = game.getEnd();
+	  		  			switch(kq) {
+	  		  				case 0:	// this.getTurn() && this.whitePlayer.getMyKingStatus() == true
+	  		  					graphic.showAlertInvalidInput("Black Won!");
+	  		  					break;
+	  		  				case 1: //!this.getTurn()) && this.blackPlayer.getMyKingStatus() == true
+	  		  					graphic.showAlertInvalidInput("White Won!");
+	  		  					break;
+	  		  				case 2: // ko thuoc 2 truong hop tren
+	  		  					graphic.showAlertInvalidInput("Draw!");
+	  		  					break;
+	  		  			}
 					}
 				
 				}

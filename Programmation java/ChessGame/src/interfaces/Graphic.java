@@ -10,6 +10,7 @@ import java.io.ObjectOutputStream;
 import java.nio.file.Paths;
 
 import controlers.ControleKingStatus;
+import controlers.ControleLostPieces;
 import controlers.ControleTileStack;
 import controlers.ControleTurn;
 import global.ChessBoard;
@@ -28,6 +29,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
@@ -39,22 +41,44 @@ import javafx.stage.Stage;
 
 public class Graphic extends Application {
 	// attributes
+	private Stage primaryStage;
 	private GridPane grid = new GridPane();
 	private Game game;
 	private Coord selectedCoord;
 
 	@Override
 	public void start(Stage primaryStage) {
+		this.primaryStage = primaryStage;
+		newGame();
+	}
 
+	public static void main(String[] args) {
+		launch(args);
+	}
+
+	public Coord getSelectedCoord() {
+		return selectedCoord;
+	}
+
+	public void setSelectedCoord(Coord c) {
+		selectedCoord = c;
+	}
+	
+	public void newGame() {
 		// Create logical ChessBoard
 		game = new Game();
 		game.getChessBoard().setConfigBoard(1);
 
 		
 		// generate the graphic board
-		BorderPane screen = new BorderPane();
 		displayCell(game.getChessBoard(), grid);
 		numberingRowCol(game.getChessBoard().getConfigBoard(), grid);
+	
+		// init pieces moveable
+		game.getChessBoard().coorPieceMoveable(game.getWhitePlayer().getCoordOfMyPieces(), game.getTurn());
+		game.getChessBoard().updateCheckStatusking(game.getBlackPlayer().getCoordOfMyPieces(), game.getTurn());
+
+		BorderPane screen = new BorderPane();
 		screen.setCenter(grid);
 
 		// create button at the bottom
@@ -72,28 +96,12 @@ public class Graphic extends Application {
 		primaryStage.setScene(scene);
 		primaryStage.setTitle("ChessBoard Projet");
 		primaryStage.show();
-		
-		// init pieces moveable
-		game.getChessBoard().coorPieceMoveable(game.getWhitePlayer().getCoordOfMyPieces(), game.getTurn());
-		game.getChessBoard().updateCheckStatusking(game.getBlackPlayer().getCoordOfMyPieces(), game.getTurn());
-
-	}
-
-	public static void main(String[] args) {
-		launch(args);
-	}
-
-	public Coord getSelectedCoord() {
-		return selectedCoord;
-	}
-
-	public void setSelectedCoord(Coord c) {
-		selectedCoord = c;
 	}
 
 	// draw the visible chess board and put appropriate piece onto the cells of the
 	// chess board.
 	private void displayCell(ChessBoard chessBoard, GridPane pane) {
+		pane.getChildren().clear();
 		for (int i = 0; i < 8; i++) {
 			for (int j = 0; j < 8; j++) {
 				StackPane tile = new StackPane();
@@ -200,10 +208,13 @@ public class Graphic extends Application {
 		HBox lostBox = new HBox();
 		Label lostPiece = new Label("Lost " + playerString + " pieces: ");
 		lostPiece.setStyle("-fx-font-weight: bold");
-		TextArea lostArea = new TextArea();
-		formatTextArea(lostArea, 200, 30);
-		lostArea.setText(player.getCapturedPieces().toString());
-
+		FlowPane lostArea = new FlowPane();
+		lostArea.setMinHeight(50);
+//		formatTextArea(lostArea, 200, 30);
+//		lostArea.setText(player.getCapturedPieces().toString());
+		ControleLostPieces clp = new ControleLostPieces(lostArea, game.getChessBoard(), player);
+		game.getChessBoard().addObserver(clp);
+		
 		lostBox.getChildren().add(lostPiece);
 		lostBox.getChildren().add(lostArea);
 
@@ -221,7 +232,7 @@ public class Graphic extends Application {
 		// Save Button
 		Button saveBtn = new Button("Save");
 		ImageView saveImv = new ImageView();
-		Image saveImg = new Image(Main.class.getResourceAsStream("/images/save.jpg"));
+		Image saveImg = new Image(Graphic.class.getResourceAsStream("/images/save.jpg"));
 		saveImv.setImage(saveImg);
 		saveBtn.setGraphic(saveImv);
 		FileChooser fileChooser = new FileChooser();
@@ -257,7 +268,7 @@ public class Graphic extends Application {
 		// Open Button
 		Button openBtn = new Button("Open");
 		ImageView openImv = new ImageView();
-		Image openImg = new Image(Main.class.getResourceAsStream("/images/open.png"));
+		Image openImg = new Image(Graphic.class.getResourceAsStream("/images/open.png"));
 		openImv.setImage(openImg);
 		openBtn.setGraphic(openImv);
 		// Creating a File chooser
@@ -308,7 +319,7 @@ public class Graphic extends Application {
 		// Button Exit
 		Button exitBtn = new Button("Exit");
 		ImageView exitImv = new ImageView();
-		Image exitImg = new Image(Main.class.getResourceAsStream("/images/exit.gif"));
+		Image exitImg = new Image(Graphic.class.getResourceAsStream("/images/exit.gif"));
 		exitImv.setImage(exitImg);
 		exitBtn.setGraphic(exitImv);
 		exitBtn.setOnAction(e -> {
@@ -318,7 +329,7 @@ public class Graphic extends Application {
 		// Button turn
 		Button turnBtn = new Button("Turn");
 		ImageView turnImv = new ImageView();
-		Image turnImg = new Image(Main.class.getResourceAsStream("/images/turn90.png"));
+		Image turnImg = new Image(Graphic.class.getResourceAsStream("/images/turn90.png"));
 		turnImv.setImage(turnImg);
 		turnBtn.setGraphic(turnImv);
 		turnBtn.setOnAction(e -> {
@@ -329,8 +340,9 @@ public class Graphic extends Application {
 		// New Button
 		Button newBtn = new Button("New");
 		newBtn.setOnAction(e -> {
-//				Game gameTest2 = new Game();
-//				game = gameTest2; // For test
+//				Game gameNew = new Game();
+//				gameNew.getChessBoard().setConfigBoard(game.getChessBoard().getConfigBoard());
+//				game = gameNew;
 //				chessBoardList.set(0, gameTest2.getChessBoard());
 //				turnBoard = false;
 //				histListWhite.clear();
@@ -358,8 +370,9 @@ public class Graphic extends Application {
 //				pane.getChildren().remove(labelCol);
 //				NumberingRowCol(pane);
 //				labelCurentPlayer(pane, histListWhite, histListBlack, lostPieceWhiteList, lostPieceBlackList);
-//				displayCell(game.getChessBoard(), pane, turnBoard);
+//				displayCell(game.getChessBoard(), pane);
 //				markCell(game, pane, "O");
+			newGame();
 		});
 //		pane.add(newBtn, 0, 10, 2, 1);
 //		GridPane.setHalignment(newBtn, HPos.CENTER);
