@@ -1,29 +1,20 @@
 package controlers;
 
 import java.util.HashSet;
-import java.util.Observable;
-import java.util.Observer;
-
-import controlers.ControleTileIcon;
-import controlers.ControleTileRectangle;
 import global.Coord;
 import global.Game;
 import global.NotInHashSetException;
 import interfaces.Graphic;
 import javafx.event.EventHandler;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import pieces.Bishop;
-import pieces.King;
-import pieces.Knight;
-import pieces.Pawn;
-import pieces.Queen;
-import pieces.Rook;
 
+/**
+ * Controller of the whole tile (colored rectangle + image)
+ *
+ */
 public class ControleTileStack implements EventHandler<MouseEvent> {
 	// attributes
 	private Coord tilePosition; // get ref to selected Piece
@@ -31,6 +22,14 @@ public class ControleTileStack implements EventHandler<MouseEvent> {
 	private Graphic graphic;
 	private StackPane tile;
 
+	/**
+	 * Default constructor
+	 * 
+	 * @param tilePosition The "absolute" position of the tile
+	 * @param graphic      The current graphic interface
+	 * @param game         The current game
+	 * @param tile         The colored rectangle
+	 */
 	public ControleTileStack(Coord tilePosition, Graphic graphic, Game game, StackPane tile) {
 		this.tilePosition = tilePosition;
 		this.game = game;
@@ -46,7 +45,8 @@ public class ControleTileStack implements EventHandler<MouseEvent> {
 		// select a piece
 		if (graphic.getSelectedCoord() == null) {
 			try {
-				Coord absolutePosition = Graphic.convertGraphToChess(tilePosition, game.getChessBoard().getConfigBoard());
+				Coord absolutePosition = Graphic.convertGraphToChess(tilePosition,
+						game.getChessBoard().getConfigBoard());
 				graphic.setSelectedCoord(absolutePosition);
 				HashSet<Coord> sel = game.select(absolutePosition);
 			} catch (NotInHashSetException e) {
@@ -58,16 +58,17 @@ public class ControleTileStack implements EventHandler<MouseEvent> {
 
 			// select another piece
 			try {
-				Coord absolutePosition = Graphic.convertGraphToChess(tilePosition, game.getChessBoard().getConfigBoard());
-				int isPlayable=game.play(graphic.getSelectedCoord(), absolutePosition);
+				Coord absolutePosition = Graphic.convertGraphToChess(tilePosition,
+						game.getChessBoard().getConfigBoard());
+				int isPlayable = game.play(graphic.getSelectedCoord(), absolutePosition);
 				// update selectedTile
-				if (isPlayable== 1) {
+				if (isPlayable == 1) {
 					graphic.setSelectedCoord(absolutePosition);
 					game.select(absolutePosition);
 				} else if (isPlayable == 2) {
-					game.getChessBoard().update(graphic.getSelectedCoord(), absolutePosition);
+					game.getChessBoard().update(graphic.getSelectedCoord(), absolutePosition, graphic);
 					System.out.println(game.toString());
-					game.setnbCoup();
+					game.setNbCoup();
 					game.setTurn();
 					graphic.setSelectedCoord(null);
 					if (game.getTurn()) {
@@ -76,11 +77,12 @@ public class ControleTileStack implements EventHandler<MouseEvent> {
 						game.getChessBoard().updateCheckStatusking(game.getBlackPlayer().getCoordOfMyPieces(),
 								game.getTurn());
 					} else {
-						game.getChessBoard().coorPieceMoveable(game.getBlackPlayer().getCoordOfMyPieces(),game.getTurn());
+						game.getChessBoard().coorPieceMoveable(game.getBlackPlayer().getCoordOfMyPieces(),
+								game.getTurn());
 						game.getChessBoard().updateCheckStatusking(game.getWhitePlayer().getCoordOfMyPieces(),
 								game.getTurn());
 					}
-					if(game.getChessBoard().getCoorPieceMoveable().isEmpty()) {
+					if (game.getChessBoard().getCoorPieceMoveable().isEmpty()) {
 						System.out.println("End game");
 //						if(game.getWhitePlayer().getMyKingStatus()) {
 //							System.out.println("Black win !");
@@ -90,19 +92,19 @@ public class ControleTileStack implements EventHandler<MouseEvent> {
 //							System.out.println("Draw !");
 //						}
 						int kq = game.getEnd();
-	  		  			switch(kq) {
-	  		  				case 0:	// this.getTurn() && this.whitePlayer.getMyKingStatus() == true
-	  		  					graphic.showAlertInvalidInput("Black Won!");
-	  		  					break;
-	  		  				case 1: //!this.getTurn()) && this.blackPlayer.getMyKingStatus() == true
-	  		  					graphic.showAlertInvalidInput("White Won!");
-	  		  					break;
-	  		  				case 2: // ko thuoc 2 truong hop tren
-	  		  					graphic.showAlertInvalidInput("Draw!");
-	  		  					break;
-	  		  			}
+						switch (kq) {
+						case 0: // this.getTurn() && this.whitePlayer.getMyKingStatus() == true
+							graphic.showAlertInvalidInput("Black Won!");
+							break;
+						case 1: // !this.getTurn()) && this.blackPlayer.getMyKingStatus() == true
+							graphic.showAlertInvalidInput("White Won!");
+							break;
+						case 2: // ko thuoc 2 truong hop tren
+							graphic.showAlertInvalidInput("Draw!");
+							break;
+						}
 					}
-				
+
 				}
 			} catch (NotInHashSetException e) {
 				System.out.println("Wrong tile selected !");
@@ -110,6 +112,9 @@ public class ControleTileStack implements EventHandler<MouseEvent> {
 		}
 	}
 
+	/**
+	 * Create the ControleTileIcon
+	 */
 	public void generateImage() {
 		ImageView iv = new ImageView();
 		ControleTileIcon ci = new ControleTileIcon(tilePosition, game, iv);
@@ -117,6 +122,9 @@ public class ControleTileStack implements EventHandler<MouseEvent> {
 		tile.getChildren().add(iv);
 	}
 
+	/**
+	 * Create the ControleTileRectangle
+	 */
 	public void generateColor() {
 		// Size of the rectangle in a cell of the displayed chess board
 		final double s = 50;

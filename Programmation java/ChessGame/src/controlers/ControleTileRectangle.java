@@ -1,6 +1,5 @@
 package controlers;
 
-import java.util.HashSet;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -12,6 +11,10 @@ import interfaces.Graphic;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
+/**
+ * Controller of colored rectangle of each tile
+ *
+ */
 public class ControleTileRectangle implements Observer {
 	// attributes
 	private Coord tilePosition; // get ref to selected Piece
@@ -19,6 +22,14 @@ public class ControleTileRectangle implements Observer {
 	private Rectangle tile;
 	private Graphic graphic;
 
+	/**
+	 * Default constructor
+	 * 
+	 * @param tilePosition The "absolute" position of the tile
+	 * @param graphic      The current graphic interface
+	 * @param game         The current game
+	 * @param tile         The colored rectangle
+	 */
 	public ControleTileRectangle(Coord tilePosition, Graphic graphic, Game game, Rectangle tile) {
 		this.tilePosition = tilePosition;
 		this.game = game;
@@ -61,6 +72,9 @@ public class ControleTileRectangle implements Observer {
 		}
 	}
 
+	/**
+	 * Reset the color of the tile (set in black or white)
+	 */
 	public void setDefaultColor() {
 		Coord absolutePos = Graphic.convertGraphToChess(tilePosition, game.getChessBoard().getConfigBoard());
 		int i = absolutePos.getR();
@@ -72,12 +86,16 @@ public class ControleTileRectangle implements Observer {
 		}
 	}
 
-	// set the tile to appears as selected
+	/**
+	 * set the tile to appears as selected
+	 */
 	private void setSelectedTile() {
 		tile.setFill(Color.BLUEVIOLET);
 	}
 
-	// set the tile to appears as selected
+	/**
+	 * set the tile to appears as moveable
+	 */
 	private void setMoveableTile() {
 		tile.setFill(Color.RED);
 	}

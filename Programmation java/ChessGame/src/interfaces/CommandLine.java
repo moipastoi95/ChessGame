@@ -7,18 +7,28 @@ import global.Coord;
 import global.Game;
 import global.NotInHashSetException;
 
-public class CommandLine {
+/**
+ * Interface in commande line only
+ */
+public class CommandLine implements ChessGameInterface {
 
-	public static void main(String[] args) {
-    	Game gameTest=new Game();
-    	
-    	ChessBoard.setConfigBoard(2);
-    	CommandLine c = new CommandLine();
-    	c.courseOfTheGame(gameTest);
-    }
-	
 	/**
+	 * Start the command line interface
 	 * 
+	 * @param args arguments
+	 */
+	public static void main(String[] args) {
+		Game gameTest = new Game();
+
+		ChessBoard.setConfigBoard(2);
+		CommandLine c = new CommandLine();
+		c.courseOfTheGame(gameTest);
+	}
+
+	/**
+	 * Start the game and manage User's inputs
+	 * 
+	 * @param game The current game
 	 */
 	public void courseOfTheGame(Game game) {
 		Coord cStart = null;
@@ -68,12 +78,12 @@ public class CommandLine {
 						System.out.println("Move accepted");
 					}
 					b = true;
-					game.getChessBoard().update(cStart, cFinal);
+					game.getChessBoard().update(cStart, cFinal, this);
 				} catch (NotInHashSetException e) {
 					System.out.println(e.getMessage());
 				}
 			}
-			game.setnbCoup();
+			game.setNbCoup();
 			game.setTurn();
 			if (game.getTurn()) {
 				game.getChessBoard().coorPieceMoveable(game.getWhitePlayer().getCoordOfMyPieces(), game.getTurn());
@@ -91,8 +101,13 @@ public class CommandLine {
 		case 1:
 			System.out.println("Well play, whiteplayer win the game!");
 			break;
-		default :
+		default:
 			System.out.println("No winner, pat");
 		}
+	}
+
+	@Override
+	public int promoteDialog() {
+		return Input.askValidIntPromotion();
 	}
 }

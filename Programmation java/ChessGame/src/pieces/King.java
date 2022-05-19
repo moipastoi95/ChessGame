@@ -4,45 +4,42 @@ import java.util.HashSet;
 
 import global.ChessBoard;
 import global.Coord;
-
-//import java.util.*;
+import interfaces.ChessGameInterface;
 
 /**
- * 
+ * The King
  */
 public class King extends Piece {
 	// attributes
-	private boolean castellingKing; // vrai=le roi n'a pas encore bougé, false=le roi a bougé
+	private boolean castlingKing; // vrai=le roi n'a pas encore bougé, false=le roi a bougé
 
 	/**
 	 * Default constructor
+	 * 
+	 * @param c  The color of the Piece
+	 * @param cb The ChessBoard
 	 */
 	public King(boolean c, ChessBoard cb) {
 		super(c, cb);
-		this.castellingKing = true;
+		this.castlingKing = true;
 	}
 
 	/**
-	 * getter
+	 * Get the king status (has moved or not)
 	 * 
-	 * @return
+	 * @return The king never moved
 	 */
 	public boolean getCastlingKing() {
-		return this.castellingKing;
+		return this.castlingKing;
 	}
 
 	/**
-	 * setter
+	 * Set the king status to "has moved"
 	 */
-	public void setCastellingKing() {
-		this.castellingKing = false;
+	public void setCastlingKing() {
+		this.castlingKing = false;
 	}
 
-	/**
-	 * @param Coord
-	 * @param Coord
-	 * @return
-	 */
 	public HashSet<Coord> possibleMove(Coord c) {
 		HashSet<Coord> pMove = new HashSet<>();
 		int i = c.getR();
@@ -143,12 +140,7 @@ public class King extends Piece {
 		return pMove;
 	}
 
-	/**
-	 * @param Coord
-	 * @param Coord
-	 * @return
-	 */
-	public Piece move(Coord startC, Coord finalC) {
+	public Piece move(Coord startC, Coord finalC, ChessGameInterface inter) {
 		Piece tmp = this.getCb().getBoard()[finalC.getR()][finalC.getC()];
 		getCb().getBoard()[finalC.getR()][finalC.getC()] = this;
 		getCb().getBoard()[startC.getR()][startC.getC()] = null;
@@ -158,30 +150,23 @@ public class King extends Piece {
 			getCb().setBlackKingCoord(finalC);
 		}
 		if (getCastlingKing() && (finalC.getC() == 2 || finalC.getC() == 6)) {
-			setCastellingKing();
+			setCastlingKing();
 			if (finalC.getC() == 2 && finalC.getR() == 0) {
-				getCb().update(new Coord(0, 0), new Coord(0, 3));
+				getCb().update(new Coord(0, 0), new Coord(0, 3), inter);
 			} else if (finalC.getC() == 2 && finalC.getR() == 7) {
-				getCb().update(new Coord(7, 0), new Coord(7, 3));
+				getCb().update(new Coord(7, 0), new Coord(7, 3), inter);
 			} else if (finalC.getC() == 6 && finalC.getR() == 0) {
-				getCb().update(new Coord(0, 7), new Coord(0, 5));
+				getCb().update(new Coord(0, 7), new Coord(0, 5), inter);
 			} else if (finalC.getC() == 6 && finalC.getR() == 7) {
-				getCb().update(new Coord(7, 7), new Coord(7, 5));
+				getCb().update(new Coord(7, 7), new Coord(7, 5), inter);
 			}
 			return null;
 		} else {
-			setCastellingKing();
+			setCastlingKing();
 			return tmp;
 		}
 	}
 
-	/**
-	 * Different implementation to move
-	 * 
-	 * @param startC Coord of the Piece to move
-	 * @param finalC Coord of the final position
-	 * @return Piece the Piece eventually eaten
-	 */
 	public Piece moveForAllowedMove(Coord startC, Coord finalC) {
 		Piece tmp = this.getCb().getBoard()[finalC.getR()][finalC.getC()];
 		this.getCb().getBoard()[finalC.getR()][finalC.getC()] = this;
@@ -201,13 +186,6 @@ public class King extends Piece {
 		return tmp;
 	}
 
-	/**
-	 * 
-	 * @param startC true Coord of the Piece which move
-	 * @param finalC Coord of the simulation position
-	 * @param Piece  the piece eventually eaten
-	 * @return
-	 */
 	public void demove(Coord startC, Coord finalC, Piece pEat) {
 		this.getCb().getBoard()[startC.getR()][startC.getC()] = this;
 		this.getCb().getBoard()[finalC.getR()][finalC.getC()] = pEat;
@@ -224,11 +202,6 @@ public class King extends Piece {
 		}
 	}
 
-	/**
-	 * toString
-	 * 
-	 * @return String
-	 */
 	public String toString() {
 		if (this.getColor() == true) {
 			return "K";

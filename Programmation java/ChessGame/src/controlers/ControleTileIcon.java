@@ -9,8 +9,6 @@ import global.Game;
 import interfaces.Graphic;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import pieces.Bishop;
 import pieces.King;
 import pieces.Knight;
@@ -19,28 +17,42 @@ import pieces.Piece;
 import pieces.Queen;
 import pieces.Rook;
 
+/**
+ * Controller of Image of each tile
+ *
+ */
 public class ControleTileIcon implements Observer {
 	// attributes
 	private Coord tilePosition; // get ref to selected Piece
 	private Game game;
 	private ImageView imageView;
 
+	/**
+	 * Default constructor
+	 * 
+	 * @param tilePosition The "absolute" position of the tile
+	 * @param game         The current game
+	 * @param imageView    The node that store the image
+	 */
 	public ControleTileIcon(Coord tilePosition, Game game, ImageView imageView) {
-			this.tilePosition = tilePosition;
-			this.game = game;
-			this.imageView = imageView;
-			
-			syncImage();
-		}
+		this.tilePosition = tilePosition;
+		this.game = game;
+		this.imageView = imageView;
+
+		syncImage();
+	}
 
 	@Override
 	public void update(Observable o, Object arg) {
-		Integer stat = (Integer) arg;		
+		Integer stat = (Integer) arg;
 		if (stat == ChessBoard.PLAY) {
 			syncImage();
-		}		
+		}
 	}
-	
+
+	/**
+	 * Refresh the image
+	 */
 	public void syncImage() {
 		int m, n;
 		// Scan the logical chessBoard and put the appropriate image according to the
@@ -51,6 +63,12 @@ public class ControleTileIcon implements Observer {
 		imageView.setImage(getImage(game.getChessBoard().getBoard()[n][m]));
 	}
 
+	/**
+	 * Get the image according to a Piece
+	 * 
+	 * @param p The Piece
+	 * @return An Image that represent the Piece
+	 */
 	public static Image getImage(Piece p) {
 		// Define image of pieces
 		try {
@@ -67,7 +85,6 @@ public class ControleTileIcon implements Observer {
 			Image image_wr = new Image(Graphic.class.getResourceAsStream("/images/wr.gif"));
 			Image image_br = new Image(Graphic.class.getResourceAsStream("/images/br.gif"));
 
-			
 			if (p != null) {
 				Image img = image_bb;
 				if (p instanceof Pawn) {

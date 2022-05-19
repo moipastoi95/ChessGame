@@ -19,6 +19,7 @@ import global.Game;
 import global.Player;
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -36,10 +37,15 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
+import javafx.stage.Modality;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 
-public class Graphic extends Application {
+/**
+ * Graphic interface
+ *
+ */
+public class Graphic extends Application implements ChessGameInterface {
 	// attributes
 	private Stage primaryStage;
 	private GridPane grid = new GridPane();
@@ -52,28 +58,36 @@ public class Graphic extends Application {
 		newGame();
 	}
 
-	public static void main(String[] args) {
-		launch(args);
-	}
-
+	/**
+	 * Get the position of the selected Piece
+	 * 
+	 * @return The Coord of the selected Piece
+	 */
 	public Coord getSelectedCoord() {
 		return selectedCoord;
 	}
 
+	/**
+	 * Set the position of the selected Piece
+	 * 
+	 * @param c The Coord of the selected Piece
+	 */
 	public void setSelectedCoord(Coord c) {
 		selectedCoord = c;
 	}
-	
+
+	/**
+	 * init and display a new Game
+	 */
 	public void newGame() {
 		// Create logical ChessBoard
 		game = new Game();
 		game.getChessBoard().setConfigBoard(1);
 
-		
 		// generate the graphic board
 		displayCell(game.getChessBoard(), grid);
 		numberingRowCol(game.getChessBoard().getConfigBoard(), grid);
-	
+
 		// init pieces moveable
 		game.getChessBoard().coorPieceMoveable(game.getWhitePlayer().getCoordOfMyPieces(), game.getTurn());
 		game.getChessBoard().updateCheckStatusking(game.getBlackPlayer().getCoordOfMyPieces(), game.getTurn());
@@ -98,8 +112,12 @@ public class Graphic extends Application {
 		primaryStage.show();
 	}
 
-	// draw the visible chess board and put appropriate piece onto the cells of the
-	// chess board.
+	/**
+	 * Generate the graphic board
+	 * 
+	 * @param chessBoard The abstract ChessBoard
+	 * @param pane       The mother node in which the Board will be generated
+	 */
 	private void displayCell(ChessBoard chessBoard, GridPane pane) {
 		pane.getChildren().clear();
 		for (int i = 0; i < 8; i++) {
@@ -107,12 +125,17 @@ public class Graphic extends Application {
 				StackPane tile = new StackPane();
 				ControleTileStack cs = new ControleTileStack(new Coord(i, j), this, game, tile);
 				tile.setOnMouseClicked(cs);
-				pane.add(tile, j, i); 
+				pane.add(tile, j, i);
 			}
 		}
 	}
 
-	// Numbering rows and columns of the visible chess board
+	/**
+	 * Generate the number on the side of the graphic board
+	 * 
+	 * @param config The configuration of the board
+	 * @param pane   The GridPane that store the graphic board
+	 */
 	private void numberingRowCol(int config, GridPane pane) {
 		Label lab = new Label();
 		lab.setTextFill(Color.BLUE);
@@ -144,15 +167,20 @@ public class Graphic extends Application {
 		pane.add(lb2, 0, 9);
 		// Numbering rows
 		for (int i = 0; i < 8; i++) {
-			Integer k = i + 1; // Integer k = i; //Danh so tu 0
-			Label lb3 = new Label("  " + k.toString()); // " " to make gap between the chessboard and the index number
+			Integer k = i + 1;
+			Label lb3 = new Label("  " + k.toString());
 			lb3.setTextFill(Color.BLUE);
 			lb3.setStyle("-fx-font-weight: bold");
-			pane.add(lb3, 9, 7 - i); // "7-i" to numbering from down to top //pane.add(lb3, 9, i); //Danh so tu 0 va
-										// tu tren xuong
+			pane.add(lb3, 9, 7 - i);
 		}
 	}
 
+	/**
+	 * Generate a pane that display player's current informations
+	 * 
+	 * @param player The concerned player
+	 * @return A VBox with player's informations
+	 */
 	private VBox playerBorder(Player player) {
 		/// Top
 		// Display the current player (Black or White).
@@ -214,7 +242,7 @@ public class Graphic extends Application {
 //		lostArea.setText(player.getCapturedPieces().toString());
 		ControleLostPieces clp = new ControleLostPieces(lostArea, game.getChessBoard(), player);
 		game.getChessBoard().addObserver(clp);
-		
+
 		lostBox.getChildren().add(lostPiece);
 		lostBox.getChildren().add(lostArea);
 
@@ -227,7 +255,14 @@ public class Graphic extends Application {
 
 	}
 
-	// Create buttons modules
+	/**
+	 * Generate the control button (save, open, exit, turn) + a counter of turn
+	 * 
+	 * @param primaryStage The primaryStage
+	 * @param pane         The GridPane which represent the graphic board
+	 * @param chessBoard   The abstract ChessBoard
+	 * @return A VBox that contains buttons and the counter of turn
+	 */
 	private VBox createSaveOpenExitButton(Stage primaryStage, GridPane pane, ChessBoard chessBoard) {
 		// Save Button
 		Button saveBtn = new Button("Save");
@@ -297,7 +332,7 @@ public class Graphic extends Application {
 //							blackTimeList = blackTimeList_s;
 //							chessBoardList.get(0).setConfigBoard(configBoard_s);
 //							markPossibleMove(game, pane, histListWhite, histListBlack, lostPieceWhiteList, lostPieceBlackList);
-						markPossibleMove(game);
+//						markPossibleMove(game);
 
 //							pane.getChildren().remove(labelCol);
 						numberingRowCol(game.getChessBoard().getConfigBoard(), pane);
@@ -384,7 +419,7 @@ public class Graphic extends Application {
 //		GridPane.setHalignment(exitBtn, HPos.CENTER);
 //		pane.add(turnBtn, 10, 10, 2, 1);
 //		GridPane.setHalignment(turnBtn, HPos.CENTER);
-		
+
 		// Number of turn
 		HBox turnBox = new HBox();
 		Label lb_turn = new Label("Tour : ");
@@ -399,7 +434,7 @@ public class Graphic extends Application {
 
 		turnBox.getChildren().add(lb_turn);
 		turnBox.getChildren().add(result);
-		
+
 		VBox buttonsBox = new VBox();
 		buttonsBox.getChildren().add(newBtn);
 		buttonsBox.getChildren().add(saveBtn);
@@ -410,6 +445,11 @@ public class Graphic extends Application {
 		return buttonsBox;
 	}
 
+	/**
+	 * Show a Dialog box
+	 * 
+	 * @param str The text to display
+	 */
 	public static void showAlertInvalidInput(String str) {
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle(str);
@@ -419,20 +459,27 @@ public class Graphic extends Application {
 	}
 
 	// Identify pieces that are movable and the status of current King.
-	public void markPossibleMove(Game game) {
-		if (game.getTurn()) {
-			game.getChessBoard().coorPieceMoveable(game.getWhitePlayer().getCoordOfMyPieces(), game.getTurn());
+//	public void markPossibleMove(Game game) {
+//		if (game.getTurn()) {
+//			game.getChessBoard().coorPieceMoveable(game.getWhitePlayer().getCoordOfMyPieces(), game.getTurn());
+//
+//			game.getChessBoard().updateCheckStatusking(game.getBlackPlayer().getCoordOfMyPieces(), game.getTurn());
+//			;
+//		} else {
+//			game.getChessBoard().coorPieceMoveable(game.getBlackPlayer().getCoordOfMyPieces(), game.getTurn());
+//			;
+//			game.getChessBoard().updateCheckStatusking(game.getWhitePlayer().getCoordOfMyPieces(), game.getTurn());
+//			;
+//		}
+//	}
 
-			game.getChessBoard().updateCheckStatusking(game.getBlackPlayer().getCoordOfMyPieces(), game.getTurn());
-			;
-		} else {
-			game.getChessBoard().coorPieceMoveable(game.getBlackPlayer().getCoordOfMyPieces(), game.getTurn());
-			;
-			game.getChessBoard().updateCheckStatusking(game.getWhitePlayer().getCoordOfMyPieces(), game.getTurn());
-			;
-		}
-	}
-
+	/**
+	 * Set dimension to a TextArea
+	 * 
+	 * @param textArea The concerned TextArea
+	 * @param w        The width wanted
+	 * @param h        The height wanted
+	 */
 	private void formatTextArea(TextArea textArea, int w, int h) {
 		textArea.setPrefWidth(w);
 		textArea.setPrefHeight(h);
@@ -441,8 +488,14 @@ public class Graphic extends Application {
 		textArea.setStyle("-fx-font-size: 10px;");
 	}
 
-	// Convert Coord from ChessBoard to Coord accorded to the Graphic board (maybe
-	// turned)
+	/**
+	 * Convert Coord from ChessBoard to Coord accorded to the Graphic board (maybe
+	 * turned)
+	 * 
+	 * @param c      The Coord according to the abstract ChessBoard
+	 * @param config The configuration of the Board
+	 * @return The Coord according to the graphic board
+	 */
 	public static Coord convertChessToGraph(Coord c, int config) {
 		int i = c.getR();
 		int j = c.getC();
@@ -466,7 +519,15 @@ public class Graphic extends Application {
 		}
 		return new Coord(n, m);
 	}
-	
+
+	/**
+	 * Convert Coord from graphic board to Coord accorded to the abstract ChessBoard
+	 * (maybe // turned)
+	 * 
+	 * @param c      The Coord according to the graphic board
+	 * @param config The configuration of the Board
+	 * @return The Coord according to the abstract ChessBoard
+	 */
 	public static Coord convertGraphToChess(Coord c, int config) {
 		int i = c.getR();
 		int j = c.getC();
@@ -490,5 +551,71 @@ public class Graphic extends Application {
 		}
 		return new Coord(n, m);
 	}
-	
+
+	@Override
+	public int promoteDialog() {
+		// Dialog to input configBoard is 1 or 2. Default 2.
+		InputDialog dialog = new InputDialog("3");
+		dialog.getStage().showAndWait();
+		return dialog.getResult();
+	}
+
+	/**
+	 * Generate a dialog box which let a user write a number
+	 */
+	private static class InputDialog {
+		private final Stage stage;
+		private final TextField input;
+
+		/**
+		 * Default constructor
+		 * 
+		 * @param string The default value
+		 */
+		public InputDialog(String string) {
+			input = new TextField(string);
+			Button close = new Button("Submit");
+			Label label = new Label("Chose a Piece of promoting\n0=knight, 1=bishop, 2=rook,\nany other number=Queen");
+			VBox root = new VBox();
+			root.setAlignment(Pos.CENTER);
+			root.getChildren().addAll(label, input, close);
+			Scene scene = new Scene(root, 200, 100);
+			stage = new Stage();
+			stage.initModality(Modality.APPLICATION_MODAL);
+			close.setOnAction(e -> stage.hide());
+			stage.setScene(scene);
+		}
+
+		/**
+		 * Get the stage
+		 * 
+		 * @return The stage
+		 */
+		public Stage getStage() {
+			return stage;
+		}
+
+		/**
+		 * Get the value of the User input
+		 * 
+		 * @return
+		 */
+		public int getResult() {
+			if (input.getText().length() > 0) {
+				return Integer.parseInt(input.getText());
+			} else {
+				return 2;
+			}
+		}
+	}
+
+	/**
+	 * Start the graphic interface
+	 * 
+	 * @param args arguments
+	 */
+	public static void main(String[] args) {
+		launch(args);
+	}
+
 }

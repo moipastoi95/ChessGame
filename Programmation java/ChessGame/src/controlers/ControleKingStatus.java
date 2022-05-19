@@ -6,10 +6,19 @@ import java.util.Observer;
 import global.Player;
 import javafx.scene.control.TextField;
 
+/**
+ * Controller of the Field "King Status"
+ *
+ */
 public class ControleKingStatus implements Observer{
 	private TextField tf;
 	private Player player;
 	
+	/**
+	 * Default constructor
+	 * @param tf The text field concerned
+	 * @param player The player that own the king concerned
+	 */
 	public ControleKingStatus(TextField tf, Player player) {
 		this.tf = tf;
 		this.player = player;
@@ -22,6 +31,9 @@ public class ControleKingStatus implements Observer{
 		display();
 	}
 	
+	/**
+	 * Refresh the TextField
+	 */
 	public void display() {
 		tf.setText("" + player.getMyKingStatus());
 		if (player.getMyKingStatus()) {

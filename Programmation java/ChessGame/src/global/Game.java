@@ -2,9 +2,8 @@ package global;
 
 import java.util.*;
 
-
 /**
- * Game : the begining of the functionnal part
+ * The Game : the begining of the functionnal part
  */
 public class Game extends Observable {
 	// attributes
@@ -13,9 +12,15 @@ public class Game extends Observable {
 	private ChessBoard cb;
 	private boolean turn;
 	private int nbCoup;
-	
-    public static int SELECTED_TILE = 3;
-    public static int CHANGE_TURN = 4;
+
+	/**
+	 * Constant for updating observer, in case of the selection of a Piece
+	 */
+	public static int SELECTED_TILE = 3;
+	/**
+	 * Constant for updating observer, called when a player end its turn
+	 */
+	public static int CHANGE_TURN = 4;
 
 	/**
 	 * Default constructor
@@ -29,9 +34,7 @@ public class Game extends Observable {
 	}
 
 	/**
-	 * save the game into a file
-	 * 
-	 * @return
+	 * Save the game into a file
 	 */
 	public void saveFile() {
 		// TODO implement here
@@ -39,43 +42,43 @@ public class Game extends Observable {
 	}
 
 	/**
-	 * add 1 to nbCoup
+	 * Increment the number of turn
 	 */
-	public void setnbCoup() {
+	public void setNbCoup() {
 		this.nbCoup = this.nbCoup + 1;
 		this.setChanged();
 		this.notifyObservers(Game.CHANGE_TURN);
 	}
 
 	/**
-	 * getter
+	 * Get the number of turn
 	 * 
-	 * @return
+	 * @return The number of turn
 	 */
-	public int getnbCoup() {
+	public int getNbCoup() {
 		return this.nbCoup;
 	}
 
 	/**
-	 * getter
+	 * Get the white player
 	 * 
-	 * @return
+	 * @return The white player
 	 */
 	public Player getWhitePlayer() {
 		return whitePlayer;
 	}
 
 	/**
-	 * getter
+	 * Get the black player
 	 * 
-	 * @return
+	 * @return The black player
 	 */
 	public Player getBlackPlayer() {
 		return blackPlayer;
 	}
 
 	/**
-	 * change the player who need to play
+	 * Change the turn
 	 */
 	public void setTurn() {
 		this.turn = !this.turn;
@@ -84,29 +87,29 @@ public class Game extends Observable {
 	}
 
 	/**
-	 * getter
+	 * Tell which player have to play
 	 * 
-	 * @return
+	 * @return The white player have to play
 	 */
 	public boolean getTurn() {
 		return this.turn;
 	}
 
 	/**
-	 * getter
+	 * Get the current ChessBoard
 	 * 
-	 * @return
+	 * @return The current ChessBoard
 	 */
 	public ChessBoard getChessBoard() {
 		return cb;
 	}
 
 	/**
-	 * get all the Coord where a certain Piece could move to
+	 * Get all the Coord where a certain Piece could move to
 	 * 
 	 * @param c Coord of the Piece
-	 * @return a set of Coord
-	 * @throws NotInHashSetException
+	 * @return A set of Coord
+	 * @throws NotInHashSetException Happened when selecting a non-moveable Piece
 	 */
 	public HashSet<Coord> select(Coord c) throws NotInHashSetException {
 		if (this.cb.getCoorPieceMoveable().contains(c)) {
@@ -120,10 +123,14 @@ public class Game extends Observable {
 	}
 
 	/**
-	 * let's play
+	 * Verify if a move is possible
 	 * 
-	 * @param cStart the Coord of the Piece to play
-	 * @param cFinal the Coord of the position to move on
+	 * @param cStart The Coord of the Piece to play
+	 * @param cFinal The position to move on
+	 * @return 2=the move is allowed, 1=the new position is a current player Piece
+	 *         position
+	 * @throws NotInHashSetException Happened when playing a Piece on an unreachable
+	 *                               position
 	 */
 	public int play(Coord cStart, Coord cFinal) throws NotInHashSetException {
 		if (this.cb.getBoard()[cStart.getR()][cStart.getC()].getAllowedMove().contains(cFinal)) {
@@ -136,9 +143,9 @@ public class Game extends Observable {
 	}
 
 	/**
-	 * get the kingStatus
+	 * Get the King Status
 	 * 
-	 * @return
+	 * @return The King is attacked
 	 */
 	public boolean kingStatus() {
 		// TODO implement here
@@ -146,7 +153,9 @@ public class Game extends Observable {
 	}
 
 	/**
-	 * get the final result of the game
+	 * Get the final result of the game
+	 * 
+	 * @return 0=Black won, 1=White won, 2=Pat
 	 */
 	public int getEnd() {
 		if (this.getTurn() && this.whitePlayer.getMyKingStatus()) {
@@ -158,11 +167,6 @@ public class Game extends Observable {
 		}
 	}
 
-	/**
-	 * toString
-	 * 
-	 * @return String
-	 */
 	public String toString() {
 		String affichage;
 		if (this.getTurn()) {
