@@ -33,36 +33,37 @@ public class CommandLine implements ChessGameInterface {
 		System.out.println(game.toString());
 		CommandLine c = new CommandLine();
 		
-		game.getChessBoard().update(new Coord(6,5), new Coord(5,5), c);
-		game.setNbCoup();
-		game.setTurn();
-		System.out.println(game.toString());
-		game.getChessBoard().coorPieceMoveable(game.getBlackPlayer().getCoordOfMyPieces(), game.getTurn());
-		game.getChessBoard().updateCheckStatusking(game.getWhitePlayer().getCoordOfMyPieces(), game.getTurn());
-	    
-		game.getChessBoard().update(new Coord(1,4), new Coord(3,4), c);
-		game.setNbCoup();
-		game.setTurn();
-		System.out.println(game.toString());
-		game.getChessBoard().coorPieceMoveable(game.getWhitePlayer().getCoordOfMyPieces(), game.getTurn());
-		game.getChessBoard().updateCheckStatusking(game.getBlackPlayer().getCoordOfMyPieces(), game.getTurn());
-		
-		game.getChessBoard().update(new Coord(6,6), new Coord(4,6), c);
-		game.setNbCoup();
-		game.setTurn();
-		System.out.println(game.toString());
-		game.getChessBoard().coorPieceMoveable(game.getBlackPlayer().getCoordOfMyPieces(), game.getTurn());
-		game.getChessBoard().updateCheckStatusking(game.getWhitePlayer().getCoordOfMyPieces(), game.getTurn());
-	    
-      game.getChessBoard().update(new Coord(0,3), new Coord(4,7), c);
-		game.setNbCoup();
-		game.setTurn();
-		System.out.println(game.toString());
-		game.getChessBoard().coorPieceMoveable(game.getWhitePlayer().getCoordOfMyPieces(), game.getTurn());
-		game.getChessBoard().updateCheckStatusking(game.getBlackPlayer().getCoordOfMyPieces(), game.getTurn());
-		System.out.println(game.getChessBoard().getCoorPieceMoveable());
-		System.out.println(game.getChessBoard().getBoard()[7][4].getAllowedMove());
-	//	c.courseOfTheGame(game);
+//		game.getChessBoard().update(new Coord(6,5), new Coord(4,5), c);
+//		game.setNbCoup();
+//		game.setTurn();
+//		System.out.println(game.toString());
+//		game.getChessBoard().coorPieceMoveable(game.getBlackPlayer().getCoordOfMyPieces(), game.getTurn());
+//		game.getChessBoard().updateCheckStatusking(game.getWhitePlayer().getCoordOfMyPieces(), game.getTurn());
+//	    
+//		game.getChessBoard().update(new Coord(1,4), new Coord(3,4), c);
+//		game.setNbCoup();
+//		game.setTurn();
+//		System.out.println(game.toString());
+//		game.getChessBoard().coorPieceMoveable(game.getWhitePlayer().getCoordOfMyPieces(), game.getTurn());
+//		game.getChessBoard().updateCheckStatusking(game.getBlackPlayer().getCoordOfMyPieces(), game.getTurn());
+//		
+//		game.getChessBoard().update(new Coord(4,5), new Coord(4,4), c);
+//		game.setNbCoup();
+//		game.setTurn();
+//		System.out.println(game.toString());
+//		game.getChessBoard().coorPieceMoveable(game.getBlackPlayer().getCoordOfMyPieces(), game.getTurn());
+//		game.getChessBoard().updateCheckStatusking(game.getWhitePlayer().getCoordOfMyPieces(), game.getTurn());
+//	    
+//      game.getChessBoard().update(new Coord(1,6), new Coord(3,6), c);
+//		game.setNbCoup();
+//		game.setTurn();
+//		System.out.println(game.toString());
+//		game.getChessBoard().coorPieceMoveable(game.getWhitePlayer().getCoordOfMyPieces(), game.getTurn());
+//		game.getChessBoard().updateCheckStatusking(game.getBlackPlayer().getCoordOfMyPieces(), game.getTurn());
+//		System.out.println(game.getChessBoard().getCoorPieceMoveable());
+//		System.out.println(game.getChessBoard().getBoard()[4][4].possibleMove(new Coord(4,4)));
+//		System.out.println(game.getChessBoard().getBoard()[4][4].getAllowedMove());
+		c.courseOfTheGame(game);
 	}
 
 	/**
@@ -74,6 +75,7 @@ public class CommandLine implements ChessGameInterface {
 		Coord cStart = null;
 		Coord cFinal;
 		boolean b = false;
+		boolean lackStuff=false;
 		if (game.getTurn()) {
 			game.getChessBoard().coorPieceMoveable(game.getWhitePlayer().getCoordOfMyPieces(), game.getTurn());
 			game.getChessBoard().updateCheckStatusking(game.getBlackPlayer().getCoordOfMyPieces(), game.getTurn());
@@ -81,7 +83,7 @@ public class CommandLine implements ChessGameInterface {
 			game.getChessBoard().coorPieceMoveable(game.getBlackPlayer().getCoordOfMyPieces(), game.getTurn());
 			game.getChessBoard().updateCheckStatusking(game.getWhitePlayer().getCoordOfMyPieces(), game.getTurn());
 		}
-		while (!(game.getChessBoard().getCoorPieceMoveable().isEmpty())) {
+		while (!(game.getChessBoard().getCoorPieceMoveable().isEmpty()) && !(lackStuff)) {
 			System.out.println(game.toString());
 			b = false;
 			while (b == false) { // demander si l'utilisateur veut jouer cette pièce ou selecitonner une autre
@@ -133,7 +135,7 @@ public class CommandLine implements ChessGameInterface {
 				game.getChessBoard().updateCheckStatusking(game.getWhitePlayer().getCoordOfMyPieces(), game.getTurn());
 			}
 		}
-		int end = game.getEnd();
+		int end = game.getEnd(lackStuff);
 		switch (end) {
 		case 0:
 			System.out.println("Well play, blackplayer win the game!");
@@ -141,8 +143,13 @@ public class CommandLine implements ChessGameInterface {
 		case 1:
 			System.out.println("Well play, whiteplayer win the game!");
 			break;
-		default:
+		case 2:
 			System.out.println("No winner, pat");
+			break;
+		case 3:
+			System.out.println("No winner by Lack Of Stuff");
+		default:
+			System.out.println("No winner");
 		}
 	}
 

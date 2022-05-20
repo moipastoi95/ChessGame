@@ -86,7 +86,8 @@ public class ControleTileStack implements EventHandler<MouseEvent> {
 							game.getChessBoard().updateCheckStatusking(game.getWhitePlayer().getCoordOfMyPieces(),
 									game.getTurn());
 						}
-						if (game.getChessBoard().getCoorPieceMoveable().isEmpty()) {
+						boolean lackStuff=game.checkLackStuff();
+						if (game.getChessBoard().getCoorPieceMoveable().isEmpty() || lackStuff) {
 							System.out.println("End game");
 	//						if(game.getWhitePlayer().getMyKingStatus()) {
 	//							System.out.println("Black win !");
@@ -95,7 +96,7 @@ public class ControleTileStack implements EventHandler<MouseEvent> {
 	//						}else {
 	//							System.out.println("Draw !");
 	//						}
-							int kq = game.getEnd();
+							int kq = game.getEnd(lackStuff);
 							switch (kq) {
 							case 0: // this.getTurn() && this.whitePlayer.getMyKingStatus() == true
 								graphic.showAlertInvalidInput("Black Won!");
@@ -103,8 +104,11 @@ public class ControleTileStack implements EventHandler<MouseEvent> {
 							case 1: // !this.getTurn()) && this.blackPlayer.getMyKingStatus() == true
 								graphic.showAlertInvalidInput("White Won!");
 								break;
-							case 2: // ko thuoc 2 truong hop tren
-								graphic.showAlertInvalidInput("Draw!");
+							case 2:
+								graphic.showAlertInvalidInput("Draw by pat!");
+								break;
+							case 3:
+								graphic.showAlertInvalidInput("Draw by Lack Of Stuff!");
 								break;
 							}
 						}

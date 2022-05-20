@@ -51,6 +51,7 @@ public class Graphic extends Application implements ChessGameInterface {
 	// attributes
 	private Stage primaryStage;
 	private GridPane grid = new GridPane();
+	BorderPane echiquier=new BorderPane();
 	private Game game;
 	private Coord selectedCoord;
 	private SetTimer timerW;
@@ -93,16 +94,16 @@ public class Graphic extends Application implements ChessGameInterface {
 	 */
 	public void newGame() {
 		// Create logical ChessBoard
-		//game = new Game();
-		String[][] position={{"r","c","b","q","k","b","c","r"},
-				             {"",""," ",""," "," ","","p"},
-				             {" "," "," ","",""," "," ",""},
-				             {" "," ",""," ","",""," ",""},
-				             {" "," "," "," "," "," "," ",""},
-				             {" "," "," "," "," "," "," ",""},
-				             {"P"," ","",""," ","","P","P"},
-				             {"R","","","","K","","","R"}};
-		game = new Game(position);
+//		String[][] position={{"r","","","k","","b","","r"},
+//				             {"",""," ",""," "," ","",""},
+//				             {" "," "," ","",""," "," ",""},
+//				             {" "," ",""," ","",""," ",""},
+//				             {" "," "," "," "," "," "," ",""},
+//				             {" "," "," "," "," "," "," ",""},
+//				             {"P"," ","",""," ","","",""},
+//				             {"R","","","","K","","","R"}};
+//		game = new Game(position);
+		game=new Game();
 		ChessBoard.setConfigBoard(1);
 		
 		// set timer
@@ -119,14 +120,16 @@ public class Graphic extends Application implements ChessGameInterface {
 
 		// generate the graphic board
 		displayCell(game.getChessBoard(), grid);
-		numberingRowCol(ChessBoard.getConfigBoard(), grid);
+		numberingRowCol(ChessBoard.getConfigBoard());
 
 		// init pieces moveable
 		game.getChessBoard().coorPieceMoveable(game.getWhitePlayer().getCoordOfMyPieces(), game.getTurn());
 		game.getChessBoard().updateCheckStatusking(game.getBlackPlayer().getCoordOfMyPieces(), game.getTurn());
 
 		BorderPane screen = new BorderPane();
-		screen.setCenter(grid);
+		echiquier.setCenter(grid);
+		screen.setCenter(echiquier);
+		
 
 		// create button at the bottom
 		VBox h = createSaveOpenExitButton(primaryStage, grid, game.getChessBoard());
@@ -171,43 +174,109 @@ public class Graphic extends Application implements ChessGameInterface {
 	 * @param config The configuration of the board
 	 * @param pane   The GridPane that store the graphic board
 	 */
-	private void numberingRowCol(int config, GridPane pane) {
-		Label lab = new Label();
-		lab.setTextFill(Color.BLUE);
-		lab.setStyle("-fx-font-weight: bold");
-		// Numbering columns
+	private void numberingRowCol(int config) {
+		GridPane vertical= new GridPane();
+		GridPane horizontal=new GridPane();
+		vertical.getChildren().clear();
+		horizontal.getChildren().clear();
+		echiquier.getChildren().clear();
+		echiquier.setCenter(grid);
+//		Label lab = new Label();
+//		lab.setTextFill(Color.BLUE);
+//		lab.setStyle("-fx-font-weight: bold");
+//		// Numbering columns
 		switch (config) {
 		case 1:
-			lab.setText(
-					"      a              b             c             d             e             f             g             h");
-			pane.add(lab, 0, 8, 8, 1);
+			for(int i=65; i<73; i++) {
+				Label l1=new Label("       "+Character.toString(i)+"      ");
+				l1.setTextFill(Color.BLUE);
+				l1.setStyle("-fx-font-weight: bold");
+				horizontal.add(l1,i-65, 0);		
+			}
+			echiquier.setBottom(horizontal);
+			for(int j=8; j>0;j--) {
+				Integer k=j;
+				Label l2=new Label("  "+k.toString());
+				l2.setPrefSize(50, 50);
+				l2.setTextFill(Color.BLUE);
+				l2.setStyle("-fx-font-weight: bold");
+				vertical.add(l2,0,8-j);
+				vertical.setPrefSize(20, 300);
+			}
+			echiquier.setRight(vertical);
 			break;
 		case 2:
-			lab.setText(
-					"      1              2             3             4             5             6             7             8");
-			pane.add(lab, 0, 8, 8, 1);
+			horizontal.add(new Label("      "),0, 0);
+			for(int i=1; i<9; i++) {
+				Integer k=i;
+				Label l1=new Label("       "+k.toString()+"      ");
+				l1.setTextFill(Color.BLUE);
+				l1.setStyle("-fx-font-weight: bold");
+				horizontal.add(l1,i, 0);		
+			}
+			echiquier.setBottom(horizontal);
+			for(int j=65; j<73;j++) {
+
+				Label l2=new Label(Character.toString(j)+"  ");
+				l2.setPrefSize(50, 50);
+				l2.setTextFill(Color.BLUE);
+				l2.setStyle("-fx-font-weight: bold");
+				vertical.add(l2,0,j-65);
+				vertical.setPrefSize(20, 300);
+			}
+			echiquier.setLeft(vertical);
 			break;
 		case 3:
-			lab.setText(
-					"      h              g             f             e             d             c             b             a");
-			pane.add(lab, 0, 8, 8, 1);
+			horizontal.add(new Label("      "),0, 0);	
+			for(int i=72; i>64; i--) {
+				Label l1=new Label("       "+Character.toString(i)+"      ");
+				l1.setTextFill(Color.BLUE);
+				l1.setStyle("-fx-font-weight: bold");
+				horizontal.add(l1,73-i, 0);		
+			}
+			echiquier.setTop(horizontal);
+			for(int j=1; j<9;j++) {
+				Integer k=j;
+				Label l2=new Label("  "+k.toString());
+				l2.setPrefSize(50, 50);
+				l2.setTextFill(Color.BLUE);
+				l2.setStyle("-fx-font-weight: bold");
+				vertical.add(l2,0,j-1);
+				vertical.setPrefSize(20, 300);
+			}
+			echiquier.setLeft(vertical);
 			break;
-		case 4:
-			lab.setText(
-					"      8              7             6             5             4             3             2             1");
-			pane.add(lab, 0, 8, 8, 1);
+		default:
+			for(int i=8; i>0; i--) {
+				Integer k=i;
+				Label l1=new Label("       "+k.toString()+"      ");
+				l1.setTextFill(Color.BLUE);
+				l1.setStyle("-fx-font-weight: bold");
+				horizontal.add(l1,8-i, 0);		
+			}
+			echiquier.setBottom(horizontal);
+			for(int j=72; j>64;j--) {
+	
+				Label l2=new Label("  "+Character.toString(j));
+				l2.setPrefSize(50, 50);
+				l2.setTextFill(Color.BLUE);
+				l2.setStyle("-fx-font-weight: bold");
+				vertical.add(l2,0,j-65);
+				vertical.setPrefSize(20, 300);
+			}
+			echiquier.setRight(vertical);
 			break;
 		}
-		Label lb2 = new Label("");
-		pane.add(lb2, 0, 9);
-		// Numbering rows
-		for (int i = 0; i < 8; i++) {
-			Integer k = i + 1;
-			Label lb3 = new Label("  " + k.toString());
-			lb3.setTextFill(Color.BLUE);
-			lb3.setStyle("-fx-font-weight: bold");
-			pane.add(lb3, 9, 7 - i);
-		}
+//		Label lb2 = new Label("");
+//		pane.add(lb2, 0, 9);
+//		// Numbering rows
+//		for (int i = 0; i < 8; i++) {
+//			Integer k = i + 1;
+//			Label lb3 = new Label("  " + k.toString());
+//			lb3.setTextFill(Color.BLUE);
+//			lb3.setStyle("-fx-font-weight: bold");
+//			pane.add(lb3, 9, 7 - i);
+//		}
 	}
 
 	/**
@@ -371,7 +440,7 @@ public class Graphic extends Application implements ChessGameInterface {
 //						markPossibleMove(game);
 
 //							pane.getChildren().remove(labelCol);
-						numberingRowCol(game.getChessBoard().getConfigBoard(), pane);
+						numberingRowCol(ChessBoard.getConfigBoard());
 //							labelCurentPlayer(pane, histListWhite, histListBlack, lostPieceWhiteList, lostPieceBlackList);
 						displayCell(chessBoard, pane); // Call display chessboard's
 														// cell function
@@ -541,15 +610,15 @@ public class Graphic extends Application implements ChessGameInterface {
 		if (config == 1) {
 			m = j;
 			n = i;
-		} // 90° config : white on the left, black on the right
+		} // 90ï¿½ config : white on the left, black on the right
 		else if (config == 2) {
 			m = 7 - i;
 			n = j;
-		} // 180° config : white on the top, black on the bottom
+		} // 180ï¿½ config : white on the top, black on the bottom
 		else if (config == 3) {
 			m = 7 - j;
 			n = 7 - i;
-		} // -90° config : black on the left, white on the right
+		} // -90ï¿½ config : black on the left, white on the right
 		else {
 			m = i;
 			n = 7 - j;
@@ -573,15 +642,15 @@ public class Graphic extends Application implements ChessGameInterface {
 		if (config == 1) {
 			m = j;
 			n = i;
-		} // 90° config : white on the left, black on the right
+		} // 90ï¿½ config : white on the left, black on the right
 		else if (config == 2) {
 			m = i;
 			n = 7 - j;
-		} // 180° config : white on the top, black on the bottom
+		} // 180ï¿½ config : white on the top, black on the bottom
 		else if (config == 3) {
 			m = 7 - j;
 			n = 7 - i;
-		} // -90° config : black on the left, white on the right
+		} // -90ï¿½ config : black on the left, white on the right
 		else {
 			m = 7 - i;
 			n = j;
