@@ -49,6 +49,47 @@ public class Player extends Observable {
 		}
 		this.game = game;
 	}
+	
+	public Player(boolean b, Game game2, String[][] board) {
+    	this.color=b;
+    	this.capturedPieces=new LinkedList<Piece>();
+    	this.coordOfMyPieces=new HashSet<Coord>();
+    	this.MyKingStatus=false;
+		if(b) {
+			for(int i=0;i<8;i++) {
+				for(int j=0; j<8;j++) {
+					switch(board[i][j]) {
+					case "P":
+					case "B":
+					case "C":
+					case "R":
+					case "Q":
+					case "K":
+						this.coordOfMyPieces.add(new Coord(i,j));
+						break;
+					
+					}
+				}
+			}
+		}else {
+			for(int i=0;i<8;i++) {
+				for(int j=0; j<8;j++) {
+					switch(board[i][j]) {
+					case "p":
+					case "b":
+					case "c":
+					case "r":
+					case "q":
+					case "k":
+						this.coordOfMyPieces.add(new Coord(i,j));
+						break;
+					
+					}
+				}
+			}
+		}
+		this.game=game2;
+	}
 
 	/**
 	 * Get all Coord of a player's Pieces

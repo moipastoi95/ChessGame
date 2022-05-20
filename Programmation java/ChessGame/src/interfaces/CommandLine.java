@@ -18,11 +18,28 @@ public class CommandLine implements ChessGameInterface {
 	 * @param args arguments
 	 */
 	public static void main(String[] args) {
-		Game gameTest = new Game();
-
-		ChessBoard.setConfigBoard(2);
+		//Game gameTest = new Game();
+		String[][] position={{"r","c","b","q","k","b","c","r"},
+				             {"p","p"," ","p"," "," ","p","p"},
+				             {" "," "," ","","p"," "," ",""},
+				             {" "," ","P"," ","P","p"," ",""},
+				             {" "," "," "," "," "," "," ",""},
+				             {" "," "," "," "," "," "," ",""},
+				             {"P"," ","P","P"," ","P","P","P"},
+				             {"R","C","B","Q","K","B","C","R"}};
+		Game game = new Game(position);
+		game.setTurn();
+		ChessBoard.setConfigBoard(0);
+		System.out.println(game.toString());
 		CommandLine c = new CommandLine();
-		c.courseOfTheGame(gameTest);
+		game.getChessBoard().update(new Coord(1,3), new Coord(2,3),c);	
+		game.setNbCoup();
+		game.setTurn();
+		System.out.println(game.toString());
+		game.getChessBoard().coorPieceMoveable(game.getWhitePlayer().getCoordOfMyPieces(), game.getTurn());
+		System.out.println(game.toString());
+		game.getChessBoard().updateCheckStatusking(game.getBlackPlayer().getCoordOfMyPieces(), game.getTurn());
+		//c.courseOfTheGame(gameTest);
 	}
 
 	/**

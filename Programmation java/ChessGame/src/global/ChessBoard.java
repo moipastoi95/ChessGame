@@ -86,6 +86,71 @@ public class ChessBoard extends Observable {
 		this.whiteKingCoord = new Coord(7, 4);
 
 	}
+	
+	public ChessBoard(Game game2, String[][] board2) {
+    	this.board=new Piece[8][8];
+		for(int i=0;i<8;i++) {
+			for(int j=0;j<8;j++) {
+				switch(board2[i][j]) {
+				case "p":
+					this.board[i][j]=new Pawn(false,this);
+					if (i!=1) {
+						((Pawn)(this.board[i][j])).setPawnStat(1);
+					}
+					break;
+				case "P":
+					this.board[i][j]=new Pawn(true,this);
+					if (i!=6) {
+						((Pawn)(this.board[i][j])).setPawnStat(1);
+					}
+					break;
+				case "c":
+					this.board[i][j]=new Knight(false,this);
+					break;
+				case "C":
+					this.board[i][j]=new Knight(true,this);
+					break;
+				case "b":
+					this.board[i][j]=new Bishop(false,this);
+					break;
+				case "B":
+					this.board[i][j]=new Bishop(true,this);
+					break;
+				case "r":
+					this.board[i][j]=new Rook(false,this);
+					break;
+				case "R":
+					this.board[i][j]=new Rook(true,this);
+					break;
+				case "q":
+					this.board[i][j]=new Queen(false,this);
+					break;
+				case "Q":
+					this.board[i][j]=new Queen(true,this);
+					break;
+				case "k":
+					this.board[i][j]=new King(false,this);
+					this.setBlackKingCoord(new Coord(i,j));
+					if(!(i==0 && j==4)) {
+						((King) (this.board[i][j])).setCastlingKing();
+					}
+					break;
+				case "K":
+					this.board[i][j]=new King(true,this);
+					this.setWhiteKingCoord(new Coord(i,j));
+					if(!(i==7 && j==4)) {
+						((King) (this.board[i][j])).setCastlingKing();
+					}
+					break;
+				default:
+					this.board[i][j]=null;
+				
+				}
+			}
+		}
+		this.game=game2;
+	}
+
 
 	/**
 	 * Get the position of the White King on the board

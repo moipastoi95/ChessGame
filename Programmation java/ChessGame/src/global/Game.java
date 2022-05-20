@@ -32,7 +32,33 @@ public class Game extends Observable {
 		this.turn = true;
 		this.nbCoup = 0;
 	}
-
+	
+	public Game(String[][] board) {
+		boolean b=true;
+		if(board.length==8) {
+			for(int i=0;i<8 && b==true;i++) {
+				if(board[i].length!=8) {
+					b=false;
+				}
+			}
+		}else {
+			b=false;
+		}
+		if (b==true) {
+			this.cb = new ChessBoard(this,board);
+			this.whitePlayer = new Player(true, this, board);
+			this.blackPlayer = new Player(false, this, board);
+			this.turn = true;
+			this.nbCoup = 1;
+			
+		}else {
+			this.cb = new ChessBoard(this);
+			this.whitePlayer = new Player(true, this);
+			this.blackPlayer = new Player(false, this);
+			this.turn = true;
+			this.nbCoup = 0;
+		}
+	}
 	/**
 	 * Save the game into a file
 	 */

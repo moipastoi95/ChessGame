@@ -129,7 +129,7 @@ public class Pawn extends Piece {
 		this.getCb().getBoard()[finalC.getR()][finalC.getC()] = this;
 		this.getCb().getBoard()[startC.getR()][startC.getC()] = null;
 		if (getPawnStat() == 0) { // starterPawn if +2, possible enPassant for his opponent
-			setPawnStat(getCb().getGame().getNbCoup() + 1);
+			setPawnStat(1);
 			if (finalC.getR() == 4) {
 				if (finalC.getC() + 1 < 8 && getCb().getBoard()[4][finalC.getC() + 1] instanceof Pawn) {
 					((Pawn) (getCb().getBoard()[4][finalC.getC() + 1])).setPawnStat(getCb().getGame().getNbCoup() + 1);
@@ -177,7 +177,7 @@ public class Pawn extends Piece {
 		this.getCb().getBoard()[finalC.getR()][finalC.getC()] = this;
 		this.getCb().getBoard()[startC.getR()][startC.getC()] = null;
 		if (tmp == null && startC.getC() != finalC.getC()) { // Enpassant here, go to simule the board
-			if (getColor()) {
+			if (this.getColor()) {
 				tmp = this.getCb().getBoard()[finalC.getR() + 1][finalC.getC()];
 				this.getCb().getBoard()[finalC.getR() + 1][finalC.getC()] = null;
 			} else {
