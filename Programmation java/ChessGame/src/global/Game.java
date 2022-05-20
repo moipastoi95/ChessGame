@@ -2,6 +2,9 @@ package global;
 
 import java.util.*;
 
+import pieces.Bishop;
+import pieces.Knight;
+
 /**
  * The Game : the begining of the functionnal part
  */
@@ -183,8 +186,10 @@ public class Game extends Observable {
 	 * 
 	 * @return 0=Black won, 1=White won, 2=Pat
 	 */
-	public int getEnd() {
-		if (this.getTurn() && this.whitePlayer.getMyKingStatus()) {
+	public int getEnd(boolean lackStuff) {
+		if(lackStuff) {
+			return 3;
+		} else if (this.getTurn() && this.whitePlayer.getMyKingStatus()) {
 			return 0;// Blackplayer win
 		} else if ((!this.getTurn()) && this.blackPlayer.getMyKingStatus()) {
 			return 1;// whiteplayer win
@@ -206,4 +211,29 @@ public class Game extends Observable {
 		return affichage;
 	}
 
+	//chekLackStuff si aucun des 2 joueurs ne peut mater l'autre (manque de matériel réciproque)
+	
+	public boolean checkLackStuff() {
+		boolean white=false;
+		boolean black=false;
+		if(this.getWhitePlayer().getCoordOfMyPieces().size()==1) {
+			white=true;
+		}else if(this.getWhitePlayer().getCoordOfMyPieces().size()==2) {
+			for(Coord c :this.getWhitePlayer().getCoordOfMyPieces()) {
+				if(this.getChessBoard().getBoard()[c.getR()][c.getC()] instanceof Knight || this.getChessBoard().getBoard()[c.getR()][c.getC()] instanceof Bishop) {
+					white=true;
+				}
+			}
+		}
+		if(this.getBlackPlayer().getCoordOfMyPieces().size()==1) {
+			black=true;
+		}else if(this.getBlackPlayer().getCoordOfMyPieces().size()==2) {
+			for(Coord c :this.getBlackPlayer().getCoordOfMyPieces()) {
+				if(this.getChessBoard().getBoard()[c.getR()][c.getC()] instanceof Knight || this.getChessBoard().getBoard()[c.getR()][c.getC()] instanceof Bishop) {
+					black=true;
+				}
+			}
+		}
+		return (white && black);
+	}
 }

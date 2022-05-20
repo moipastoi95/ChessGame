@@ -81,16 +81,16 @@ public class Graphic extends Application implements ChessGameInterface {
 	 */
 	public void newGame() {
 		// Create logical ChessBoard
-		//game = new Game();
-		String[][] position={{"r","c","b","q","k","b","c","r"},
-				             {"",""," ",""," "," ","","p"},
-				             {" "," "," ","",""," "," ",""},
-				             {" "," ",""," ","",""," ",""},
-				             {" "," "," "," "," "," "," ",""},
-				             {" "," "," "," "," "," "," ",""},
-				             {"P"," ","",""," ","","P","P"},
-				             {"R","","","","K","","","R"}};
-		game = new Game(position);
+//		String[][] position={{"r","","","k","","b","","r"},
+//				             {"",""," ",""," "," ","",""},
+//				             {" "," "," ","",""," "," ",""},
+//				             {" "," ",""," ","",""," ",""},
+//				             {" "," "," "," "," "," "," ",""},
+//				             {" "," "," "," "," "," "," ",""},
+//				             {"P"," ","",""," ","","",""},
+//				             {"R","","","","K","","","R"}};
+//		game = new Game(position);
+		game=new Game();
 		ChessBoard.setConfigBoard(1);
 
 		// generate the graphic board

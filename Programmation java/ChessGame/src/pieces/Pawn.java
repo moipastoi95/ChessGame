@@ -44,61 +44,53 @@ public class Pawn extends Piece {
 	}
 
 	public HashSet<Coord> possibleMove(Coord c) {
-		HashSet<Coord> pMove = new HashSet<>();
-		int i = c.getR();
-		int j = c.getC();
-		if (this.getColor()) {
-			if (i - 1 >= 0 && (this.getCb().getBoard()[i - 1][j] == null)) {
-				pMove.add(new Coord(i - 1, j));
-				if (this.getPawnStat() == 0 && this.getCb().getBoard()[i - 2][j] == null) {
-					pMove.add(new Coord(i - 2, j));
-				}
-			}
-			if (j + 1 < 8 && i - 1 >= 0 && this.getCb().getBoard()[i - 1][j + 1] != null
-					&& possibleOrImpossible(this.getCb().getBoard()[i - 1][j + 1])) {
-				pMove.add(new Coord(i - 1, j + 1));
-			}
-			if (j - 1 >= 0 && i - 1 >= 0 && (this.getCb().getBoard()[i - 1][j - 1] != null
-					&& possibleOrImpossible(this.getCb().getBoard()[i - 1][j - 1]))) {
-				pMove.add(new Coord(i - 1, j - 1));
-			}
-			if ((this.getPawnStat() > 0) && this.getPawnStat() == this.getCb().getGame().getNbCoup()) { // enPassant?
-				if (c.getC() + 1 < 8 && this.getCb().getBoard()[i][j + 1] instanceof Pawn
-						&& ((Pawn) (this.getCb().getBoard()[i][j + 1])).getPawnStat() == this.getPawnStat()) {
-					pMove.add(new Coord(i - 1, j + 1));
-				} else if (c.getC() - 1 >= 0 && this.getCb().getBoard()[i][j - 1] instanceof Pawn
-						&& ((Pawn) (this.getCb().getBoard()[i][j - 1])).getPawnStat() == this.getPawnStat()) {
-					pMove.add(new Coord(i - 1, j - 1));
-				}
-			}
-		} else {
-			if (i + 1 < 8 && (this.getCb().getBoard()[i + 1][j] == null)) {
-				pMove.add(new Coord(i + 1, j));
-				if (this.getPawnStat() == 0 && this.getCb().getBoard()[i + 2][j] == null) {
-					pMove.add(new Coord(i + 2, j));
-				}
-			}
-			if (j + 1 < 8 && i + 1 < 8 && (this.getCb().getBoard()[i + 1][j + 1] != null
-					&& possibleOrImpossible(this.getCb().getBoard()[i + 1][j + 1]))) {
-				pMove.add(new Coord(i + 1, j + 1));
-			}
-			if (j - 1 >= 0 && i + 1 < 8 && (this.getCb().getBoard()[i + 1][j - 1] != null
-					&& possibleOrImpossible(this.getCb().getBoard()[i + 1][j - 1]))) {
-				pMove.add(new Coord(i + 1, j - 1));
-			}
-			if ((this.getPawnStat() > 0) && this.getPawnStat() == this.getCb().getGame().getNbCoup()) { // enPassant?
-				if (c.getC() + 1 < 8 && this.getCb().getBoard()[i][j + 1] instanceof Pawn
-						&& ((Pawn) (this.getCb().getBoard()[i][j + 1])).getPawnStat() == this.getPawnStat()) {
-					pMove.add(new Coord(i + 1, j + 1));
-				} else if (c.getC() - 1 >= 0 && this.getCb().getBoard()[i][j - 1] instanceof Pawn
-						&& ((Pawn) (this.getCb().getBoard()[i][j - 1])).getPawnStat() == this.getPawnStat()) {
-					pMove.add(new Coord(i + 1, j - 1));
-				}
-			}
-
-		}
-		return pMove;
-	}
+    	HashSet<Coord> pMove = new HashSet<>();
+    	int i=c.getR();
+    	int j=c.getC();
+    	if(this.getColor()) {
+    		if(i-1>=0 && (this.getCb().getBoard()[i-1][j]==null )) {
+        		pMove.add(new Coord(i-1,j));
+        		if(this.getPawnStat()==0 && this.getCb().getBoard()[i-2][j]==null) {
+        			pMove.add(new Coord(i-2,j));
+        		}
+        	}
+        	if(j+1<8 && i-1>=0 && this.getCb().getBoard()[i-1][j+1]!=null && possibleOrImpossible(this.getCb().getBoard()[i-1][j+1])) {
+        		pMove.add(new Coord(i-1,j+1));
+        	}
+        	if(j-1>=0 && i-1>=0 && (this.getCb().getBoard()[i-1][j-1]!=null && possibleOrImpossible(this.getCb().getBoard()[i-1][j-1]))) {
+        		pMove.add(new Coord(i-1,j-1));
+        	}
+        	if((this.getPawnStat()>0) && this.getPawnStat()==this.getCb().getGame().getNbCoup()) { //enPassant?
+        		if(c.getC()+1<8 && this.getCb().getBoard()[i][j+1] instanceof Pawn && ((Pawn)(this.getCb().getBoard()[i][j+1])).getPawnStat()==this.getPawnStat()) {
+        			pMove.add(new Coord(i-1,j+1));
+        		}else if(c.getC()-1>=0 && this.getCb().getBoard()[i][j-1] instanceof Pawn && ((Pawn)(this.getCb().getBoard()[i][j-1])).getPawnStat()==this.getPawnStat()) {
+        			pMove.add(new Coord(i-1,j-1));
+        		}
+        	}
+    	}else {
+    		if(i+1<8 && (this.getCb().getBoard()[i+1][j]==null )) {
+        		pMove.add(new Coord(i+1,j));
+        		if(this.getPawnStat()==0 && this.getCb().getBoard()[i+2][j]==null) {
+        			pMove.add(new Coord(i+2,j));
+        		}
+        	}
+        	if(j+1<8 && i+1<8 && (this.getCb().getBoard()[i+1][j+1]!=null && possibleOrImpossible(this.getCb().getBoard()[i+1][j+1]))) {
+        		pMove.add(new Coord(i+1,j+1));
+        	}
+        	if(j-1>=0 && i+1<8 && (this.getCb().getBoard()[i+1][j-1]!=null && possibleOrImpossible(this.getCb().getBoard()[i+1][j-1]))) {
+        		pMove.add(new Coord(i+1,j-1));
+        	}
+        	if((this.getPawnStat()>0) && this.getPawnStat()==this.getCb().getGame().getNbCoup()) { //enPassant?
+        		if(c.getC()+1<8 && this.getCb().getBoard()[i][j+1] instanceof Pawn && ((Pawn)(this.getCb().getBoard()[i][j+1])).getPawnStat()==this.getPawnStat()) {
+        			pMove.add(new Coord(i+1,j+1));
+        		}else if(c.getC()-1>=0 && this.getCb().getBoard()[i][j-1] instanceof Pawn && ((Pawn)(this.getCb().getBoard()[i][j-1])).getPawnStat()==this.getPawnStat()) {
+        			pMove.add(new Coord(i+1,j-1));
+        		}
+        	}
+    		
+    	} 
+        return pMove;
+    }
 
 	/**
 	 * Promote the Pawn which reach the other side of the board
@@ -133,17 +125,21 @@ public class Pawn extends Piece {
 			if (finalC.getR() == 4) {
 				if (finalC.getC() + 1 < 8 && getCb().getBoard()[4][finalC.getC() + 1] instanceof Pawn) {
 					((Pawn) (getCb().getBoard()[4][finalC.getC() + 1])).setPawnStat(getCb().getGame().getNbCoup() + 1);
+					setPawnStat(getCb().getGame().getNbCoup()+1);
 				}
 				if (finalC.getC() - 1 >= 0 && this.getCb().getBoard()[4][finalC.getC() - 1] instanceof Pawn) {
 					((Pawn) (this.getCb().getBoard()[4][finalC.getC() - 1]))
 							.setPawnStat(getCb().getGame().getNbCoup() + 1);
+					setPawnStat(getCb().getGame().getNbCoup()+1);
 				}
 			} else if (finalC.getR() == 3) {
 				if (finalC.getC() + 1 < 8 && getCb().getBoard()[3][finalC.getC() + 1] instanceof Pawn) {
 					((Pawn) (getCb().getBoard()[3][finalC.getC() + 1])).setPawnStat(getCb().getGame().getNbCoup() + 1);
+					setPawnStat(getCb().getGame().getNbCoup()+1);
 				}
 				if (finalC.getC() - 1 >= 0 && getCb().getBoard()[3][finalC.getC() - 1] instanceof Pawn) {
 					((Pawn) (getCb().getBoard()[3][finalC.getC() - 1])).setPawnStat(getCb().getGame().getNbCoup() + 1);
+					setPawnStat(getCb().getGame().getNbCoup()+1);
 				}
 			}
 
