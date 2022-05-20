@@ -1,6 +1,8 @@
 package controlers;
 
 import java.util.HashSet;
+
+import global.ChessBoard;
 import global.Coord;
 import global.Game;
 import global.NotInHashSetException;
@@ -42,72 +44,75 @@ public class ControleTileStack implements EventHandler<MouseEvent> {
 
 	@Override
 	public void handle(MouseEvent arg0) {
-		// select a piece
-		if (graphic.getSelectedCoord() == null) {
-			try {
-				Coord absolutePosition = Graphic.convertGraphToChess(tilePosition,
-						game.getChessBoard().getConfigBoard());
-				graphic.setSelectedCoord(absolutePosition);
-				HashSet<Coord> sel = game.select(absolutePosition);
-			} catch (NotInHashSetException e) {
-				// Graphic.showAlertInvalidInput("Please select a valid tile");
-				graphic.setSelectedCoord(null);
-				System.out.println("Invalid tile selected");
-			}
-		} else {
-
-			// select another piece
-			try {
-				Coord absolutePosition = Graphic.convertGraphToChess(tilePosition,
-						game.getChessBoard().getConfigBoard());
-				int isPlayable = game.play(graphic.getSelectedCoord(), absolutePosition);
-				// update selectedTile
-				if (isPlayable == 1) {
+		// block action if game is ended
+		if (!game.getChessBoard().getCoorPieceMoveable().isEmpty() && graphic.getWhiteTimer().getTimeSeconds() > 0 && graphic.getBlackTimer().getTimeSeconds() > 0) {			
+			// select a piece
+			if (graphic.getSelectedCoord() == null) {
+				try {
+					Coord absolutePosition = Graphic.convertGraphToChess(tilePosition,
+							ChessBoard.getConfigBoard());
 					graphic.setSelectedCoord(absolutePosition);
-					game.select(absolutePosition);
-				} else if (isPlayable == 2) {
-					game.getChessBoard().update(graphic.getSelectedCoord(), absolutePosition, graphic);
-					System.out.println(game.toString());
-					game.setNbCoup();
-					game.setTurn();
+					HashSet<Coord> sel = game.select(absolutePosition);
+				} catch (NotInHashSetException e) {
+					// Graphic.showAlertInvalidInput("Please select a valid tile");
 					graphic.setSelectedCoord(null);
-					if (game.getTurn()) {
-						game.getChessBoard().coorPieceMoveable(game.getWhitePlayer().getCoordOfMyPieces(),
-								game.getTurn());
-						game.getChessBoard().updateCheckStatusking(game.getBlackPlayer().getCoordOfMyPieces(),
-								game.getTurn());
-					} else {
-						game.getChessBoard().coorPieceMoveable(game.getBlackPlayer().getCoordOfMyPieces(),
-								game.getTurn());
-						game.getChessBoard().updateCheckStatusking(game.getWhitePlayer().getCoordOfMyPieces(),
-								game.getTurn());
-					}
-					if (game.getChessBoard().getCoorPieceMoveable().isEmpty()) {
-						System.out.println("End game");
-//						if(game.getWhitePlayer().getMyKingStatus()) {
-//							System.out.println("Black win !");
-//						}else if(game.getBlackPlayer().getMyKingStatus()) {
-//							System.out.println("White win !");
-//						}else {
-//							System.out.println("Draw !");
-//						}
-						int kq = game.getEnd();
-						switch (kq) {
-						case 0: // this.getTurn() && this.whitePlayer.getMyKingStatus() == true
-							graphic.showAlertInvalidInput("Black Won!");
-							break;
-						case 1: // !this.getTurn()) && this.blackPlayer.getMyKingStatus() == true
-							graphic.showAlertInvalidInput("White Won!");
-							break;
-						case 2: // ko thuoc 2 truong hop tren
-							graphic.showAlertInvalidInput("Draw!");
-							break;
-						}
-					}
-
+					System.out.println("Invalid tile selected");
 				}
-			} catch (NotInHashSetException e) {
-				System.out.println("Wrong tile selected !");
+			} else {
+	
+				// select another piece
+				try {
+					Coord absolutePosition = Graphic.convertGraphToChess(tilePosition,
+							game.getChessBoard().getConfigBoard());
+					int isPlayable = game.play(graphic.getSelectedCoord(), absolutePosition);
+					// update selectedTile
+					if (isPlayable == 1) {
+						graphic.setSelectedCoord(absolutePosition);
+						game.select(absolutePosition);
+					} else if (isPlayable == 2) {
+						game.getChessBoard().update(graphic.getSelectedCoord(), absolutePosition, graphic);
+						System.out.println(game.toString());
+						game.setNbCoup();
+						game.setTurn();
+						graphic.setSelectedCoord(null);
+						if (game.getTurn()) {
+							game.getChessBoard().coorPieceMoveable(game.getWhitePlayer().getCoordOfMyPieces(),
+									game.getTurn());
+							game.getChessBoard().updateCheckStatusking(game.getBlackPlayer().getCoordOfMyPieces(),
+									game.getTurn());
+						} else {
+							game.getChessBoard().coorPieceMoveable(game.getBlackPlayer().getCoordOfMyPieces(),
+									game.getTurn());
+							game.getChessBoard().updateCheckStatusking(game.getWhitePlayer().getCoordOfMyPieces(),
+									game.getTurn());
+						}
+						if (game.getChessBoard().getCoorPieceMoveable().isEmpty()) {
+							System.out.println("End game");
+	//						if(game.getWhitePlayer().getMyKingStatus()) {
+	//							System.out.println("Black win !");
+	//						}else if(game.getBlackPlayer().getMyKingStatus()) {
+	//							System.out.println("White win !");
+	//						}else {
+	//							System.out.println("Draw !");
+	//						}
+							int kq = game.getEnd();
+							switch (kq) {
+							case 0: // this.getTurn() && this.whitePlayer.getMyKingStatus() == true
+								graphic.showAlertInvalidInput("Black Won!");
+								break;
+							case 1: // !this.getTurn()) && this.blackPlayer.getMyKingStatus() == true
+								graphic.showAlertInvalidInput("White Won!");
+								break;
+							case 2: // ko thuoc 2 truong hop tren
+								graphic.showAlertInvalidInput("Draw!");
+								break;
+							}
+						}
+	
+					}
+				} catch (NotInHashSetException e) {
+					System.out.println("Wrong tile selected !");
+				}
 			}
 		}
 	}

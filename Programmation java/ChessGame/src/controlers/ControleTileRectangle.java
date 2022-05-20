@@ -8,6 +8,8 @@ import global.Coord;
 import global.Game;
 import global.NotInHashSetException;
 import interfaces.Graphic;
+import javafx.scene.effect.BlurType;
+import javafx.scene.effect.InnerShadow;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
@@ -98,6 +100,7 @@ public class ControleTileRectangle implements Observer {
 	 */
 	private void setMoveableTile() {
 		tile.setFill(Color.RED);
+//		tile.setEffect(new InnerShadow(BlurType.GAUSSIAN, Color.RED,5,0,0,0));
 	}
 
 }

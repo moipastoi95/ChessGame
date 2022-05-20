@@ -12,11 +12,13 @@ import java.nio.file.Paths;
 import controlers.ControleKingStatus;
 import controlers.ControleLostPieces;
 import controlers.ControleTileStack;
+import controlers.ControleTime;
 import controlers.ControleTurn;
 import global.ChessBoard;
 import global.Coord;
 import global.Game;
 import global.Player;
+import global.SetTimer;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.geometry.Pos;
@@ -51,11 +53,21 @@ public class Graphic extends Application implements ChessGameInterface {
 	private GridPane grid = new GridPane();
 	private Game game;
 	private Coord selectedCoord;
+	private SetTimer timerW;
+	private SetTimer timerB;
 
 	@Override
 	public void start(Stage primaryStage) {
 		this.primaryStage = primaryStage;
 		newGame();
+	}
+	
+	public SetTimer getWhiteTimer() {
+		return this.timerW;
+	}
+	
+	public SetTimer getBlackTimer() {
+		return this.timerB;
 	}
 
 	/**
@@ -92,6 +104,18 @@ public class Graphic extends Application implements ChessGameInterface {
 				             {"R","","","","K","","","R"}};
 		game = new Game(position);
 		ChessBoard.setConfigBoard(1);
+		
+		// set timer
+		// clear 
+		if (timerB != null) {
+			timerB.getTimeline().getKeyFrames().clear();
+		}
+		if (timerW != null) {
+			timerW.getTimeline().getKeyFrames().clear();
+		}
+		int GlobalTime = 1 * 60;
+		timerW = new SetTimer(true, GlobalTime); 
+		timerB = new SetTimer(true, GlobalTime);
 
 		// generate the graphic board
 		displayCell(game.getChessBoard(), grid);
@@ -109,8 +133,8 @@ public class Graphic extends Application implements ChessGameInterface {
 		screen.setRight(h);
 
 		// create player border
-		VBox bPlayerBorder = playerBorder(game.getBlackPlayer());
-		VBox wPlayerBorder = playerBorder(game.getWhitePlayer());
+		VBox bPlayerBorder = playerBorder(game.getBlackPlayer(), timerB);
+		VBox wPlayerBorder = playerBorder(game.getWhitePlayer(), timerW);
 		screen.setTop(bPlayerBorder);
 		screen.setBottom(wPlayerBorder);
 
@@ -137,6 +161,8 @@ public class Graphic extends Application implements ChessGameInterface {
 				pane.add(tile, j, i);
 			}
 		}
+		
+		// 
 	}
 
 	/**
@@ -190,7 +216,7 @@ public class Graphic extends Application implements ChessGameInterface {
 	 * @param player The concerned player
 	 * @return A VBox with player's informations
 	 */
-	private VBox playerBorder(Player player) {
+	private VBox playerBorder(Player player, SetTimer timer) {
 		/// Top
 		// Display the current player (Black or White).
 		HBox playerBox = new HBox();
@@ -229,8 +255,9 @@ public class Graphic extends Application implements ChessGameInterface {
 		TextField timeArea = new TextField();
 		timeArea.setPrefWidth(60);
 		timeArea.setEditable(false);
-		timeArea.setText("TODO");
-
+		ControleTime ct = new ControleTime(timeArea, timer, this, game, player.getColor());
+		game.getChessBoard().addObserver(ct);
+		
 		timeBox.getChildren().add(timeLabel);
 		timeBox.getChildren().add(timeArea);
 
@@ -377,8 +404,9 @@ public class Graphic extends Application implements ChessGameInterface {
 		turnImv.setImage(turnImg);
 		turnBtn.setGraphic(turnImv);
 		turnBtn.setOnAction(e -> {
-			game.getChessBoard().setConfigBoard((game.getChessBoard().getConfigBoard() + 1) % 4);
+			ChessBoard.setConfigBoard((game.getChessBoard().getConfigBoard() + 1) % 4);
 			displayCell(game.getChessBoard(), pane); // Call display chessboard's cell function
+			numberingRowCol(ChessBoard.getConfigBoard(), pane);
 		});
 
 		// New Button

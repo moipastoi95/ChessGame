@@ -11,6 +11,8 @@ import global.Coord;
  *
  */
 public class Input {
+	private static final long serialVersionUID = 1L;
+	
 	/**
 	 * Ask a Coord under the form of "(x,y)"
 	 * 
@@ -178,4 +180,49 @@ public class Input {
 		System.out.println(askValidIntPromotion());
 
 	}
+
+	public static Object askSave() {
+		try {
+			@SuppressWarnings("resource")
+			Scanner sc=new Scanner(System.in);
+			System.out.println("Do you want to save? Answer 'y' for yes  or 'n' for No");
+			String answer=sc.next("[yn]");
+			return answer.equals("y");
+			
+		}catch(InputMismatchException e){
+			System.out.println("Forme non valide");
+			return null;
+		}
+	}
+	
+	public static Object askLoad() {
+		try {
+			@SuppressWarnings("resource")
+			Scanner sc=new Scanner(System.in);
+			System.out.println("Do you want to load? Answer 'y' for yes  or 'n' for No");
+			String answer=sc.next("[yn]");
+			return answer.equals("y");
+			
+		}catch(InputMismatchException e){
+			System.out.println("Forme non valide");
+			return null;
+		}
+	}
+	
+	public static boolean askSaveFile() {
+		Object s=null;
+		while(s==null) {
+			s=askSave();
+		}
+		return (boolean)s;
+	}
+	
+	public static boolean askLoadFile() {
+		Object s=null;
+		while(s==null) {
+			s=askLoad();
+		}
+		return (boolean)s;
+	}
+	
 }
