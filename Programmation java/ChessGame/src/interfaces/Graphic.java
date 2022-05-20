@@ -81,12 +81,21 @@ public class Graphic extends Application implements ChessGameInterface {
 	 */
 	public void newGame() {
 		// Create logical ChessBoard
-		game = new Game();
-		game.getChessBoard().setConfigBoard(1);
+		//game = new Game();
+		String[][] position={{"r","c","b","q","k","b","c","r"},
+				             {"",""," ",""," "," ","","p"},
+				             {" "," "," ","",""," "," ",""},
+				             {" "," ",""," ","",""," ",""},
+				             {" "," "," "," "," "," "," ",""},
+				             {" "," "," "," "," "," "," ",""},
+				             {"P"," ","",""," ","","P","P"},
+				             {"R","","","","K","","","R"}};
+		game = new Game(position);
+		ChessBoard.setConfigBoard(1);
 
 		// generate the graphic board
 		displayCell(game.getChessBoard(), grid);
-		numberingRowCol(game.getChessBoard().getConfigBoard(), grid);
+		numberingRowCol(ChessBoard.getConfigBoard(), grid);
 
 		// init pieces moveable
 		game.getChessBoard().coorPieceMoveable(game.getWhitePlayer().getCoordOfMyPieces(), game.getTurn());

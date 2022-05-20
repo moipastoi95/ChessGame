@@ -171,6 +171,11 @@ public class King extends Piece {
 		Piece tmp = this.getCb().getBoard()[finalC.getR()][finalC.getC()];
 		this.getCb().getBoard()[finalC.getR()][finalC.getC()] = this;
 		this.getCb().getBoard()[startC.getR()][startC.getC()] = null;
+		if (this.getColor()) {
+			getCb().setWhiteKingCoord(finalC);
+		} else {
+			getCb().setBlackKingCoord(finalC);
+		}
 		if (getCastlingKing() && (finalC.getC() == 2 || finalC.getC() == 6)) {
 			if (finalC.getC() == 2 && finalC.getR() == 0) {
 				getCb().getBoard()[0][0].moveForAllowedMove(new Coord(0, 0), new Coord(0, 3));
@@ -189,6 +194,11 @@ public class King extends Piece {
 	public void demove(Coord startC, Coord finalC, Piece pEat) {
 		this.getCb().getBoard()[startC.getR()][startC.getC()] = this;
 		this.getCb().getBoard()[finalC.getR()][finalC.getC()] = pEat;
+		if (this.getColor()) {
+			getCb().setWhiteKingCoord(startC);
+		} else {
+			getCb().setBlackKingCoord(startC);
+		}
 		if (getCastlingKing() && (finalC.getC() == 2 || finalC.getC() == 6)) {
 			if (finalC.getC() == 2 && finalC.getR() == 0) {
 				getCb().getBoard()[0][3].moveForAllowedMove(new Coord(0, 3), new Coord(0, 0));
