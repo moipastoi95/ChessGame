@@ -114,7 +114,7 @@ public class Graphic extends Application implements ChessGameInterface {
 		if (timerW != null) {
 			timerW.getTimeline().getKeyFrames().clear();
 		}
-		int GlobalTime = 1 * 60;
+		int GlobalTime = 5 * 60;
 		timerW = new SetTimer(true, GlobalTime); 
 		timerB = new SetTimer(true, GlobalTime);
 
@@ -475,7 +475,7 @@ public class Graphic extends Application implements ChessGameInterface {
 		turnBtn.setOnAction(e -> {
 			ChessBoard.setConfigBoard((game.getChessBoard().getConfigBoard() + 1) % 4);
 			displayCell(game.getChessBoard(), pane); // Call display chessboard's cell function
-			numberingRowCol(ChessBoard.getConfigBoard(), pane);
+			numberingRowCol(ChessBoard.getConfigBoard());
 		});
 
 		// New Button
