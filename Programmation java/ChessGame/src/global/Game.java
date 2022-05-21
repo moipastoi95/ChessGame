@@ -85,8 +85,12 @@ public class Game extends Observable implements Serializable {
 	 * @param filename The name of the file
 	 */
 	public void saveFile(String filename, Integer[] timers) {
+		String filepath = filename;
+		if (!filepath.toLowerCase().endsWith(".ser")) {
+			filepath += ".ser";
+		}
 		try {
-			ObjectOutputStream chessFile = new ObjectOutputStream(new FileOutputStream(filename));
+			ObjectOutputStream chessFile = new ObjectOutputStream(new FileOutputStream(filepath));
 			chessFile.writeObject(this);
 			chessFile.writeObject(timers);
 

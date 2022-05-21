@@ -22,7 +22,7 @@ public class Input {
 		try {
 			@SuppressWarnings("resource")
 			Scanner sc = new Scanner(System.in);
-			System.out.println("Saisissez une coordonnée du board sous la forme '(x,y)'");
+			System.out.println("Enter a board coordinate in the form '(x,y)'");
 			String coord = sc.next("[(][0-7][,][0-7][)]");
 			int x = Integer.parseInt(coord.substring(1, 2));
 			int y = Integer.parseInt(coord.substring(3, 4));
@@ -30,7 +30,7 @@ public class Input {
 			return c;
 
 		} catch (InputMismatchException e) {
-			System.out.println("Forme non valide");
+			System.out.println("Invalid form");
 			return null;
 		}
 
@@ -45,7 +45,7 @@ public class Input {
 		try {
 			@SuppressWarnings("resource")
 			Scanner sc = new Scanner(System.in);
-			System.out.println("Saisissez une coordonnée du board sous la forme 'e4'");
+			System.out.println("Enter a board coordinate in the form 'e4'");
 			String coord = sc.next("[a-h][1-8]");
 			int x = Integer.parseInt(coord.substring(1, 2));
 			int y = 0;
@@ -81,7 +81,7 @@ public class Input {
 			return c;
 
 		} catch (InputMismatchException e) {
-			System.out.println("Forme non valide");
+			System.out.println("Invalid form");
 			return null;
 		}
 
@@ -122,7 +122,7 @@ public class Input {
 			return answer.equals("y");
 
 		} catch (InputMismatchException e) {
-			System.out.println("Forme non valide");
+			System.out.println("Invalid form");
 			return null;
 		}
 	}
@@ -153,7 +153,7 @@ public class Input {
 			int nb = sc.nextInt();
 			return nb;
 		} catch (InputMismatchException e) {
-			System.out.println("this is not a number! Please retry!");
+			System.out.println("This is not a number! Please retry!");
 			return null;
 		}
 	}
@@ -204,7 +204,7 @@ public class Input {
 			return answer.equals("y");
 			
 		}catch(InputMismatchException e){
-			System.out.println("Forme non valide");
+			System.out.println("Invalid form");
 			return null;
 		}
 	}

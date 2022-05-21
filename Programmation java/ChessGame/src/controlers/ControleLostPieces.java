@@ -30,6 +30,18 @@ public class ControleLostPieces implements Observer {
 		this.fp = fp;
 		this.cb = cb;
 		this.player = player;
+		
+		for (Piece p : player.getCapturedPieces()) {
+			// on prend l'image associé
+			Image img = ControleTileIcon.getImage(p);
+			
+			ImageView iv = new ImageView(img);
+			int size = 25;
+			iv.setFitHeight(size);
+			iv.setFitWidth(size);
+			
+			fp.getChildren().add(iv);
+		}
 	}
 
 	@Override

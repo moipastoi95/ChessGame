@@ -50,6 +50,8 @@ public class ControleTileRectangle implements Observer {
 				try {
 					if (game.play(graphic.getSelectedCoord(), absCoord) == 2) {
 						setSelectedTile();
+					} else if (game.getChessBoard().getCoorPieceMoveable().contains(absCoord)) {
+						setMoveableTile();
 					}
 				} catch (NotInHashSetException e) {
 				}

@@ -93,16 +93,16 @@ public class Graphic extends Application implements ChessGameInterface {
 	 */
 	public void newGame() {
 		// Create logical ChessBoard
-		String[][] position={{"","","","","","","",""},
-				             {"","B"," ",""," "," ","",""},
-				             {" ","","K","",""," "," ",""},
-				             {"k"," ",""," ","",""," ",""},
-				             {" "," ","",""," "," "," ",""},
-				             {" "," ","R",""," "," "," ",""},
-				             {""," ","",""," ","","",""},
-				             {"","","","","","","",""}};
-		game = new Game(position);
-//		game = new Game();
+//		String[][] position={{"","","","","","","",""},
+//				             {"","B"," ",""," "," ","",""},
+//				             {" ","","K","",""," "," ",""},
+//				             {"k"," ",""," ","",""," ",""},
+//				             {" "," ","",""," "," "," ",""},
+//				             {" "," ","R",""," "," "," ",""},
+//				             {""," ","",""," ","","",""},
+//				             {"","","","","","","",""}};
+//		game = new Game(position);
+		game = new Game();
 		ChessBoard.setConfigBoard(1);
 
 		setSelectedCoord(null);
@@ -281,16 +281,6 @@ public class Graphic extends Application implements ChessGameInterface {
 			echiquier.setRight(vertical);
 			break;
 		}
-//		Label lb2 = new Label("");
-//		pane.add(lb2, 0, 9);
-//		// Numbering rows
-//		for (int i = 0; i < 8; i++) {
-//			Integer k = i + 1;
-//			Label lb3 = new Label("  " + k.toString());
-//			lb3.setTextFill(Color.BLUE);
-//			lb3.setStyle("-fx-font-weight: bold");
-//			pane.add(lb3, 9, 7 - i);
-//		}
 	}
 
 	/**
@@ -322,7 +312,6 @@ public class Graphic extends Application implements ChessGameInterface {
 		blackKingStatus.setStyle("-fx-font-weight: bold");
 
 		TextField kingStatusArea = new TextField();
-		// formatTextArea(kingStatusArea, 50, 50);
 		kingStatusArea.setPrefWidth(60);
 		kingStatusArea.setEditable(false);
 		ControleKingStatus cks = new ControleKingStatus(kingStatusArea, player);
@@ -357,8 +346,6 @@ public class Graphic extends Application implements ChessGameInterface {
 		lostPiece.setStyle("-fx-font-weight: bold");
 		FlowPane lostArea = new FlowPane();
 		lostArea.setMinHeight(50);
-//		formatTextArea(lostArea, 200, 30);
-//		lostArea.setText(player.getCapturedPieces().toString());
 		ControleLostPieces clp = new ControleLostPieces(lostArea, game.getChessBoard(), player);
 		game.getChessBoard().addObserver(clp);
 
@@ -413,9 +400,7 @@ public class Graphic extends Application implements ChessGameInterface {
 		fileChooser.setTitle("Open");
 		fileChooser.getExtensionFilters().addAll(new ExtensionFilter("ChessGame Save", "*.ser*"));
 		openBtn.setOnAction(e -> {
-//			try {
-			String currentPath = Paths.get(".").toAbsolutePath().normalize().toString(); // To set default open
-																							// directory
+			String currentPath = Paths.get(".").toAbsolutePath().normalize().toString(); // To set default open directory
 			fileChooserOpen.setInitialDirectory(new File(currentPath));
 			File fileOpen = fileChooser.showOpenDialog(primaryStage);
 			if (fileOpen != null) {
@@ -427,39 +412,6 @@ public class Graphic extends Application implements ChessGameInterface {
 				timerB.newTimeLine();
 				loadGame();
 			}
-//				FileInputStream filestream = new FileInputStream(fileOpen);
-//				try {
-//					ObjectInputStream os = new ObjectInputStream(filestream);
-//					try {
-//						Game gameTest_s = (Game) os.readObject();
-//						Integer configBoard_s = (Integer) os.readObject();
-//						game = gameTest_s;
-////							chessBoard = gameBoard_s;
-////							histListWhite = (List<Coord>) histListWhite_s;
-////							histListBlack = (List<Coord>) histListBlack_s;
-////							lostPieceWhiteList.set(0, lostPieceWhite_s);
-////							lostPieceBlackList.set(0, lostPieceBlack_s);
-////							whiteTimeList = whiteTimeList_s;
-////							blackTimeList = blackTimeList_s;
-////							chessBoardList.get(0).setConfigBoard(configBoard_s);
-////							markPossibleMove(game, pane, histListWhite, histListBlack, lostPieceWhiteList, lostPieceBlackList);
-////						markPossibleMove(game);
-//
-////							pane.getChildren().remove(labelCol);
-//						numberingRowCol(ChessBoard.getConfigBoard());
-////							labelCurentPlayer(pane, histListWhite, histListBlack, lostPieceWhiteList, lostPieceBlackList);
-//						displayCell(chessBoard, pane); // Call display chessboard's
-//														// cell function
-////							markCell(game, pane, "O");
-//					} catch (ClassNotFoundException e2) {
-//						e2.printStackTrace();
-//					}
-//				} catch (IOException e2) {
-//					e2.printStackTrace();
-//				}
-//			} catch (FileNotFoundException e2) {
-//				e2.printStackTrace();
-//			}
 		});
 
 		// Button Exit
@@ -493,50 +445,8 @@ public class Graphic extends Application implements ChessGameInterface {
 		newImv.setImage(newImg);
 		newBtn.setGraphic(newImv);
 		newBtn.setOnAction(e -> {
-//				Game gameNew = new Game();
-//				gameNew.getChessBoard().setConfigBoard(game.getChessBoard().getConfigBoard());
-//				game = gameNew;
-//				chessBoardList.set(0, gameTest2.getChessBoard());
-//				turnBoard = false;
-//				histListWhite.clear();
-//				histListBlack.clear();
-//				lostPieceWhiteList.set(0, new LostPiece(0, 0, 0, 0, 0, 0, true));
-//				lostPieceBlackList.set(0, new LostPiece(0, 0, 0, 0, 0, 0, false));
-//				whiteTimeList.set(0, (double) 0);
-//				blackTimeList.set(0, (double) 0);
-//				HashSet<Coord> pMove = null; // HashSet contains possible move
-//				pMoveList.add(pMove);
-//				countList.set(0, 1); // Neu ko co khi 1 ben win, chon New button, sau do chon quan co di se bao
-//										// Invalid input
-//				InputDialog dialog = new InputDialog("2");
-//				dialog.getStage().showAndWait();
-//				int config;
-//				if (dialog.getResult().substring(0, 1).contains("1")) {
-//					config = 1;
-//				} else {
-//					config = 2;
-//				}
-//				game.getChessBoard().setConfigBoard(config);
-//				markPossibleMove(game, pane, histListWhite, histListBlack, lostPieceWhiteList, lostPieceBlackList);
-//				markPossibleMove(game, pane, new ArrayList<Coord>(), new ArrayList<Coord>(), new ArrayList<LostPiece>(), new ArrayList<LostPiece>());
-//				
-//				pane.getChildren().remove(labelCol);
-//				NumberingRowCol(pane);
-//				labelCurentPlayer(pane, histListWhite, histListBlack, lostPieceWhiteList, lostPieceBlackList);
-//				displayCell(game.getChessBoard(), pane);
-//				markCell(game, pane, "O");
 			newGame();
 		});
-//		pane.add(newBtn, 0, 10, 2, 1);
-//		GridPane.setHalignment(newBtn, HPos.CENTER);
-//		pane.add(saveBtn, 2, 10, 2, 1);
-//		GridPane.setHalignment(saveBtn, HPos.CENTER);
-//		pane.add(openBtn, 4, 10, 2, 1);
-//		GridPane.setHalignment(openBtn, HPos.CENTER);
-//		pane.add(exitBtn, 6, 10, 2, 1);
-//		GridPane.setHalignment(exitBtn, HPos.CENTER);
-//		pane.add(turnBtn, 10, 10, 2, 1);
-//		GridPane.setHalignment(turnBtn, HPos.CENTER);
 
 		// Number of turn
 		HBox turnBox = new HBox();
@@ -575,21 +485,6 @@ public class Graphic extends Application implements ChessGameInterface {
 		alert.setContentText(str);
 		alert.showAndWait();
 	}
-
-	// Identify pieces that are movable and the status of current King.
-//	public void markPossibleMove(Game game) {
-//		if (game.getTurn()) {
-//			game.getChessBoard().coorPieceMoveable(game.getWhitePlayer().getCoordOfMyPieces(), game.getTurn());
-//
-//			game.getChessBoard().updateCheckStatusking(game.getBlackPlayer().getCoordOfMyPieces(), game.getTurn());
-//			;
-//		} else {
-//			game.getChessBoard().coorPieceMoveable(game.getBlackPlayer().getCoordOfMyPieces(), game.getTurn());
-//			;
-//			game.getChessBoard().updateCheckStatusking(game.getWhitePlayer().getCoordOfMyPieces(), game.getTurn());
-//			;
-//		}
-//	}
 
 	/**
 	 * Set dimension to a TextArea
@@ -691,18 +586,6 @@ public class Graphic extends Application implements ChessGameInterface {
 		 * @param string The default value
 		 */
 		public InputDialog(int defaultValue) {
-//			input = new TextField(string);
-//			Button close = new Button("Submit");
-//			Label label = new Label("Chose a Piece of promoting\n0=knight, 1=bishop, 2=rook,\nany other number=Queen");
-//			VBox root = new VBox();
-//			root.setAlignment(Pos.CENTER);
-//			root.getChildren().addAll(label, input, close);
-//			Scene scene = new Scene(root, 200, 100);
-//			stage = new Stage();
-//			stage.initModality(Modality.APPLICATION_MODAL);
-//			close.setOnAction(e -> stage.hide());
-//			stage.setScene(scene);
-
 			// default value
 			result = defaultValue;
 
