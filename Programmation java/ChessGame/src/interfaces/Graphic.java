@@ -108,6 +108,8 @@ public class Graphic extends Application implements ChessGameInterface {
 		game=new Game();
 		ChessBoard.setConfigBoard(1);
 		
+		setSelectedCoord(null);
+		
 		// set timer
 		// clear 
 		if (timerB != null) {
@@ -673,7 +675,7 @@ public class Graphic extends Application implements ChessGameInterface {
 	 */
 	private static class InputDialog {
 		private final Stage stage;
-		private final TextField input;
+
 
 		/**
 		 * Default constructor
@@ -693,20 +695,20 @@ public class Graphic extends Application implements ChessGameInterface {
 //			close.setOnAction(e -> stage.hide());
 //			stage.setScene(scene);
 			
-			input = new TextField(string);
 			Button close = new Button("Submit");
-			Label label = new Label("Chose a Piece of promoting");
+			Label label = new Label("Chose a Piece for the promotion");
 			
 			HBox choiceBtn = new HBox();
 			Button knightBtn = new Button();
 			knightBtn.setGraphic(new ImageView(ControleTileIcon.getImage(new Knight(true, null))));
 			knightBtn.setOnMouseClicked(e -> {
+//				stage.hide();
 				
 			});
 			
 			VBox root = new VBox();
 			root.setAlignment(Pos.CENTER);
-			root.getChildren().addAll(label, input, close);
+//			root.getChildren().addAll(label, input, close);
 			Scene scene = new Scene(root, 200, 100);
 			stage = new Stage();
 			stage.initModality(Modality.APPLICATION_MODAL);
@@ -729,11 +731,16 @@ public class Graphic extends Application implements ChessGameInterface {
 		 * @return
 		 */
 		public int getResult() {
-			if (input.getText().length() > 0) {
-				return Integer.parseInt(input.getText());
-			} else {
-				return 2;
-			}
+//			if (input.getText().length() > 0) {
+//				return Integer.parseInt(input.getText());
+//			} else {
+//				return 2;
+//			}
+			return 3;
+		}
+	
+		public void close() {
+			
 		}
 	}
 

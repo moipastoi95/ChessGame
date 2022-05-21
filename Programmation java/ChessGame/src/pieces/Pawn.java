@@ -145,8 +145,7 @@ public class Pawn extends Piece {
 
 		} else if (tmp == null && startC.getC() != finalC.getC()) { // Enpassant here, go update the getBoard()
 			if (getColor()) {
-				getCb().getGame().getBlackPlayer().getCapturedPieces()
-						.add(this.getCb().getBoard()[finalC.getR() + 1][finalC.getC()]);
+				getCb().getGame().getBlackPlayer().getCapturedPieces().add(this.getCb().getBoard()[finalC.getR() + 1][finalC.getC()]);
 				this.getCb().getBoard()[finalC.getR() + 1][finalC.getC()] = null;
 				getCb().getGame().getBlackPlayer().getCoordOfMyPieces()
 						.remove(new Coord(finalC.getR() + 1, finalC.getC()));

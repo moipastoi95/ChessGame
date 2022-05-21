@@ -5,6 +5,7 @@ import java.util.Observer;
 
 import global.ChessBoard;
 import global.Player;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
 import pieces.Piece;
@@ -38,7 +39,13 @@ public class ControleLostPieces implements Observer {
 			fp.getChildren().clear();
 			for (Piece p : player.getCapturedPieces()) {
 				// on prend l'image associé
-				ImageView iv = new ImageView(ControleTileIcon.getImage(p));
+				Image img = ControleTileIcon.getImage(p);
+				
+				ImageView iv = new ImageView(img);
+				int size = 25;
+				iv.setFitHeight(size);
+				iv.setFitWidth(size);
+				
 				fp.getChildren().add(iv);
 			}
 		}

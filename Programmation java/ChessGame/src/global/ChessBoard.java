@@ -343,8 +343,6 @@ public class ChessBoard extends Observable implements Serializable {
 			if (tmp != null) {
 				this.game.getBlackPlayer().getCapturedPieces().add(tmp);
 				this.game.getBlackPlayer().getCoordOfMyPieces().remove(finalC);
-				this.setChanged();
-				this.notifyObservers(ChessBoard.LOST_PIECES);
 			}
 		} else {
 			this.game.getBlackPlayer().getCoordOfMyPieces().add(finalC);
@@ -353,10 +351,12 @@ public class ChessBoard extends Observable implements Serializable {
 			if (tmp != null) {
 				this.game.getWhitePlayer().getCapturedPieces().add(tmp);
 				this.game.getWhitePlayer().getCoordOfMyPieces().remove(finalC);
-				this.setChanged();
-				this.notifyObservers(ChessBoard.LOST_PIECES);
 			}
 		}
+		
+		this.setChanged();
+		this.notifyObservers(ChessBoard.LOST_PIECES);
+		
 		this.setChanged();
 		this.notifyObservers(ChessBoard.PLAY);
 	}
