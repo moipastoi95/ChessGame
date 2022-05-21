@@ -201,7 +201,8 @@ public class Graphic extends Application implements ChessGameInterface {
 		switch (config) {
 		case 1:
 			for(int i=65; i<73; i++) {
-				Label l1=new Label("       "+Character.toString(i)+"      ");
+				Label l1=new Label("      "+Character.toString(i));
+				l1.setPrefSize(50, 50);
 				l1.setTextFill(Color.BLUE);
 				l1.setStyle("-fx-font-weight: bold");
 				horizontal.add(l1,i-65, 0);		
@@ -223,6 +224,7 @@ public class Graphic extends Application implements ChessGameInterface {
 			for(int i=1; i<9; i++) {
 				Integer k=i;
 				Label l1=new Label("       "+k.toString()+"      ");
+				l1.setPrefSize(50, 50);
 				l1.setTextFill(Color.BLUE);
 				l1.setStyle("-fx-font-weight: bold");
 				horizontal.add(l1,i, 0);		
@@ -242,15 +244,16 @@ public class Graphic extends Application implements ChessGameInterface {
 		case 3:
 			horizontal.add(new Label("      "),0, 0);	
 			for(int i=72; i>64; i--) {
-				Label l1=new Label("       "+Character.toString(i)+"      ");
+				Label l1=new Label("      "+Character.toString(i));
 				l1.setTextFill(Color.BLUE);
+				l1.setPrefSize(50, 50);
 				l1.setStyle("-fx-font-weight: bold");
 				horizontal.add(l1,73-i, 0);		
 			}
 			echiquier.setTop(horizontal);
 			for(int j=1; j<9;j++) {
 				Integer k=j;
-				Label l2=new Label("  "+k.toString());
+				Label l2=new Label("  "+k.toString()+" ");
 				l2.setPrefSize(50, 50);
 				l2.setTextFill(Color.BLUE);
 				l2.setStyle("-fx-font-weight: bold");
@@ -264,6 +267,7 @@ public class Graphic extends Application implements ChessGameInterface {
 				Integer k=i;
 				Label l1=new Label("       "+k.toString()+"      ");
 				l1.setTextFill(Color.BLUE);
+				l1.setPrefSize(50, 50);
 				l1.setStyle("-fx-font-weight: bold");
 				horizontal.add(l1,8-i, 0);		
 			}
