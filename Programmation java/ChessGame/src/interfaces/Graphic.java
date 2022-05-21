@@ -150,8 +150,11 @@ public class Graphic extends Application implements ChessGameInterface {
 		screen.setTop(bPlayerBorder);
 		screen.setBottom(wPlayerBorder);
 
+		// to fixe size
+		GridPane grandScreen = new GridPane();
+		grandScreen.add(screen, 0, 0);
 		// show the screen
-		Scene scene = new Scene(screen);
+		Scene scene = new Scene(grandScreen);
 		primaryStage.setScene(scene);
 		primaryStage.setTitle("ChessBoard Projet");
 		primaryStage.show();
@@ -240,6 +243,7 @@ public class Graphic extends Application implements ChessGameInterface {
 			for (int i = 72; i > 64; i--) {
 				Label l1 = new Label("       " + Character.toString(i) + "      ");
 				l1.setTextFill(Color.BLUE);
+				l1.setPrefSize(50, 50);
 				l1.setStyle("-fx-font-weight: bold");
 				horizontal.add(l1, 73 - i, 0);
 			}
@@ -260,6 +264,7 @@ public class Graphic extends Application implements ChessGameInterface {
 				Integer k = i;
 				Label l1 = new Label("       " + k.toString() + "      ");
 				l1.setTextFill(Color.BLUE);
+				l1.setPrefSize(50, 50);
 				l1.setStyle("-fx-font-weight: bold");
 				horizontal.add(l1, 8 - i, 0);
 			}
