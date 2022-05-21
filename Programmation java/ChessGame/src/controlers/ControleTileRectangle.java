@@ -61,14 +61,19 @@ public class ControleTileRectangle implements Observer {
 		Integer stat = (Integer) arg;
 		Coord absCoord = Graphic.convertGraphToChess(tilePosition, game.getChessBoard().getConfigBoard());
 
+		boolean intoMoveableList = game.getChessBoard().getCoorPieceMoveable().contains(absCoord);
 		// case of a moveable piece
-		if (stat == ChessBoard.MOVEABLE_PIECES && game.getChessBoard().getCoorPieceMoveable().contains(absCoord)) {
+		if (stat == ChessBoard.MOVEABLE_PIECES && intoMoveableList) {
 			setMoveableTile();
 		} // case of a possible position
-		else if (stat == Game.SELECTED_TILE
-				&& game.getChessBoard().getBoard()[graphic.getSelectedCoord().getR()][graphic.getSelectedCoord().getC()]
-						.getAllowedMove().contains(absCoord)) {
-			setSelectedTile();
+		else if (stat == Game.SELECTED_TILE) {
+			if (game.getChessBoard().getBoard()[graphic.getSelectedCoord().getR()][graphic.getSelectedCoord().getC()].getAllowedMove().contains(absCoord)) {
+				setSelectedTile();
+			} else if (intoMoveableList) {
+				setMoveableTile();
+			} else {
+				setDefaultColor();
+			}
 		} else { // if (stat == ChessBoard.PLAY)
 			setDefaultColor();
 		}

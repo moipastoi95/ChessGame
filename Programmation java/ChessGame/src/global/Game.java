@@ -1,5 +1,11 @@
 package global;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.*;
 
 import pieces.Bishop;
@@ -8,13 +14,18 @@ import pieces.Knight;
 /**
  * The Game : the begining of the functionnal part
  */
-public class Game extends Observable {
+public class Game extends Observable implements Serializable {
 	// attributes
 	private Player whitePlayer;
 	private Player blackPlayer;
 	private ChessBoard cb;
 	private boolean turn;
 	private int nbCoup;
+	
+	/**
+	 * Constant for the serialiation
+	 */
+	private static final long serialVersionUID = 1L; 
 
 	/**
 	 * Constant for updating observer, in case of the selection of a Piece
@@ -62,13 +73,60 @@ public class Game extends Observable {
 			this.nbCoup = 0;
 		}
 	}
+	
 	/**
 	 * Save the game into a file
+	 * 
+	 * @param filename The name of the file
 	 */
-	public void saveFile() {
-		// TODO implement here
-		return;
+	public void saveFile(String filename, Integer[] timers) {
+//		String filename = "chessFile.ser"; 
+		try {
+			ObjectOutputStream chessFile = new ObjectOutputStream(new FileOutputStream(filename));
+			chessFile.writeObject(this);
+			chessFile.writeObject(timers);
+			
+            chessFile.close();
+		}catch (IOException exception) {
+		    System.out.println("Impossible d'écrire dans le fichier :"+ exception.toString());
+		    exception.printStackTrace();
+		} 
 	}
+	
+	/**
+	 * Load a game from a file
+	 * @param filename The name of the file
+	 */
+	public Integer[] loadFile(String filename) {
+//		String filename = "chessFile.ser"; 
+		Integer[] timers = new Integer[2];
+		try {
+            ObjectInputStream in = new ObjectInputStream(new FileInputStream(filename));
+            Game nGame = (Game)in.readObject();
+        	this.whitePlayer = nGame.whitePlayer;
+        	this.blackPlayer = nGame.blackPlayer;
+        	this.cb = nGame.cb;
+        	this.turn = nGame.turn;
+        	this.nbCoup = nGame.nbCoup;
+            timers = (Integer[])in.readObject();
+            cb.setGame(this);
+            in.close();
+        } catch(IOException ex){
+            ex.printStackTrace();
+        } catch(ClassNotFoundException cnfe){
+            cnfe.printStackTrace();
+        }
+        // print out restored time
+//        if (this.getTurn()) {
+//			cb.coorPieceMoveable(whitePlayer.getCoordOfMyPieces(), this.getTurn());
+//			cb.updateCheckStatusKing(blackPlayer.getCoordOfMyPieces(), this.getTurn());
+//		} else {
+//			cb.coorPieceMoveable(blackPlayer.getCoordOfMyPieces(), this.getTurn());
+//			cb.updateCheckStatusKing(whitePlayer.getCoordOfMyPieces(), this.getTurn());
+//		}
+		System.out.println(this.toString());
+		return timers;
+     }
 
 	/**
 	 * Increment the number of turn

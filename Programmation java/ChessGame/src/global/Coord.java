@@ -1,12 +1,19 @@
 package global;
 
+import java.io.Serializable;
+
 /**
  * Object that store coordinates of a Piece in the chessboard
  */
-public class Coord {
+public class Coord implements Serializable {
 	// attributes
 	private int row;
 	private int column;
+	
+	/**
+	 * Constant for the serialiation
+	 */
+	private static final long serialVersionUID = 1L; 
 
 	/**
 	 * Default constructor

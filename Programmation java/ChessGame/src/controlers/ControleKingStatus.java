@@ -28,7 +28,10 @@ public class ControleKingStatus implements Observer{
 
 	@Override
 	public void update(Observable o, Object arg) {
-		display();
+		Integer stat = (Integer) arg;
+		if (stat == Player.KING_STATUS) {
+			display();
+		}
 	}
 	
 	/**

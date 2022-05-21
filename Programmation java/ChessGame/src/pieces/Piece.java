@@ -1,5 +1,6 @@
 package pieces;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import global.ChessBoard;
 import global.Coord;
@@ -8,12 +9,17 @@ import interfaces.ChessGameInterface;
 /**
  * Abstract class which represent a single Piece
  */
-public abstract class Piece {
+public abstract class Piece implements Serializable {
 	// attributes
 	private ChessBoard cb;
 	private boolean color;
 	private HashSet<Coord> allowedMove;
-
+	
+	/**
+	 * Constant for the serialiation
+	 */
+	private static final long serialVersionUID = 1L; 
+	
 	/**
 	 * Default constructor
 	 * 

@@ -78,12 +78,12 @@ public class ControleTileStack implements EventHandler<MouseEvent> {
 						if (game.getTurn()) {
 							game.getChessBoard().coorPieceMoveable(game.getWhitePlayer().getCoordOfMyPieces(),
 									game.getTurn());
-							game.getChessBoard().updateCheckStatusking(game.getBlackPlayer().getCoordOfMyPieces(),
+							game.getChessBoard().updateCheckStatusKing(game.getBlackPlayer().getCoordOfMyPieces(),
 									game.getTurn());
 						} else {
 							game.getChessBoard().coorPieceMoveable(game.getBlackPlayer().getCoordOfMyPieces(),
 									game.getTurn());
-							game.getChessBoard().updateCheckStatusking(game.getWhitePlayer().getCoordOfMyPieces(),
+							game.getChessBoard().updateCheckStatusKing(game.getWhitePlayer().getCoordOfMyPieces(),
 									game.getTurn());
 						}
 						boolean lackStuff=game.checkLackStuff();

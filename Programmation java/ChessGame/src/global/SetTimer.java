@@ -1,5 +1,7 @@
 package global;
 
+import java.io.Serializable;
+
 import javafx.animation.Timeline;
 import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
@@ -12,7 +14,7 @@ public class SetTimer {
     private String string1;
     private String string2;
     private Integer timeSeconds2;
-    
+	
     public SetTimer(boolean joueur, Integer timeSeconds) {
     	this.setJoueur(joueur);
     	this.timeSeconds = timeSeconds;

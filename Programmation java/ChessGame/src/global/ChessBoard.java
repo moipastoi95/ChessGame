@@ -1,5 +1,6 @@
 package global;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Observable;
 
@@ -15,13 +16,18 @@ import pieces.Rook;
 /**
  * Represent the chessboard
  */
-public class ChessBoard extends Observable {
+public class ChessBoard extends Observable implements Serializable {
 	// attributes
 	private Piece[][] board;
 	private HashSet<Coord> coorPieceMoveable;
 	private Coord whiteKingCoord;
 	private Game game;
 	private Coord blackKingCoord;
+	
+	/**
+	 * Constant for the serialiation
+	 */
+	private static final long serialVersionUID = 1L; 
 
 	/**
 	 * The configuration of the Board
@@ -232,6 +238,10 @@ public class ChessBoard extends Observable {
 	public Game getGame() {
 		return game;
 	}
+	
+	public void setGame(Game game) {
+		this.game = game;
+	}
 
 	/**
 	 * simulate a move, to check if a Piece could block a mat
@@ -303,7 +313,7 @@ public class ChessBoard extends Observable {
 	 * @param coords All the Coord of Piece that a Player own
 	 * @param turn   The current turn
 	 */
-	public void updateCheckStatusking(HashSet<Coord> coords, boolean turn) {
+	public void updateCheckStatusKing(HashSet<Coord> coords, boolean turn) {
 		HashSet<Coord> allAttacked = new HashSet<>();
 		for (Coord c : coords) {
 			allAttacked.addAll(this.board[c.getR()][c.getC()].possibleMove(c));

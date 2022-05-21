@@ -11,6 +11,7 @@ import java.nio.file.Paths;
 
 import controlers.ControleKingStatus;
 import controlers.ControleLostPieces;
+import controlers.ControleTileIcon;
 import controlers.ControleTileStack;
 import controlers.ControleTime;
 import controlers.ControleTurn;
@@ -42,6 +43,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
+import pieces.Knight;
 
 /**
  * Graphic interface
@@ -109,23 +111,32 @@ public class Graphic extends Application implements ChessGameInterface {
 		// set timer
 		// clear 
 		if (timerB != null) {
-			timerB.getTimeline().getKeyFrames().clear();
+			timerB.newTimeLine();
 		}
 		if (timerW != null) {
-			timerW.getTimeline().getKeyFrames().clear();
+			timerW.newTimeLine();
 		}
 		int GlobalTime = 5 * 60;
 		timerW = new SetTimer(true, GlobalTime); 
 		timerB = new SetTimer(true, GlobalTime);
 
+		loadGame();
+	}
+
+	public void loadGame() {
 		// generate the graphic board
 		displayCell(game.getChessBoard(), grid);
 		numberingRowCol(ChessBoard.getConfigBoard());
 
 		// init pieces moveable
-		game.getChessBoard().coorPieceMoveable(game.getWhitePlayer().getCoordOfMyPieces(), game.getTurn());
-		game.getChessBoard().updateCheckStatusking(game.getBlackPlayer().getCoordOfMyPieces(), game.getTurn());
-
+		if (game.getTurn()) {
+			game.getChessBoard().coorPieceMoveable(game.getWhitePlayer().getCoordOfMyPieces(), game.getTurn());
+			game.getChessBoard().updateCheckStatusKing(game.getBlackPlayer().getCoordOfMyPieces(), game.getTurn());
+		} else {
+			game.getChessBoard().coorPieceMoveable(game.getBlackPlayer().getCoordOfMyPieces(), game.getTurn());
+			game.getChessBoard().updateCheckStatusKing(game.getWhitePlayer().getCoordOfMyPieces(), game.getTurn());
+		}
+		
 		BorderPane screen = new BorderPane();
 		echiquier.setCenter(grid);
 		screen.setCenter(echiquier);
@@ -147,7 +158,7 @@ public class Graphic extends Application implements ChessGameInterface {
 		primaryStage.setTitle("ChessBoard Projet");
 		primaryStage.show();
 	}
-
+	
 	/**
 	 * Generate the graphic board
 	 * 
@@ -377,32 +388,15 @@ public class Graphic extends Application implements ChessGameInterface {
 		saveBtn.setGraphic(saveImv);
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.setTitle("Save");
-		fileChooser.getExtensionFilters().addAll(new ExtensionFilter("All Files", "*.*"));
-		saveBtn.setOnAction(e1 -> {
-			try {
-				File file = fileChooser.showSaveDialog(primaryStage);
-				FileOutputStream filestream = new FileOutputStream(file);
-				try {
-					ObjectOutputStream os = new ObjectOutputStream(filestream);
-//					os.writeObject(game); // save current gameTest object.
-//						os.writeObject(chessBoard); // save cac o co logic
-//						os.writeObject(histListWhite);
-//						os.writeObject(histListBlack);
-//						os.writeObject(lostPieceWhiteList.get(0));
-//						os.writeObject(lostPieceBlackList.get(0));
-//						os.writeObject(whiteTimeList);
-//						os.writeObject(blackTimeList);
-//						os.writeObject(chessBoardList.get(0).getConfigBoard());
-					showAlertInvalidInput("Written!");
-					os.close();
-				} catch (IOException e2) {
-					System.out.println("Exception in saving file");
-					e2.printStackTrace();
-				}
-			} catch (FileNotFoundException e2) {
-				System.out.println("File not found!");
-				e2.printStackTrace();
+		fileChooser.getExtensionFilters().addAll(new ExtensionFilter("ChessGame Save", "*.ser*"));
+		saveBtn.setOnAction(e1 -> {			
+			File file = fileChooser.showSaveDialog(primaryStage);
+			if (file != null) {
+				Integer[] timers = {timerW.getTimeSeconds(), timerB.getTimeSeconds()};
+				String path = file.getAbsolutePath();
+				game.saveFile(path, timers);
 			}
+				
 		});
 
 		// Open Button
@@ -414,46 +408,54 @@ public class Graphic extends Application implements ChessGameInterface {
 		// Creating a File chooser
 		FileChooser fileChooserOpen = new FileChooser();
 		fileChooser.setTitle("Open");
-		fileChooser.getExtensionFilters().addAll(new ExtensionFilter("All Files", "*.*"));
+		fileChooser.getExtensionFilters().addAll(new ExtensionFilter("ChessGame Save", "*.ser*"));
 		openBtn.setOnAction(e -> {
-			try {
-				String currentPath = Paths.get(".").toAbsolutePath().normalize().toString(); // To set default open
-																								// directory
+//			try {
+				String currentPath = Paths.get(".").toAbsolutePath().normalize().toString(); // To set default open directory
 				fileChooserOpen.setInitialDirectory(new File(currentPath));
 				File fileOpen = fileChooser.showOpenDialog(primaryStage);
-				FileInputStream filestream = new FileInputStream(fileOpen);
-				try {
-					ObjectInputStream os = new ObjectInputStream(filestream);
-					try {
-						Game gameTest_s = (Game) os.readObject();
-						Integer configBoard_s = (Integer) os.readObject();
-						game = gameTest_s;
-//							chessBoard = gameBoard_s;
-//							histListWhite = (List<Coord>) histListWhite_s;
-//							histListBlack = (List<Coord>) histListBlack_s;
-//							lostPieceWhiteList.set(0, lostPieceWhite_s);
-//							lostPieceBlackList.set(0, lostPieceBlack_s);
-//							whiteTimeList = whiteTimeList_s;
-//							blackTimeList = blackTimeList_s;
-//							chessBoardList.get(0).setConfigBoard(configBoard_s);
-//							markPossibleMove(game, pane, histListWhite, histListBlack, lostPieceWhiteList, lostPieceBlackList);
-//						markPossibleMove(game);
-
-//							pane.getChildren().remove(labelCol);
-						numberingRowCol(ChessBoard.getConfigBoard());
-//							labelCurentPlayer(pane, histListWhite, histListBlack, lostPieceWhiteList, lostPieceBlackList);
-						displayCell(chessBoard, pane); // Call display chessboard's
-														// cell function
-//							markCell(game, pane, "O");
-					} catch (ClassNotFoundException e2) {
-						e2.printStackTrace();
-					}
-				} catch (IOException e2) {
-					e2.printStackTrace();
+				if (fileOpen != null) {
+					String path = fileOpen.getAbsolutePath();
+					Integer[] timers = game.loadFile(path);
+					timerW = new SetTimer(true, timers[0]);
+					timerW.newTimeLine();
+					timerB = new SetTimer(false, timers[1]);
+					timerB.newTimeLine();
+					loadGame();
 				}
-			} catch (FileNotFoundException e2) {
-				e2.printStackTrace();
-			}
+//				FileInputStream filestream = new FileInputStream(fileOpen);
+//				try {
+//					ObjectInputStream os = new ObjectInputStream(filestream);
+//					try {
+//						Game gameTest_s = (Game) os.readObject();
+//						Integer configBoard_s = (Integer) os.readObject();
+//						game = gameTest_s;
+////							chessBoard = gameBoard_s;
+////							histListWhite = (List<Coord>) histListWhite_s;
+////							histListBlack = (List<Coord>) histListBlack_s;
+////							lostPieceWhiteList.set(0, lostPieceWhite_s);
+////							lostPieceBlackList.set(0, lostPieceBlack_s);
+////							whiteTimeList = whiteTimeList_s;
+////							blackTimeList = blackTimeList_s;
+////							chessBoardList.get(0).setConfigBoard(configBoard_s);
+////							markPossibleMove(game, pane, histListWhite, histListBlack, lostPieceWhiteList, lostPieceBlackList);
+////						markPossibleMove(game);
+//
+////							pane.getChildren().remove(labelCol);
+//						numberingRowCol(ChessBoard.getConfigBoard());
+////							labelCurentPlayer(pane, histListWhite, histListBlack, lostPieceWhiteList, lostPieceBlackList);
+//						displayCell(chessBoard, pane); // Call display chessboard's
+//														// cell function
+////							markCell(game, pane, "O");
+//					} catch (ClassNotFoundException e2) {
+//						e2.printStackTrace();
+//					}
+//				} catch (IOException e2) {
+//					e2.printStackTrace();
+//				}
+//			} catch (FileNotFoundException e2) {
+//				e2.printStackTrace();
+//			}
 		});
 
 		// Button Exit
@@ -679,9 +681,29 @@ public class Graphic extends Application implements ChessGameInterface {
 		 * @param string The default value
 		 */
 		public InputDialog(String string) {
+//			input = new TextField(string);
+//			Button close = new Button("Submit");
+//			Label label = new Label("Chose a Piece of promoting\n0=knight, 1=bishop, 2=rook,\nany other number=Queen");
+//			VBox root = new VBox();
+//			root.setAlignment(Pos.CENTER);
+//			root.getChildren().addAll(label, input, close);
+//			Scene scene = new Scene(root, 200, 100);
+//			stage = new Stage();
+//			stage.initModality(Modality.APPLICATION_MODAL);
+//			close.setOnAction(e -> stage.hide());
+//			stage.setScene(scene);
+			
 			input = new TextField(string);
 			Button close = new Button("Submit");
-			Label label = new Label("Chose a Piece of promoting\n0=knight, 1=bishop, 2=rook,\nany other number=Queen");
+			Label label = new Label("Chose a Piece of promoting");
+			
+			HBox choiceBtn = new HBox();
+			Button knightBtn = new Button();
+			knightBtn.setGraphic(new ImageView(ControleTileIcon.getImage(new Knight(true, null))));
+			knightBtn.setOnMouseClicked(e -> {
+				
+			});
+			
 			VBox root = new VBox();
 			root.setAlignment(Pos.CENTER);
 			root.getChildren().addAll(label, input, close);

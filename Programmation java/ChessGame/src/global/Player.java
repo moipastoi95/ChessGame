@@ -1,5 +1,6 @@
 package global;
 
+import java.io.Serializable;
 import java.util.*;
 
 import pieces.Piece;
@@ -7,7 +8,7 @@ import pieces.Piece;
 /**
  * The object that represent a player
  */
-public class Player extends Observable {
+public class Player extends Observable implements Serializable {
 	// attributes
 	private Game game;
 	private boolean color;
@@ -15,6 +16,11 @@ public class Player extends Observable {
 	private HashSet<Coord> coordOfMyPieces;
 	// private void timer;
 	private boolean MyKingStatus; // true=roi en échec, false=safe
+	
+	/**
+	 * Constant for the serialiation
+	 */
+	private static final long serialVersionUID = 1L; 
 
 	/**
 	 * Constant for updating observer, in case of a changing King status
@@ -133,9 +139,9 @@ public class Player extends Observable {
 	 * @param status The new status of the King
 	 */
 	public void setMyKingStatus(boolean status) {
+		this.MyKingStatus = status;
 		this.setChanged();
 		this.notifyObservers(Player.KING_STATUS);
-		this.MyKingStatus = status;
 	}
 
 	public String toString() {
