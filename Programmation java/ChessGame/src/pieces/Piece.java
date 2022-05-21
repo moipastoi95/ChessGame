@@ -14,12 +14,12 @@ public abstract class Piece implements Serializable {
 	private ChessBoard cb;
 	private boolean color;
 	private HashSet<Coord> allowedMove;
-	
+
 	/**
 	 * Constant for the serialiation
 	 */
-	private static final long serialVersionUID = 1L; 
-	
+	private static final long serialVersionUID = 1L;
+
 	/**
 	 * Default constructor
 	 * 

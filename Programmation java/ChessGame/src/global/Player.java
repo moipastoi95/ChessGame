@@ -14,13 +14,12 @@ public class Player extends Observable implements Serializable {
 	private boolean color;
 	private LinkedList<Piece> capturedPieces;
 	private HashSet<Coord> coordOfMyPieces;
-	// private void timer;
 	private boolean MyKingStatus; // true=roi en échec, false=safe
-	
+
 	/**
 	 * Constant for the serialiation
 	 */
-	private static final long serialVersionUID = 1L; 
+	private static final long serialVersionUID = 1L;
 
 	/**
 	 * Constant for updating observer, in case of a changing King status
@@ -55,46 +54,53 @@ public class Player extends Observable implements Serializable {
 		}
 		this.game = game;
 	}
-	
+
+	/**
+	 * Generate a player stat by a matrix of String
+	 * 
+	 * @param b     The color of the Player
+	 * @param game2 The current game
+	 * @param board The matrix of String that represent the Pieces
+	 */
 	public Player(boolean b, Game game2, String[][] board) {
-    	this.color=b;
-    	this.capturedPieces=new LinkedList<Piece>();
-    	this.coordOfMyPieces=new HashSet<Coord>();
-    	this.MyKingStatus=false;
-		if(b) {
-			for(int i=0;i<8;i++) {
-				for(int j=0; j<8;j++) {
-					switch(board[i][j]) {
+		this.color = b;
+		this.capturedPieces = new LinkedList<Piece>();
+		this.coordOfMyPieces = new HashSet<Coord>();
+		this.MyKingStatus = false;
+		if (b) {
+			for (int i = 0; i < 8; i++) {
+				for (int j = 0; j < 8; j++) {
+					switch (board[i][j]) {
 					case "P":
 					case "B":
 					case "C":
 					case "R":
 					case "Q":
 					case "K":
-						this.coordOfMyPieces.add(new Coord(i,j));
+						this.coordOfMyPieces.add(new Coord(i, j));
 						break;
-					
+
 					}
 				}
 			}
-		}else {
-			for(int i=0;i<8;i++) {
-				for(int j=0; j<8;j++) {
-					switch(board[i][j]) {
+		} else {
+			for (int i = 0; i < 8; i++) {
+				for (int j = 0; j < 8; j++) {
+					switch (board[i][j]) {
 					case "p":
 					case "b":
 					case "c":
 					case "r":
 					case "q":
 					case "k":
-						this.coordOfMyPieces.add(new Coord(i,j));
+						this.coordOfMyPieces.add(new Coord(i, j));
 						break;
-					
+
 					}
 				}
 			}
 		}
-		this.game=game2;
+		this.game = game2;
 	}
 
 	/**

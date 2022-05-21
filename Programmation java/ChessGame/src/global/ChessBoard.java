@@ -21,13 +21,13 @@ public class ChessBoard extends Observable implements Serializable {
 	private Piece[][] board;
 	private HashSet<Coord> coorPieceMoveable;
 	private Coord whiteKingCoord;
-	private Game game;
 	private Coord blackKingCoord;
-	
+	private Game game;
+
 	/**
 	 * Constant for the serialiation
 	 */
-	private static final long serialVersionUID = 1L; 
+	private static final long serialVersionUID = 1L;
 
 	/**
 	 * The configuration of the Board
@@ -92,71 +92,76 @@ public class ChessBoard extends Observable implements Serializable {
 		this.whiteKingCoord = new Coord(7, 4);
 
 	}
-	
+
+	/**
+	 * Create a Game from a matrix of String
+	 * 
+	 * @param game2  The current game
+	 * @param board2 The matrix of String that represent the Pieces
+	 */
 	public ChessBoard(Game game2, String[][] board2) {
-    	this.board=new Piece[8][8];
-		for(int i=0;i<8;i++) {
-			for(int j=0;j<8;j++) {
-				switch(board2[i][j]) {
+		this.board = new Piece[8][8];
+		for (int i = 0; i < 8; i++) {
+			for (int j = 0; j < 8; j++) {
+				switch (board2[i][j]) {
 				case "p":
-					this.board[i][j]=new Pawn(false,this);
-					if (i!=1) {
-						((Pawn)(this.board[i][j])).setPawnStat(1);
+					this.board[i][j] = new Pawn(false, this);
+					if (i != 1) {
+						((Pawn) (this.board[i][j])).setPawnStat(1);
 					}
 					break;
 				case "P":
-					this.board[i][j]=new Pawn(true,this);
-					if (i!=6) {
-						((Pawn)(this.board[i][j])).setPawnStat(1);
+					this.board[i][j] = new Pawn(true, this);
+					if (i != 6) {
+						((Pawn) (this.board[i][j])).setPawnStat(1);
 					}
 					break;
 				case "c":
-					this.board[i][j]=new Knight(false,this);
+					this.board[i][j] = new Knight(false, this);
 					break;
 				case "C":
-					this.board[i][j]=new Knight(true,this);
+					this.board[i][j] = new Knight(true, this);
 					break;
 				case "b":
-					this.board[i][j]=new Bishop(false,this);
+					this.board[i][j] = new Bishop(false, this);
 					break;
 				case "B":
-					this.board[i][j]=new Bishop(true,this);
+					this.board[i][j] = new Bishop(true, this);
 					break;
 				case "r":
-					this.board[i][j]=new Rook(false,this);
+					this.board[i][j] = new Rook(false, this);
 					break;
 				case "R":
-					this.board[i][j]=new Rook(true,this);
+					this.board[i][j] = new Rook(true, this);
 					break;
 				case "q":
-					this.board[i][j]=new Queen(false,this);
+					this.board[i][j] = new Queen(false, this);
 					break;
 				case "Q":
-					this.board[i][j]=new Queen(true,this);
+					this.board[i][j] = new Queen(true, this);
 					break;
 				case "k":
-					this.board[i][j]=new King(false,this);
-					this.setBlackKingCoord(new Coord(i,j));
-					if(!(i==0 && j==4)) {
+					this.board[i][j] = new King(false, this);
+					this.setBlackKingCoord(new Coord(i, j));
+					if (!(i == 0 && j == 4)) {
 						((King) (this.board[i][j])).setCastlingKing();
 					}
 					break;
 				case "K":
-					this.board[i][j]=new King(true,this);
-					this.setWhiteKingCoord(new Coord(i,j));
-					if(!(i==7 && j==4)) {
+					this.board[i][j] = new King(true, this);
+					this.setWhiteKingCoord(new Coord(i, j));
+					if (!(i == 7 && j == 4)) {
 						((King) (this.board[i][j])).setCastlingKing();
 					}
 					break;
 				default:
-					this.board[i][j]=null;
-				
+					this.board[i][j] = null;
+
 				}
 			}
 		}
-		this.game=game2;
+		this.game = game2;
 	}
-
 
 	/**
 	 * Get the position of the White King on the board
@@ -238,13 +243,17 @@ public class ChessBoard extends Observable implements Serializable {
 	public Game getGame() {
 		return game;
 	}
-	
+
+	/**
+	 * Set the current game
+	 * @param game The current game
+	 */
 	public void setGame(Game game) {
 		this.game = game;
 	}
 
 	/**
-	 * simulate a move, to check if a Piece could block a mat
+	 * Simulate a move, to check if a Piece could block a mat
 	 * 
 	 * @param startC Position of the piece to simulate the move
 	 * @param finalC Coord of the final position
@@ -275,8 +284,8 @@ public class ChessBoard extends Observable implements Serializable {
 			}
 		}
 		this.board[finalC.getR()][finalC.getC()].demove(startC, finalC, tmp);
-		// System.out.println("remise en place\n"+this.toString()+"\n
-		// supprimé?:"+accepted);
+		// System.out.println("remise en
+		// place\n"+this.toString()+"\nsupprimé?:"+accepted);
 		return accepted;
 	}
 
@@ -353,10 +362,10 @@ public class ChessBoard extends Observable implements Serializable {
 				this.game.getWhitePlayer().getCoordOfMyPieces().remove(finalC);
 			}
 		}
-		
+
 		this.setChanged();
 		this.notifyObservers(ChessBoard.LOST_PIECES);
-		
+
 		this.setChanged();
 		this.notifyObservers(ChessBoard.PLAY);
 	}

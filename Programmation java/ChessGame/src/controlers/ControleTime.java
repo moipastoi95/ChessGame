@@ -14,23 +14,37 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.util.Duration;
 
+/**
+ * Controller of the timer
+ *
+ */
 public class ControleTime implements Observer {
+	// attributes
 	private TextField tf;
 	private SetTimer timer;
 	private Game game;
 	private boolean color;
 	private Graphic graphic;
-	
+
+	/**
+	 * Defautlt constructor
+	 * 
+	 * @param tf      The TextField concerned
+	 * @param timer   The Timer
+	 * @param graphic The current graphic interface
+	 * @param game    The current game
+	 * @param color   The color of the player concerned
+	 */
 	public ControleTime(TextField tf, SetTimer timer, Graphic graphic, Game game, boolean color) {
 		this.tf = tf;
 		this.timer = timer;
 		this.game = game;
 		this.color = color;
 		this.graphic = graphic;
-		
+
 		tf.setText(timer.toString());
-		
-		//Timer Init
+
+		// Timer Init
 		if (this.timer.getTimeline() != null) {
 			this.timer.getTimeline().stop();
 		}
@@ -42,7 +56,7 @@ public class ControleTime implements Observer {
 				this.timer.updateTimer();
 				timeOver();
 			}));
-			//this.timer.getTimeline().playFromStart();
+			// this.timer.getTimeline().playFromStart();
 		}
 	}
 
@@ -52,7 +66,7 @@ public class ControleTime implements Observer {
 		if (stat != ChessBoard.PLAY) {
 			if (game.getTurn() == color) {
 				timer.setJoueur(true);
-				
+
 				timer.newTimeLine();
 				timer.getTimeline().setCycleCount(Timeline.INDEFINITE);
 				timer.getTimeline().getKeyFrames().add(new KeyFrame(Duration.seconds(1), eJ1Frame -> {
@@ -65,15 +79,17 @@ public class ControleTime implements Observer {
 					}
 				}));
 				timer.getTimeline().playFromStart();
-			}
-			else {
+			} else {
 				timer.setJoueur(false);
 				timer.getTimeline().stop();
 			}
 		}
-		
+
 	}
-	
+
+	/**
+	 * Show dialog to tell the time is over
+	 */
 	private void timeOver() {
 		if (timer.getTimeSeconds() <= 0) {
 			timer.getTimeline().stop();
@@ -83,9 +99,14 @@ public class ControleTime implements Observer {
 				show("Time is over\nWhite won !");
 			}
 		}
-		
+
 	}
-	
+
+	/**
+	 * The dialog box
+	 * 
+	 * @param str The string to display
+	 */
 	private void show(String str) {
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle(str);
