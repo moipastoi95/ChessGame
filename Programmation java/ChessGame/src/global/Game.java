@@ -83,6 +83,7 @@ public class Game extends Observable implements Serializable {
 	 * Save the game into a file
 	 * 
 	 * @param filename The name of the file
+	 * @param timers   array of Integer of time (in second) which will be saved
 	 */
 	public void saveFile(String filename, Integer[] timers) {
 		String filepath = filename;
@@ -105,9 +106,10 @@ public class Game extends Observable implements Serializable {
 	 * Load a game from a file
 	 * 
 	 * @param filename The name of the file
+	 * @return An array of Interger of time (in second) that has been saved
 	 */
 	public Integer[] loadFile(String filename) {
-		Integer[] timers = new Integer[2];
+		Integer[] timers = new Integer[3];
 		try {
 			ObjectInputStream in = new ObjectInputStream(new FileInputStream(filename));
 			Game nGame = (Game) in.readObject();
@@ -232,6 +234,7 @@ public class Game extends Observable implements Serializable {
 	/**
 	 * Get the final result of the game
 	 * 
+	 * @param lackStuff True if there is a lack of stuff
 	 * @return 0=Black won, 1=White won, 2=Pat
 	 */
 	public int getEnd(boolean lackStuff) {

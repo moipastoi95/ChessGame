@@ -5443,13 +5443,30 @@
 											"height": 13,
 											"text": "+updateTimer(): void",
 											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLOperationView",
+											"_id": "AAAAAAGA6/3mHLIpI/M=",
+											"_parent": {
+												"$ref": "AAAAAAGA55+hYvKobbk="
+											},
+											"model": {
+												"$ref": "AAAAAAGA6/3l+7Id3Ik="
+											},
+											"font": "Arial;13;0",
+											"left": 245,
+											"top": 249,
+											"width": 161.0146484375,
+											"height": 13,
+											"text": "+snooze(): void",
+											"horizontalAlignment": 0
 										}
 									],
 									"font": "Arial;13;0",
 									"left": 240,
 									"top": 154,
 									"width": 171.0146484375,
-									"height": 98
+									"height": 113
 								},
 								{
 									"_type": "UMLReceptionCompartmentView",
@@ -5489,7 +5506,7 @@
 							"left": 240,
 							"top": 16,
 							"width": 171.0146484375,
-							"height": 236,
+							"height": 251,
 							"nameCompartment": {
 								"$ref": "AAAAAAGA55+hYvKiyms="
 							},
@@ -5991,7 +6008,8 @@
 									"_parent": {
 										"$ref": "AAAAAAF/yDLgmfkkGHA="
 									},
-									"name": "Coord"
+									"name": "Coord",
+									"type": ""
 								},
 								{
 									"_type": "UMLParameter",
@@ -5999,7 +6017,8 @@
 									"_parent": {
 										"$ref": "AAAAAAF/yDLgmfkkGHA="
 									},
-									"name": "int"
+									"name": "int",
+									"type": ""
 								},
 								{
 									"_type": "UMLParameter",
@@ -8169,6 +8188,25 @@
 									"_id": "AAAAAAGA56XBrfqbbCg=",
 									"_parent": {
 										"$ref": "AAAAAAGA56V14vpnGOU="
+									},
+									"type": "void",
+									"direction": "return"
+								}
+							]
+						},
+						{
+							"_type": "UMLOperation",
+							"_id": "AAAAAAGA6/3l+7Id3Ik=",
+							"_parent": {
+								"$ref": "AAAAAAGA55+hYfKf4zo="
+							},
+							"name": "snooze",
+							"parameters": [
+								{
+									"_type": "UMLParameter",
+									"_id": "AAAAAAGA6/4BqLJRrnQ=",
+									"_parent": {
+										"$ref": "AAAAAAGA6/3l+7Id3Ik="
 									},
 									"type": "void",
 									"direction": "return"

@@ -12,7 +12,7 @@ import global.Coord;
  */
 public class Input {
 	private static final long serialVersionUID = 1L;
-	
+
 	/**
 	 * Ask a Coord under the form of "(x,y)"
 	 * 
@@ -181,48 +181,68 @@ public class Input {
 
 	}
 
+	/**
+	 * Ask for saving
+	 * 
+	 * @return The answer
+	 */
 	public static Object askSave() {
 		try {
 			@SuppressWarnings("resource")
-			Scanner sc=new Scanner(System.in);
+			Scanner sc = new Scanner(System.in);
 			System.out.println("Do you want to save? Answer 'y' for yes  or 'n' for No");
-			String answer=sc.next("[yn]");
+			String answer = sc.next("[yn]");
 			return answer.equals("y");
-			
-		}catch(InputMismatchException e){
+
+		} catch (InputMismatchException e) {
 			System.out.println("Forme non valide");
 			return null;
 		}
 	}
-	
+
+	/**
+	 * Ask for loading
+	 * 
+	 * @return The answer
+	 */
 	public static Object askLoad() {
 		try {
 			@SuppressWarnings("resource")
-			Scanner sc=new Scanner(System.in);
+			Scanner sc = new Scanner(System.in);
 			System.out.println("Do you want to load? Answer 'y' for yes  or 'n' for No");
-			String answer=sc.next("[yn]");
+			String answer = sc.next("[yn]");
 			return answer.equals("y");
-			
-		}catch(InputMismatchException e){
+
+		} catch (InputMismatchException e) {
 			System.out.println("Invalid form");
 			return null;
 		}
 	}
-	
+
+	/**
+	 * Call askSave and wait till a valid answer
+	 * 
+	 * @return The user enter yes
+	 */
 	public static boolean askSaveFile() {
-		Object s=null;
-		while(s==null) {
-			s=askSave();
+		Object s = null;
+		while (s == null) {
+			s = askSave();
 		}
-		return (boolean)s;
+		return (boolean) s;
 	}
-	
+
+	/**
+	 * Call askLoad and wait till a valid answer
+	 * 
+	 * @return The user enter yes
+	 */
 	public static boolean askLoadFile() {
-		Object s=null;
-		while(s==null) {
-			s=askLoad();
+		Object s = null;
+		while (s == null) {
+			s = askLoad();
 		}
-		return (boolean)s;
+		return (boolean) s;
 	}
-	
+
 }
