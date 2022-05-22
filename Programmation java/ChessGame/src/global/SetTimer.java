@@ -83,6 +83,13 @@ public class SetTimer {
 	public void updateTimer() {
 		this.timeSeconds--;
 	}
+	
+	/**
+	 * Increase the timer by on second
+	 */
+	public void snooze() {
+		this.timeSeconds++;
+	}
 
 	public String toString() {
 		timeSeconds1 = (int) timeSeconds / 60;

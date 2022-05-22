@@ -15,8 +15,6 @@ public class Player extends Observable implements Serializable {
 	private LinkedList<Piece> capturedPieces;
 	private HashSet<Coord> coordOfMyPieces;
 	private boolean myKingStatus; // true=roi en échec, false=safe
-	private int nbPiece;
-	public static int NB_PIECE = 6;
 
 	/**
 	 * Constant for the serialiation
@@ -39,7 +37,6 @@ public class Player extends Observable implements Serializable {
 		this.capturedPieces = new LinkedList<Piece>();
 		this.coordOfMyPieces = new HashSet<Coord>();
 		this.myKingStatus = false;
-		this.nbPiece=16;
 		if (couleur) {
 			for (int i = 6; i < 8; i++) {
 				for (int j = 0; j < 8; j++) {
@@ -70,7 +67,6 @@ public class Player extends Observable implements Serializable {
 		this.capturedPieces = new LinkedList<Piece>();
 		this.coordOfMyPieces = new HashSet<Coord>();
 		this.myKingStatus = false;
-		this.nbPiece=0;
 		if (b) {
 			for (int i = 0; i < 8; i++) {
 				for (int j = 0; j < 8; j++) {
@@ -82,7 +78,6 @@ public class Player extends Observable implements Serializable {
 					case "Q":
 					case "K":
 						this.coordOfMyPieces.add(new Coord(i, j));
-						this.nbPiece++;
 						break;
 
 					}
@@ -99,7 +94,6 @@ public class Player extends Observable implements Serializable {
 					case "q":
 					case "k":
 						this.coordOfMyPieces.add(new Coord(i, j));
-						this.nbPiece++;
 						break;
 
 					}
@@ -155,16 +149,7 @@ public class Player extends Observable implements Serializable {
 		this.setChanged();
 		this.notifyObservers(Player.KING_STATUS);
 	}
-
-	public void setNbPiece() {
-		this.nbPiece--;
-		this.setChanged();
-		this.notifyObservers(Player.NB_PIECE);
-	}
 	
-	public int getNbPiece() {
-		return this.nbPiece;
-	}
 	public String toString() {
 		String affichage = "MyKingSatus:" + this.getMyKingStatus() + "\nCapturedPiece:" + this.getCapturedPieces()
 				+ "\nCoordOfMyPieces:" + this.getCoordOfMyPieces();

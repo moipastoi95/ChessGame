@@ -56,6 +56,8 @@ public class Graphic extends Application implements ChessGameInterface {
 	private Coord selectedCoord;
 	private SetTimer timerW;
 	private SetTimer timerB;
+	private SetTimer clock;
+	private TextField clockTf;
 
 	@Override
 	public void start(Stage primaryStage) {
@@ -63,12 +65,35 @@ public class Graphic extends Application implements ChessGameInterface {
 		newGame();
 	}
 
+	/**
+	 * Get the SetTimer of the White Player
+	 * @return The SetTimer
+	 */
 	public SetTimer getWhiteTimer() {
 		return this.timerW;
 	}
 
+	/**
+	 * Get the SetTimer of the Black Player
+	 * @return The SetTimer
+	 */
 	public SetTimer getBlackTimer() {
 		return this.timerB;
+	}
+	
+	/**
+	 * get the clock of the game
+	 * @return The SetTimer of the game
+	 */
+	public SetTimer getClock() {
+		return this.clock;
+	}
+	
+	/**
+	 * Set the clock to the exact time
+	 */
+	public void setClockTextField() {
+		clockTf.setText(clock.toString());
 	}
 
 	/**
@@ -108,6 +133,9 @@ public class Graphic extends Application implements ChessGameInterface {
 
 		setSelectedCoord(null);
 
+		// set the clock
+		clock = new SetTimer(true, 0);
+				
 		// set timer
 		// clear
 		if (timerB != null) {
@@ -119,10 +147,13 @@ public class Graphic extends Application implements ChessGameInterface {
 		int GlobalTime = 5 * 60;
 		timerW = new SetTimer(true, GlobalTime);
 		timerB = new SetTimer(true, GlobalTime);
-
+		
 		loadGame();
 	}
 
+	/**
+	 * Reload a Game from the current variables
+	 */
 	public void loadGame() {
 		// generate the graphic board
 		displayCell(game.getChessBoard(), grid);
@@ -150,6 +181,9 @@ public class Graphic extends Application implements ChessGameInterface {
 		VBox wPlayerBorder = playerBorder(game.getWhitePlayer(), timerW);
 		screen.setTop(bPlayerBorder);
 		screen.setBottom(wPlayerBorder);
+		
+		// refresh the clock
+		setClockTextField();
 
 		// to fixe size
 		GridPane grandScreen = new GridPane();
@@ -321,7 +355,7 @@ public class Graphic extends Application implements ChessGameInterface {
 		kingBox.getChildren().add(blackKingStatus);
 		kingBox.getChildren().add(kingStatusArea);
 
-		// Display time
+		// Display timer
 		HBox timeBox = new HBox();
 		Label timeLabel = new Label("  " + playerString + " time    ");
 		timeLabel.setStyle("-fx-font-weight: bold");
@@ -333,12 +367,26 @@ public class Graphic extends Application implements ChessGameInterface {
 
 		timeBox.getChildren().add(timeLabel);
 		timeBox.getChildren().add(timeArea);
+		
+		//Create NbPiece
+		HBox nbPieceBox = new HBox();
+		Label nbPiece = new Label("Nb remaining Pieces : ");
+		nbPiece.setStyle("-fx-font-weight: bold");
+		TextField result1 = new TextField();
+		result1.setPrefWidth(60);
+		result1.setEditable(false);
+		result1.setStyle("-fx-text-fill: red; -fx-font-weight: bold");
+		ControleNbPiece cnp = new ControleNbPiece(result1,player);
+		game.getChessBoard().addObserver(cnp);
+		nbPieceBox.getChildren().add(nbPiece);
+		nbPieceBox.getChildren().add(result1);
 
 		// gather children into VBox top
 		HBox top = new HBox();
 		top.getChildren().add(playerBox);
 		top.getChildren().add(kingBox);
 		top.getChildren().add(timeBox);
+		top.getChildren().add(nbPieceBox);
 
 		/// Bottom
 		// Create area for display lost pieces
@@ -354,22 +402,8 @@ public class Graphic extends Application implements ChessGameInterface {
 		lostBox.getChildren().add(lostArea);
 
 		// gather top and bottom into HBox borderPlayer
-		//Create NbPiece
-		HBox nbPieceBox = new HBox();
-		Label nbPiece = new Label("Nb remaining Pieces : ");
-		nbPiece.setStyle("-fx-font-weight: bold");
-		TextField result1 = new TextField();
-		result1.setPrefWidth(60);
-		result1.setEditable(false);
-		result1.setStyle("-fx-text-fill: red; -fx-font-weight: bold");
-		ControleNbPiece cnp = new ControleNbPiece(result1,player);
-		player.addObserver(cnp);
-		nbPieceBox.getChildren().add(nbPiece);
-		nbPieceBox.getChildren().add(result1);
-		
 		VBox borderPlayer = new VBox();
 		borderPlayer.getChildren().add(top);
-		borderPlayer.getChildren().add(nbPieceBox);
 		borderPlayer.getChildren().add(lostBox);
 
 		return borderPlayer;
@@ -397,7 +431,7 @@ public class Graphic extends Application implements ChessGameInterface {
 		saveBtn.setOnAction(e1 -> {
 			File file = fileChooser.showSaveDialog(primaryStage);
 			if (file != null) {
-				Integer[] timers = { timerW.getTimeSeconds(), timerB.getTimeSeconds() };
+				Integer[] timers = { timerW.getTimeSeconds(), timerB.getTimeSeconds(), clock.getTimeSeconds() };
 				String path = file.getAbsolutePath();
 				game.saveFile(path, timers);
 			}
@@ -425,6 +459,7 @@ public class Graphic extends Application implements ChessGameInterface {
 				timerW.newTimeLine();
 				timerB = new SetTimer(false, timers[1]);
 				timerB.newTimeLine();
+				clock = new SetTimer(true, timers[2]);
 				loadGame();
 			}
 		});
@@ -477,7 +512,20 @@ public class Graphic extends Application implements ChessGameInterface {
 
 		turnBox.getChildren().add(lb_turn);
 		turnBox.getChildren().add(result);
+		
+		// Clock
+		HBox clockBox = new HBox();
+		Label lb_clock = new Label("Clock : ");
+		lb_clock.setStyle("-fx-font-weight: bold");
 
+		clockTf = new TextField();
+		clockTf.setPrefWidth(60);
+		clockTf.setEditable(false);
+
+		clockBox.getChildren().add(lb_clock);
+		clockBox.getChildren().add(clockTf);
+		
+		// gather children
 		VBox buttonsBox = new VBox();
 		buttonsBox.getChildren().add(newBtn);
 		buttonsBox.getChildren().add(saveBtn);
@@ -485,6 +533,7 @@ public class Graphic extends Application implements ChessGameInterface {
 		buttonsBox.getChildren().add(exitBtn);
 		buttonsBox.getChildren().add(turnBtn);
 		buttonsBox.getChildren().add(turnBox);
+		buttonsBox.getChildren().add(clockBox);
 		return buttonsBox;
 	}
 

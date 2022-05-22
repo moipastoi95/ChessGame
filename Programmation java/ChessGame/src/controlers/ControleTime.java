@@ -30,19 +30,19 @@ public class ControleTime implements Observer {
 	 * Defautlt constructor
 	 * 
 	 * @param tf      The TextField concerned
-	 * @param timer   The Timer
+	 * @param timerPlayer   The Timer
 	 * @param graphic The current graphic interface
 	 * @param game    The current game
 	 * @param color   The color of the player concerned
 	 */
-	public ControleTime(TextField tf, SetTimer timer, Graphic graphic, Game game, boolean color) {
+	public ControleTime(TextField tf, SetTimer timerPlayer, Graphic graphic, Game game, boolean color) {
 		this.tf = tf;
-		this.timer = timer;
+		this.timer = timerPlayer;
 		this.game = game;
 		this.color = color;
 		this.graphic = graphic;
 
-		tf.setText(timer.toString());
+		tf.setText(timerPlayer.toString());
 
 		// Timer Init
 		if (this.timer.getTimeline() != null) {
@@ -54,6 +54,7 @@ public class ControleTime implements Observer {
 			this.timer.getTimeline().setCycleCount(Timeline.INDEFINITE);
 			this.timer.getTimeline().getKeyFrames().add(new KeyFrame(Duration.seconds(1), eJ1Frame -> {
 				this.timer.updateTimer();
+				updateClock();
 				timeOver();
 			}));
 			// this.timer.getTimeline().playFromStart();
@@ -72,6 +73,7 @@ public class ControleTime implements Observer {
 				timer.getTimeline().getKeyFrames().add(new KeyFrame(Duration.seconds(1), eJ1Frame -> {
 					if (!game.getChessBoard().getCoorPieceMoveable().isEmpty()) {
 						timer.updateTimer();
+						updateClock();
 						timeOver();
 						tf.setText(timer.toString());
 					} else {
@@ -113,6 +115,11 @@ public class ControleTime implements Observer {
 		alert.setHeaderText(null);
 		alert.setContentText(str);
 		alert.show();
+	}
+	
+	private void updateClock() {
+		graphic.getClock().snooze();
+		graphic.setClockTextField();
 	}
 
 }
