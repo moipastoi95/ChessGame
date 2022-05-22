@@ -274,11 +274,11 @@ public class Graphic extends Application implements ChessGameInterface {
 			echiquier.setLeft(vertical);
 			break;
 		case 3:
-			horizontal.add(new Label("      "), 0, 0);
+			horizontal.add(new Label("     "), 0, 0);
 			for (int i = 72; i > 64; i--) {
-				Label l1 = new Label("       " + Character.toString(i) + "      ");
+				Label l1 = new Label("       " + Character.toString(i) );
 				l1.setTextFill(Color.BLUE);
-				l1.setPrefSize(50, 50);
+				l1.setPrefSize(50, 20);
 				l1.setStyle("-fx-font-weight: bold");
 				horizontal.add(l1, 73 - i, 0);
 			}
@@ -299,7 +299,7 @@ public class Graphic extends Application implements ChessGameInterface {
 				Integer k = i;
 				Label l1 = new Label("       " + k.toString() + "      ");
 				l1.setTextFill(Color.BLUE);
-				l1.setPrefSize(50, 50);
+				l1.setPrefSize(50, 20);
 				l1.setStyle("-fx-font-weight: bold");
 				horizontal.add(l1, 8 - i, 0);
 			}
