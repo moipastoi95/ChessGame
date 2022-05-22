@@ -5,6 +5,7 @@ import java.nio.file.Paths;
 
 import controlers.ControleKingStatus;
 import controlers.ControleLostPieces;
+import controlers.ControleNbPiece;
 import controlers.ControleTileIcon;
 import controlers.ControleTileStack;
 import controlers.ControleTime;
@@ -353,8 +354,22 @@ public class Graphic extends Application implements ChessGameInterface {
 		lostBox.getChildren().add(lostArea);
 
 		// gather top and bottom into HBox borderPlayer
+		//Create NbPiece
+		HBox nbPieceBox = new HBox();
+		Label nbPiece = new Label("Nb remaining Pieces : ");
+		nbPiece.setStyle("-fx-font-weight: bold");
+		TextField result1 = new TextField();
+		result1.setPrefWidth(60);
+		result1.setEditable(false);
+		result1.setStyle("-fx-text-fill: red; -fx-font-weight: bold");
+		ControleNbPiece cnp = new ControleNbPiece(result1,player);
+		player.addObserver(cnp);
+		nbPieceBox.getChildren().add(nbPiece);
+		nbPieceBox.getChildren().add(result1);
+		
 		VBox borderPlayer = new VBox();
 		borderPlayer.getChildren().add(top);
+		borderPlayer.getChildren().add(nbPieceBox);
 		borderPlayer.getChildren().add(lostBox);
 
 		return borderPlayer;

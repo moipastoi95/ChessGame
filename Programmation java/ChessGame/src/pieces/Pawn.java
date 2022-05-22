@@ -158,12 +158,14 @@ public class Pawn extends Piece {
 				this.getCb().getBoard()[finalC.getR() + 1][finalC.getC()] = null;
 				getCb().getGame().getBlackPlayer().getCoordOfMyPieces()
 						.remove(new Coord(finalC.getR() + 1, finalC.getC()));
+				this.getCb().getGame().getBlackPlayer().setNbPiece();
 			} else {
 				getCb().getGame().getWhitePlayer().getCapturedPieces()
 						.add(this.getCb().getBoard()[finalC.getR() - 1][finalC.getC()]);
 				this.getCb().getBoard()[finalC.getR() - 1][finalC.getC()] = null;
 				getCb().getGame().getWhitePlayer().getCoordOfMyPieces()
 						.remove(new Coord(finalC.getR() - 1, finalC.getC()));
+				this.getCb().getGame().getWhitePlayer().setNbPiece();
 			}
 		} else if (getColor() && finalC.getR() == 0) {// promotion white
 			int promo = inter.promoteDialog(); // ask an int with scanner for chose the new piece
