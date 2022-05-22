@@ -14,7 +14,7 @@ public class Player extends Observable implements Serializable {
 	private boolean color;
 	private LinkedList<Piece> capturedPieces;
 	private HashSet<Coord> coordOfMyPieces;
-	private boolean MyKingStatus; // true=roi en échec, false=safe
+	private boolean myKingStatus; // true=roi en échec, false=safe
 
 	/**
 	 * Constant for the serialiation
@@ -36,7 +36,7 @@ public class Player extends Observable implements Serializable {
 		this.color = couleur;
 		this.capturedPieces = new LinkedList<Piece>();
 		this.coordOfMyPieces = new HashSet<Coord>();
-		this.MyKingStatus = false;
+		this.myKingStatus = false;
 		if (couleur) {
 			for (int i = 6; i < 8; i++) {
 				for (int j = 0; j < 8; j++) {
@@ -66,7 +66,7 @@ public class Player extends Observable implements Serializable {
 		this.color = b;
 		this.capturedPieces = new LinkedList<Piece>();
 		this.coordOfMyPieces = new HashSet<Coord>();
-		this.MyKingStatus = false;
+		this.myKingStatus = false;
 		if (b) {
 			for (int i = 0; i < 8; i++) {
 				for (int j = 0; j < 8; j++) {
@@ -136,7 +136,7 @@ public class Player extends Observable implements Serializable {
 	 * @return The king is attacked
 	 */
 	public boolean getMyKingStatus() {
-		return this.MyKingStatus;
+		return this.myKingStatus;
 	}
 
 	/**
@@ -145,7 +145,7 @@ public class Player extends Observable implements Serializable {
 	 * @param status The new status of the King
 	 */
 	public void setMyKingStatus(boolean status) {
-		this.MyKingStatus = status;
+		this.myKingStatus = status;
 		this.setChanged();
 		this.notifyObservers(Player.KING_STATUS);
 	}

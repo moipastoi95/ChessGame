@@ -107,13 +107,13 @@ public class ChessBoard extends Observable implements Serializable {
 				case "p":
 					this.board[i][j] = new Pawn(false, this);
 					if (i != 1) {
-						((Pawn) (this.board[i][j])).setPawnStat(1);
+						((Pawn) (this.board[i][j])).setPawnStat(-1);
 					}
 					break;
 				case "P":
 					this.board[i][j] = new Pawn(true, this);
 					if (i != 6) {
-						((Pawn) (this.board[i][j])).setPawnStat(1);
+						((Pawn) (this.board[i][j])).setPawnStat(-1);
 					}
 					break;
 				case "c":

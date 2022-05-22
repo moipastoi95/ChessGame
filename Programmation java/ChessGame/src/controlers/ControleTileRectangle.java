@@ -65,7 +65,7 @@ public class ControleTileRectangle implements Observer {
 
 		boolean intoMoveableList = game.getChessBoard().getCoorPieceMoveable().contains(absCoord);
 		// case of a moveable piece
-		if (stat == ChessBoard.MOVEABLE_PIECES && intoMoveableList) {
+		if (stat == ChessBoard.MOVEABLE_PIECES && intoMoveableList && !game.checkLackStuff()) {
 			setMoveableTile();
 		} // case of a possible position
 		else if (stat == Game.SELECTED_TILE) {

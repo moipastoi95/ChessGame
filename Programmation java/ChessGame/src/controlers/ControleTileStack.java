@@ -45,7 +45,7 @@ public class ControleTileStack implements EventHandler<MouseEvent> {
 	@Override
 	public void handle(MouseEvent arg0) {
 		// block action if game is ended
-		if (!game.getChessBoard().getCoorPieceMoveable().isEmpty() && graphic.getWhiteTimer().getTimeSeconds() > 0 && graphic.getBlackTimer().getTimeSeconds() > 0) {			
+		if (!game.getChessBoard().getCoorPieceMoveable().isEmpty() && !game.checkLackStuff() && graphic.getWhiteTimer().getTimeSeconds() > 0 && graphic.getBlackTimer().getTimeSeconds() > 0) {			
 			// select a piece
 			if (graphic.getSelectedCoord() == null) {
 				try {
@@ -89,13 +89,6 @@ public class ControleTileStack implements EventHandler<MouseEvent> {
 						boolean lackStuff=game.checkLackStuff();
 						if (game.getChessBoard().getCoorPieceMoveable().isEmpty() || lackStuff) {
 							System.out.println("End game");
-	//						if(game.getWhitePlayer().getMyKingStatus()) {
-	//							System.out.println("Black win !");
-	//						}else if(game.getBlackPlayer().getMyKingStatus()) {
-	//							System.out.println("White win !");
-	//						}else {
-	//							System.out.println("Draw !");
-	//						}
 							int kq = game.getEnd(lackStuff);
 							switch (kq) {
 							case 0: // this.getTurn() && this.whitePlayer.getMyKingStatus() == true

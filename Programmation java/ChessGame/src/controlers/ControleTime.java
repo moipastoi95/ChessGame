@@ -64,7 +64,7 @@ public class ControleTime implements Observer {
 	public void update(Observable o, Object arg) {
 		Integer stat = (Integer) arg;
 		if (stat != ChessBoard.PLAY) {
-			if (game.getTurn() == color) {
+			if (game.getTurn() == color && !game.checkLackStuff()) {
 				timer.setJoueur(true);
 
 				timer.newTimeLine();
