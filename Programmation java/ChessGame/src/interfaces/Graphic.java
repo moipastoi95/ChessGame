@@ -368,6 +368,15 @@ public class Graphic extends Application implements ChessGameInterface {
 		timeBox.getChildren().add(timeLabel);
 		timeBox.getChildren().add(timeArea);
 		
+		
+
+		// gather children into VBox top
+		HBox top = new HBox();
+		top.getChildren().add(playerBox);
+		top.getChildren().add(kingBox);
+		top.getChildren().add(timeBox);
+		
+		// Middle
 		//Create NbPiece
 		HBox nbPieceBox = new HBox();
 		Label nbPiece = new Label("Nb remaining Pieces : ");
@@ -381,13 +390,6 @@ public class Graphic extends Application implements ChessGameInterface {
 		nbPieceBox.getChildren().add(nbPiece);
 		nbPieceBox.getChildren().add(result1);
 
-		// gather children into VBox top
-		HBox top = new HBox();
-		top.getChildren().add(playerBox);
-		top.getChildren().add(kingBox);
-		top.getChildren().add(timeBox);
-		top.getChildren().add(nbPieceBox);
-
 		/// Bottom
 		// Create area for display lost pieces
 		HBox lostBox = new HBox();
@@ -400,10 +402,13 @@ public class Graphic extends Application implements ChessGameInterface {
 
 		lostBox.getChildren().add(lostPiece);
 		lostBox.getChildren().add(lostArea);
+		
+		
 
 		// gather top and bottom into HBox borderPlayer
 		VBox borderPlayer = new VBox();
 		borderPlayer.getChildren().add(top);
+		borderPlayer.getChildren().add(nbPieceBox);
 		borderPlayer.getChildren().add(lostBox);
 
 		return borderPlayer;
