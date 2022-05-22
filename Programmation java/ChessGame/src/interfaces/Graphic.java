@@ -460,6 +460,13 @@ public class Graphic extends Application implements ChessGameInterface {
 			if (fileOpen != null) {
 				String path = fileOpen.getAbsolutePath();
 				Integer[] timers = game.loadFile(path);
+				// clear
+				if (timerB != null) {
+					timerB.newTimeLine();
+				}
+				if (timerW != null) {
+					timerW.newTimeLine();
+				}
 				timerW = new SetTimer(true, timers[0]);
 				timerW.newTimeLine();
 				timerB = new SetTimer(false, timers[1]);
