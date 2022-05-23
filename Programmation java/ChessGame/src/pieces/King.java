@@ -91,7 +91,7 @@ public class King extends Piece {
 				}
 			}
 			if (this.getColor() && this.getCb().getGame().getTurn() && getCb().getBoard()[7][3] == null
-					&& getCb().getBoard()[7][2] == null && getCb().getBoard()[7][0] instanceof Rook
+					&& getCb().getBoard()[7][2] == null && getCb().getBoard()[7][1] == null && getCb().getBoard()[7][0] instanceof Rook
 					&& ((Rook) (getCb().getBoard()[7][0])).getStatRook()) {
 				if (cAttacked.isEmpty()) {
 					HashSet<Coord> coordPieceBlack = this.getCb().getGame().getBlackPlayer().getCoordOfMyPieces();
@@ -107,7 +107,7 @@ public class King extends Piece {
 				}
 			}
 			if ((!this.getColor()) && !(this.getCb().getGame().getTurn()) && getCb().getBoard()[0][2] == null
-					&& getCb().getBoard()[0][3] == null && getCb().getBoard()[0][0] instanceof Rook
+					&& getCb().getBoard()[0][3] == null && getCb().getBoard()[0][1] == null && getCb().getBoard()[0][0] instanceof Rook
 					&& ((Rook) (getCb().getBoard()[0][0])).getStatRook()) {
 				HashSet<Coord> coordPieceWhite = this.getCb().getGame().getWhitePlayer().getCoordOfMyPieces();
 				for (Coord s : coordPieceWhite) {
