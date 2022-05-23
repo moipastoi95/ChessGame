@@ -119,16 +119,16 @@ public class Graphic extends Application implements ChessGameInterface {
 	 */
 	public void newGame() {
 		// Create logical ChessBoard
-//		String[][] position={{" "," "," "," "," "," "," "," "},
-//				             {" ","R"," "," "," "," "," "," "},
-//				             {" "," ","k"," "," "," "," "," "},
-//				             {"K"," "," "," "," "," "," "," "},
-//				             {" ","r"," "," "," "," "," "," "},
-//				             {" "," "," "," "," "," "," "," "},
-//				             {" "," "," "," "," "," "," "," "},
-//				             {" "," "," "," "," "," "," "," "}};
-//		game = new Game(position);
-		game = new Game();
+		String[][] position={{"r","c"," "," ","k"," "," "," "},
+				             {" "," "," "," "," "," "," "," "},
+				             {" "," "," "," "," "," "," "," "},
+				             {" "," "," "," "," "," "," "," "},
+				             {" "," "," ","","","R"," "," "},
+				             {" "," "," "," "," "," "," "," "},
+				             {" "," "," "," "," "," "," "," "},
+				             {"",""," "," ","K"," "," "," "}};
+		game = new Game(position);
+		//game = new Game();
 		ChessBoard.setConfigBoard(1);
 
 		setSelectedCoord(null);
